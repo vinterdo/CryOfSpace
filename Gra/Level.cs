@@ -22,6 +22,7 @@ namespace Gra
         public Level()
         {
             Ver = new List<Vertex>();
+            Connections = new List<Connection>();
         }
 
         public void Render(SpriteBatch spriteBatch)
@@ -53,7 +54,7 @@ namespace Gra
             AddVertex(v);
         }
 
-        void AddConnection(int A, int B)
+        public void AddConnection(int A, int B)
         {
             Connection Tmp = new Connection();
             Tmp.A = A;
@@ -63,29 +64,7 @@ namespace Gra
 
         public void DrawConnection(int id, SpriteBatch spriteBatch)
         {
-            spriteBatch.GraphicsDevice.RenderState.PointSize = 8.0f;
-
-
-            var vb = new VertexBuffer(
-                spriteBatch.GraphicsDevice,
-                VertexPositionColor.SizeInBytes * 2, 
-                BufferUsage.None);
-
-            spriteBatch.GraphicsDevice.Vertices[0].SetSource(vb, 0, VertexPositionColor.SizeInBytes);
-
-            VertexPositionColor[] pointList = new VertexPositionColor[3];
-
-
-            pointList[1] = new VertexPositionColor(new Vector3(1.0f, 1.0f, 0), Color.White);
-            pointList[2] = new VertexPositionColor(new Vector3(100.0f, 100.0f, 0), Color.White);
-
-            vb.SetData<VertexPositionColor>(pointList);
-
-            spriteBatch.GraphicsDevice.DrawPrimitives
-                (PrimitiveType.PointList,
-                 0,
-                 1);
-                 
+            Renderer.Singleton.Line(5.0f, Ver[Connections[id].A].Position, Ver[Connections[id].B].Position, Color.Cyan);
         }
     }
 

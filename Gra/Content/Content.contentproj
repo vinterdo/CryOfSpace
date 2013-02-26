@@ -38,15 +38,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="disconnect.jpg">
-      <Name>disconnect</Name>
+    <Compile Include="indicator.png">
+      <Name>indicator</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="indicator.png">
-      <Name>indicator</Name>
+    <Compile Include="Blank.png">
+      <Name>Blank</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -13,15 +13,39 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
-    class Renderer
+    public sealed class Renderer
     {
 
         SpriteBatch batch;
-        Dictionary<string, Texture2D> TextureStore;
+        Texture2D Blank;
+        ContentManager Content;
 
-        public Renderer(SpriteBatch spriteBatch)
+        private Renderer()
+        {
+        }
+
+        private static Renderer Instance = new Renderer();
+
+        public static Renderer Singleton
+        {
+            get
+            {
+                return Instance;
+            }
+            set
+            {
+            }
+        }
+
+        public void InitRenderer(SpriteBatch spriteBatch, ContentManager Content)
         {
             batch = spriteBatch;
+            this.Content = Content;
+        }
+
+        public void LoadBlank(Texture2D Blank)
+        {
+            this.Blank = Content.Load<Texture2D>("Blank");
         }
 
         public void Line(float width, Vector2 from, Vector2 to, Color color)
@@ -29,7 +53,7 @@ namespace Gra
             float angle = (float)Math.Atan2(to.Y - from.Y, to.X - from.X);
             float length = Vector2.Distance(from, to);
 
-            batch.Draw(TextureStore.Get("blank"), from, null, color,
+            batch.Draw(new Texture2D(batch.GraphicsDevice,1,1), from, null, color,
                        angle, Vector2.Zero, new Vector2(length, width),
                        SpriteEffects.None, 0);
         }
