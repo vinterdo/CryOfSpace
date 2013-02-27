@@ -18,7 +18,7 @@ namespace Gra
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D Indicator;
-        Level CurrentLevel;
+        
 
         
         public Game1()
@@ -30,15 +30,19 @@ namespace Gra
         protected override void Initialize()
         {
             base.Initialize();
-            CurrentLevel = new Level();
-            CurrentLevel.AddConnection(1, 2);
-
+            
             Renderer.Singleton.InitRenderer(spriteBatch, Content);
             Renderer.Singleton.LoadContent();
 
-            CurrentLevel.CreateVertex(new Vector2(100, 100), Indicator);
+            GeneralManager.Singleton.CurrentLevel = new Level();
+            GeneralManager.Singleton.CurrentLevel.Generate();
+            GeneralManager.Singleton.CurrentLevel.AddConnection(1, 2);
+
+            /*CurrentLevel.CreateVertex(new Vector2(100, 100), Indicator);
             CurrentLevel.CreateVertex(new Vector2(100, 200), Indicator);
-            CurrentLevel.CreateVertex(new Vector2(300, 150), Indicator);
+            CurrentLevel.CreateVertex(new Vector2(300, 150), Indicator);*/
+
+            
             
         }
 
@@ -64,9 +68,8 @@ namespace Gra
 
             
             spriteBatch.Begin();
-            CurrentLevel.Render(spriteBatch);
-
-            CurrentLevel.DrawConnection(0, spriteBatch);
+            GeneralManager.Singleton.CurrentLevel.Render(spriteBatch);
+            GeneralManager.Singleton.CurrentLevel.RenderConnections(spriteBatch);
             spriteBatch.End();
 
 

@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
-    class Level
+    public class Level
     {
         List<Vertex> Ver;
         List<Connection> Connections;
@@ -38,21 +38,18 @@ namespace Gra
             Ver.Add(v);
         }
 
-        public void CreateVertex(Vector2 Pos1, Texture2D Tex)
+        public Vertex CreateVertex(Vector2 Pos1, Texture2D Tex)
         {
             Vertex Tmp = new Vertex();
             Tmp.Position = Pos1;
             Tmp.Tex = Tex;
-            AddVertex(Tmp);
+
+            var ItemToAdd = Tmp.Clone();
+            
+            //AddVertex(ItemToAdd as Vertex);
+            return ItemToAdd as Vertex;
         }
 
-        public void Vertex(Vector2 Position, Texture2D Tex)
-        {
-            Vertex v = new Vertex();
-            v.Tex = Tex;
-            v.Position = Position;
-            AddVertex(v);
-        }
 
         public void AddConnection(int A, int B)
         {
@@ -66,11 +63,73 @@ namespace Gra
         {
             Renderer.Singleton.Line(1.0f, Ver[Connections[id].A].Position, Ver[Connections[id].B].Position, Color.Cyan);
         }
+
+        public void RenderConnections(SpriteBatch spriteBatch)
+        {
+            int i = 0;
+            foreach (Connection Con in Connections)
+            {
+                DrawConnection(i, spriteBatch);
+                i++;
+            }
+        }
+
+        public void Generate()
+        {
+            int VertexNumber = 40 - GeneralManager.Singleton.GetRandom() % 20;
+            List<int> AbleToConnect = new List<int>();
+
+            for (int i = 0; i < VertexNumber; i++)
+            {
+                Vertex v = CreateVertex(new Vector2(GeneralManager.Singleton.GetRandom() % 500+ 10.0f, GeneralManager.Singleton.GetRandom() % 500+10.0f), Renderer.Singleton.Content.Load<Texture2D>("indicator"));
+
+                bool IsGood = true;
+
+                AbleToConnect.Clear();
+                for(int j =0 ; j < i; j++)
+                {
+                    float Lenght = v.GetLenghtFrom(Ver[j]);
+                    if (Lenght < 30)
+                    {
+                        IsGood = false;
+                    }
+
+                    if (Lenght < 100)
+                    {
+                        if (AbleToConnect.Count < 3)
+                        {
+                            AbleToConnect.Add(j);
+                        }
+                    }
+                }
+
+                if (AbleToConnect.Count == 0 && i != 0)
+                {
+                    IsGood = false;
+                }
+
+
+                if (IsGood) AddVertex(v);
+                else
+                {
+                    i--;
+                    continue;
+                }
+
+                foreach (int Able in AbleToConnect)
+                {
+                    AddConnection(i, Able);
+                }
+            }
+            
+        }
     }
 
     public class Connection
     {
         public int A;
         public int B;
+
+
     }
 }

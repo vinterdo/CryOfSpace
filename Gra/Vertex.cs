@@ -14,13 +14,33 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
-    class Vertex
+    public class Vertex:ICloneable
     {
         public Vector2 Position;
         public Texture2D Tex;
         public void LoadTex(Texture2D _Tex)
         {
             Tex = _Tex;
+        }
+
+        Vertex (Vector2 Pos, Texture2D Tex)
+        {
+            this.Position = Pos;
+            this.Tex = Tex;
+        }
+
+        public Vertex()
+        { }
+
+        public object Clone()
+        {
+            return new Vertex(this.Position, this.Tex);
+
+        }
+
+        public float GetLenghtFrom(Vertex Vertex)
+        {
+            return Vector2.Distance(this.Position, Vertex.Position);
         }
 
         public void Render(SpriteBatch spriteBatch)

@@ -18,7 +18,7 @@ namespace Gra
 
         SpriteBatch batch;
         Texture2D Blank;
-        ContentManager Content;
+        public ContentManager Content;
 
         private Renderer()
         {
