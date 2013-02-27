@@ -43,7 +43,7 @@ namespace Gra
             this.Content = Content;
         }
 
-        public void LoadBlank(Texture2D Blank)
+        public void LoadContent()
         {
             this.Blank = Content.Load<Texture2D>("Blank");
         }
@@ -53,8 +53,8 @@ namespace Gra
             float angle = (float)Math.Atan2(to.Y - from.Y, to.X - from.X);
             float length = Vector2.Distance(from, to);
 
-            batch.Draw(new Texture2D(batch.GraphicsDevice,1,1), from, null, color,
-                       angle, Vector2.Zero, new Vector2(length, width),
+            batch.Draw(Blank, from, null, color,
+                       angle, Vector2.Zero, new Vector2(length/2, width),
                        SpriteEffects.None, 0);
         }
     }

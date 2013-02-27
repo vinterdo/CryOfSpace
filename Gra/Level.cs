@@ -64,7 +64,7 @@ namespace Gra
 
         public void DrawConnection(int id, SpriteBatch spriteBatch)
         {
-            Renderer.Singleton.Line(5.0f, Ver[Connections[id].A].Position, Ver[Connections[id].B].Position, Color.Cyan);
+            Renderer.Singleton.Line(1.0f, Ver[Connections[id].A].Position, Ver[Connections[id].B].Position, Color.Cyan);
         }
     }
 

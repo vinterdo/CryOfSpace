@@ -31,9 +31,10 @@ namespace Gra
         {
             base.Initialize();
             CurrentLevel = new Level();
-            CurrentLevel.AddConnection(0, 1);
+            CurrentLevel.AddConnection(1, 2);
 
             Renderer.Singleton.InitRenderer(spriteBatch, Content);
+            Renderer.Singleton.LoadContent();
 
             CurrentLevel.CreateVertex(new Vector2(100, 100), Indicator);
             CurrentLevel.CreateVertex(new Vector2(100, 200), Indicator);
@@ -45,6 +46,7 @@ namespace Gra
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Indicator = Content.Load<Texture2D>("indicator");
+            
         }
 
         protected override void UnloadContent()
