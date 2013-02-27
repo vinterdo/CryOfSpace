@@ -18,6 +18,7 @@ namespace Gra
 
         SpriteBatch batch;
         Texture2D Blank;
+        Texture2D Background1;
         public ContentManager Content;
 
         private Renderer()
@@ -46,6 +47,7 @@ namespace Gra
         public void LoadContent()
         {
             this.Blank = Content.Load<Texture2D>("Blank");
+            this.Background1 = Content.Load<Texture2D>("bg1");
         }
 
         public void Line(float width, Vector2 from, Vector2 to, Color color)
@@ -56,6 +58,13 @@ namespace Gra
             batch.Draw(Blank, from, null, color,
                        angle, Vector2.Zero, new Vector2(length/2, width),
                        SpriteEffects.None, 0);
+        }
+
+        public void RenderBackground(GameTime gameTime)
+        {
+
+            batch.Draw(Background1, new Rectangle(((gameTime.TotalGameTime.Milliseconds)/100 + gameTime.TotalGameTime.Seconds*10)%640, 0 ,640, 480), Color.White);
+            batch.Draw(Background1, new Rectangle(((gameTime.TotalGameTime.Milliseconds) / 100 + gameTime.TotalGameTime.Seconds * 10) % 640 -640, 0, 640, 480), Color.White);
         }
     }
 }

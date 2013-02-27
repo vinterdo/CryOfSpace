@@ -61,7 +61,7 @@ namespace Gra
 
         public void DrawConnection(int id, SpriteBatch spriteBatch)
         {
-            Renderer.Singleton.Line(1.0f, Ver[Connections[id].A].Position, Ver[Connections[id].B].Position, Color.Cyan);
+            Renderer.Singleton.Line(1.0f, Ver[Connections[id].A].Position, Ver[Connections[id].B].Position, Color.Gray);
         }
 
         public void RenderConnections(SpriteBatch spriteBatch)
@@ -76,7 +76,7 @@ namespace Gra
 
         public void Generate()
         {
-            int VertexNumber = 40 - GeneralManager.Singleton.GetRandom() % 20;
+            int VertexNumber = 50 - GeneralManager.Singleton.GetRandom() % 20;
             List<int> AbleToConnect = new List<int>();
 
             for (int i = 0; i < VertexNumber; i++)
@@ -89,16 +89,16 @@ namespace Gra
                 for(int j =0 ; j < i; j++)
                 {
                     float Lenght = v.GetLenghtFrom(Ver[j]);
-                    if (Lenght < 30)
+                    if (Lenght < 60)
                     {
                         IsGood = false;
                     }
 
-                    if (Lenght < 100)
+                    if (Lenght < 120)
                     {
-                        if (AbleToConnect.Count < 3)
+                        if (AbleToConnect.Count < 4)
                         {
-                            AbleToConnect.Add(j);
+                            if(!(VertexNumber-1 == i && j == i - 1))AbleToConnect.Add(j);
                         }
                     }
                 }

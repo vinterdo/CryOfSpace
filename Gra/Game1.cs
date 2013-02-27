@@ -37,13 +37,6 @@ namespace Gra
             GeneralManager.Singleton.CurrentLevel = new Level();
             GeneralManager.Singleton.CurrentLevel.Generate();
             GeneralManager.Singleton.CurrentLevel.AddConnection(1, 2);
-
-            /*CurrentLevel.CreateVertex(new Vector2(100, 100), Indicator);
-            CurrentLevel.CreateVertex(new Vector2(100, 200), Indicator);
-            CurrentLevel.CreateVertex(new Vector2(300, 150), Indicator);*/
-
-            
-            
         }
 
         protected override void LoadContent()
@@ -68,8 +61,10 @@ namespace Gra
 
             
             spriteBatch.Begin();
-            GeneralManager.Singleton.CurrentLevel.Render(spriteBatch);
+            Renderer.Singleton.RenderBackground(gameTime);
+            
             GeneralManager.Singleton.CurrentLevel.RenderConnections(spriteBatch);
+            GeneralManager.Singleton.CurrentLevel.Render(spriteBatch);
             spriteBatch.End();
 
 
