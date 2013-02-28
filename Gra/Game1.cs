@@ -25,6 +25,8 @@ namespace Gra
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            graphics.PreferredBackBufferWidth = 1024;
+            graphics.PreferredBackBufferHeight = 768;
         }
 
         protected override void Initialize()
@@ -37,6 +39,8 @@ namespace Gra
             GeneralManager.Singleton.CurrentLevel = new Level();
             GeneralManager.Singleton.CurrentLevel.Generate();
             GeneralManager.Singleton.CurrentLevel.AddConnection(1, 2);
+
+
         }
 
         protected override void LoadContent()
@@ -64,7 +68,7 @@ namespace Gra
             Renderer.Singleton.RenderBackground(gameTime);
             
             GeneralManager.Singleton.CurrentLevel.RenderConnections(spriteBatch);
-            GeneralManager.Singleton.CurrentLevel.Render(spriteBatch);
+            GeneralManager.Singleton.CurrentLevel.RenderVertexes(spriteBatch);
             spriteBatch.End();
 
 

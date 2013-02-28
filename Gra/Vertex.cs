@@ -45,7 +45,8 @@ namespace Gra
 
         public void Render(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Tex, Position - new Vector2(Tex.Width/2, Tex.Height/2), Color.White);
+
+            spriteBatch.Draw(Tex, (Position - new Vector2(Tex.Width / 2, Tex.Height / 2)) * new Vector2((float)(Renderer.Width - 100) / 500, (float)(Renderer.Height - 100) / 500) , Color.White);
         }
 
     }

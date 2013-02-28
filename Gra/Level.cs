@@ -25,7 +25,7 @@ namespace Gra
             Connections = new List<Connection>();
         }
 
-        public void Render(SpriteBatch spriteBatch)
+        public void RenderVertexes(SpriteBatch spriteBatch)
         {
             foreach (Vertex v in Ver)
             {
@@ -61,7 +61,7 @@ namespace Gra
 
         public void DrawConnection(int id, SpriteBatch spriteBatch)
         {
-            Renderer.Singleton.Line(1.0f, Ver[Connections[id].A].Position, Ver[Connections[id].B].Position, Color.Gray);
+            Renderer.Singleton.Line(1.0f, Ver[Connections[id].A].Position * new Vector2((float)(Renderer.Width - 100) / 500, (float)(Renderer.Height - 100) / 500) , Ver[Connections[id].B].Position * new Vector2((float)(Renderer.Width - 100) / 500, (float)(Renderer.Height - 100) / 500), Color.Gray);
         }
 
         public void RenderConnections(SpriteBatch spriteBatch)
@@ -98,7 +98,7 @@ namespace Gra
                     {
                         if (AbleToConnect.Count < 4)
                         {
-                            if(!(VertexNumber-1 == i && j == i - 1))AbleToConnect.Add(j);
+                            AbleToConnect.Add(j);
                         }
                     }
                 }

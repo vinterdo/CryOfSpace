@@ -19,7 +19,9 @@ namespace Gra
         SpriteBatch batch;
         Texture2D Blank;
         Texture2D Background1;
+        Texture2D Background2;
         public ContentManager Content;
+        public static int Height, Width;
 
         private Renderer()
         {
@@ -41,6 +43,8 @@ namespace Gra
         public void InitRenderer(SpriteBatch spriteBatch, ContentManager Content)
         {
             batch = spriteBatch;
+            Height = batch.GraphicsDevice.Viewport.Height;
+            Width = batch.GraphicsDevice.Viewport.Width;
             this.Content = Content;
         }
 
@@ -48,6 +52,7 @@ namespace Gra
         {
             this.Blank = Content.Load<Texture2D>("Blank");
             this.Background1 = Content.Load<Texture2D>("bg1");
+            this.Background2 = Content.Load<Texture2D>("bg2");
         }
 
         public void Line(float width, Vector2 from, Vector2 to, Color color)
@@ -62,9 +67,14 @@ namespace Gra
 
         public void RenderBackground(GameTime gameTime)
         {
+            int Time = gameTime.TotalGameTime.Milliseconds + gameTime.TotalGameTime.Seconds * 1000 + gameTime.TotalGameTime.Minutes * 60000;
 
-            batch.Draw(Background1, new Rectangle(((gameTime.TotalGameTime.Milliseconds)/100 + gameTime.TotalGameTime.Seconds*10)%640, 0 ,640, 480), Color.White);
-            batch.Draw(Background1, new Rectangle(((gameTime.TotalGameTime.Milliseconds) / 100 + gameTime.TotalGameTime.Seconds * 10) % 640 -640, 0, 640, 480), Color.White);
+            batch.Draw(Background2, new Rectangle(Time / 1000 % Width, 0, Width, Height), Color.Gray);
+            batch.Draw(Background2, new Rectangle(Time / 1000 % Width - Width, 0, Width, Height), Color.Gray);
+            
+            batch.Draw(Background1, new Rectangle(Time/100%Width, 0 ,Width, Height), Color.White);
+            batch.Draw(Background1, new Rectangle(Time / 100 % Width - Width, 0, Width, Height), Color.White);
+
         }
     }
 }
