@@ -29,6 +29,7 @@ namespace Gra
         public GameScreen(Game game, SpriteBatch spriteBatch)
             : base(game)
         {
+            this.Visible = false;
             this.game = game;
             this.spriteBatch = spriteBatch;
         }

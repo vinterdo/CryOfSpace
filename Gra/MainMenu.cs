@@ -33,14 +33,23 @@ namespace Gra
         {
             if (Visible)
             {
-                if (Menu.SelectedIndex == 2 && Menu.keyboardState.IsKeyDown(Keys.Enter)) Game.Exit();
-                if (Menu.SelectedIndex == 0 && Menu.keyboardState.IsKeyDown(Keys.Enter))
+                
+                if (Menu.IsEnterPressed)
                 {
-                    this.Visible = false;
-                    GeneralManager.Singleton.CurrentLevel.Show();
-
-
+                    switch (Menu.SelectedIndex)
+                    {
+                        case 0:
+                            this.Visible = false;
+                            ScreenManager.Singleton.SelectionScreen.Visible = true;
+                            break;
+                        case 1:
+                            break;
+                        case 2:
+                            Game.Exit();
+                            break;
+                    }
                 }
+
                 Menu.Update(gameTime);
             }
             base.Update(gameTime);

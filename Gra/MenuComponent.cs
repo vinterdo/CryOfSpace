@@ -25,12 +25,13 @@ namespace Gra
         Color normal = Color.White;
         Color hilite = Color.Yellow;
         public KeyboardState keyboardState;
-        KeyboardState oldKeyboardState;
+        public KeyboardState oldKeyboardState;
         SpriteBatch spriteBatch;
         SpriteFont spriteFont;
         Vector2 position;
         float width = 0f;
         float height = 0f;
+        public bool IsEnterPressed;
 
 
         public int SelectedIndex
@@ -81,7 +82,7 @@ namespace Gra
             base.Initialize();
         }
 
-        private bool CheckKey(Keys theKey)
+        public bool CheckKey(Keys theKey)
         {
             return keyboardState.IsKeyUp(theKey) &&
                 oldKeyboardState.IsKeyDown(theKey);
@@ -103,6 +104,12 @@ namespace Gra
                 if (selectedIndex < 0)
                     selectedIndex = menuItems.Length - 1;
             }
+
+            if (CheckKey(Keys.Enter))
+            {
+                IsEnterPressed = true;
+            }
+            else IsEnterPressed = false;
 
             base.Update(gameTime);
 

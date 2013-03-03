@@ -14,22 +14,56 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
-    public class GameSelectionScreen : Microsoft.Xna.Framework.GameComponent
+    public class GameSelectionScreen : GameScreen
     {
-        public GameSelectionScreen(Game game)
-            : base(game)
+        MenuComponent Menu;
+
+        public GameSelectionScreen(Game game, SpriteBatch spriteBatch)
+            : base(game, spriteBatch)
         {
+
         }
 
         public override void Initialize()
         {
-            
+            Menu = new MenuComponent(Game, spriteBatch, Renderer.Singleton.Content.Load<SpriteFont>("Kootenay"), new string[]{"New Game", "Load Game", "Back"});
             base.Initialize();
         }
 
         public override void Update(GameTime gameTime)
         {
+            if (Visible)
+            {
+                if (Menu.IsEnterPressed)
+                {
+                    switch (Menu.SelectedIndex)
+                    {
+                        case 0:
+                            GeneralManager.Singleton.CurrentLevel = new Level(Game, spriteBatch);
+                            GeneralManager.Singleton.CurrentLevel.Generate();
+                            GeneralManager.Singleton.CurrentLevel.Show();
+                            this.Visible = false;
+                            break;
+                        case 1:
+
+                            break;
+                        case 2:
+
+                            break;
+                    }
+                }
+                Menu.Update(gameTime);
+            }
             base.Update(gameTime);
         }
+
+        public override void Draw(GameTime gameTime)
+        {
+            if (Visible)
+            {
+                Menu.Draw(gameTime);
+            }
+            base.Draw(gameTime);
+        } 
     }
 }

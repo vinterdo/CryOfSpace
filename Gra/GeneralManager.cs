@@ -10,9 +10,11 @@ namespace Gra
         static GeneralManager Instance = new GeneralManager();
         Random Random;
         public Level CurrentLevel;
+        public bool IsLevelInitalized;
 
         private GeneralManager()
         {
+            IsLevelInitalized = false;
             Random = new Random();
         }
 

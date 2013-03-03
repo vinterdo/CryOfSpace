@@ -94,6 +94,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Renderer.cs" />
+    <Compile Include="ScreenManager.cs" />
     <Compile Include="Vertex.cs" />
   </ItemGroup>
   <ItemGroup>

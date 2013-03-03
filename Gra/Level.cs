@@ -138,6 +138,8 @@ namespace Gra
             {
                 Components.Add(v);
             }
+
+            GeneralManager.Singleton.IsLevelInitalized = true;
         }
 
         

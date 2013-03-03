@@ -18,7 +18,7 @@ namespace Gra
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D Indicator;
-        MainMenu MainMenu;
+        
 
         
         
@@ -37,11 +37,10 @@ namespace Gra
             Renderer.Singleton.InitRenderer(spriteBatch, Content);
             Renderer.Singleton.LoadContent();
 
-            GeneralManager.Singleton.CurrentLevel = new Level(this, spriteBatch);
-            GeneralManager.Singleton.CurrentLevel.Generate();
-            GeneralManager.Singleton.CurrentLevel.Hide();
-            MainMenu = new MainMenu(this, spriteBatch);
-            MainMenu.Initialize();
+
+            ScreenManager.Singleton.Initalize(this);
+            //GeneralManager.Singleton.CurrentLevel.Hide();
+            ScreenManager.Singleton.MainMenu.Visible = true;
         }
 
         protected override void LoadContent()
@@ -57,7 +56,7 @@ namespace Gra
 
         protected override void Update(GameTime gameTime)
         {
-            MainMenu.Update(gameTime);
+            ScreenManager.Singleton.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -68,8 +67,11 @@ namespace Gra
             
             spriteBatch.Begin();
 
-            MainMenu.Draw(gameTime);
-            GeneralManager.Singleton.CurrentLevel.Draw(gameTime);
+
+            ScreenManager.Singleton.MainMenu.Draw(gameTime);
+            ScreenManager.Singleton.SelectionScreen.Draw(gameTime);
+            if(GeneralManager.Singleton.IsLevelInitalized) 
+                GeneralManager.Singleton.CurrentLevel.Draw(gameTime);
             spriteBatch.End();
 
 
