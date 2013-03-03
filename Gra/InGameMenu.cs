@@ -14,19 +14,21 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
-    public class GameSelectionScreen : GameScreen
+    public class InGameMenu : GameScreen
     {
         MenuComponent Menu;
 
-        public GameSelectionScreen(Game game, SpriteBatch spriteBatch)
+        public InGameMenu(Game game, SpriteBatch spriteBatch)
             : base(game, spriteBatch)
         {
-
+            
         }
+
+        
 
         public override void Initialize()
         {
-            Menu = new MenuComponent(Game, spriteBatch, Renderer.Singleton.Content.Load<SpriteFont>("Kootenay"), new string[]{"New Game", "Load Game", "Back"});
+            Menu = new MenuComponent(Game, spriteBatch, Renderer.Singleton.Content.Load<SpriteFont>("Kootenay"), new string[] { "Back to Game", "Options", "Save Game", "Quit Game" });
             base.Initialize();
         }
 
@@ -39,18 +41,23 @@ namespace Gra
                     switch (Menu.SelectedIndex)
                     {
                         case 0:
-                            GeneralManager.Singleton.CurrentLevel = new Level(Game, spriteBatch);
-                            GeneralManager.Singleton.CurrentLevel.Generate();
-                            GeneralManager.Singleton.CurrentLevel.Show();
                             this.Visible = false;
+                            GeneralManager.Singleton.CurrentLevel.Show();
+
                             break;
                         case 1:
 
                             break;
                         case 2:
+                            
+                            break;
+                        case 3:
+                            GeneralManager.Singleton.CurrentLevel = null;
+                            GeneralManager.Singleton.IsLevelInitalized = false;
                             this.Visible = false;
                             ScreenManager.Singleton.MainMenu.Visible = true;
                             break;
+
                     }
                 }
                 Menu.Update(gameTime);

@@ -19,6 +19,7 @@ namespace Gra
 
         public MainMenu MainMenu;
         public GameSelectionScreen SelectionScreen;
+        public InGameMenu InGameMenu;
 
 
 
@@ -40,6 +41,7 @@ namespace Gra
         {
             MainMenu.Update(gameTime);
             SelectionScreen.Update(gameTime);
+            InGameMenu.Update(gameTime);
         }
 
 
@@ -49,6 +51,8 @@ namespace Gra
             MainMenu.Initialize();
             SelectionScreen = new GameSelectionScreen(game, Renderer.Singleton.batch);
             SelectionScreen.Initialize();
+            InGameMenu = new InGameMenu(game, Renderer.Singleton.batch);
+            InGameMenu.Initialize();
         }
     }
 }

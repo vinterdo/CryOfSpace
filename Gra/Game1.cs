@@ -56,6 +56,7 @@ namespace Gra
 
         protected override void Update(GameTime gameTime)
         {
+            GeneralManager.Singleton.Update(gameTime);
             ScreenManager.Singleton.Update(gameTime);
             base.Update(gameTime);
         }
@@ -70,6 +71,7 @@ namespace Gra
 
             ScreenManager.Singleton.MainMenu.Draw(gameTime);
             ScreenManager.Singleton.SelectionScreen.Draw(gameTime);
+            ScreenManager.Singleton.InGameMenu.Draw(gameTime);
             if(GeneralManager.Singleton.IsLevelInitalized) 
                 GeneralManager.Singleton.CurrentLevel.Draw(gameTime);
             spriteBatch.End();

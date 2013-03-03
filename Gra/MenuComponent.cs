@@ -82,30 +82,23 @@ namespace Gra
             base.Initialize();
         }
 
-        public bool CheckKey(Keys theKey)
-        {
-            return keyboardState.IsKeyUp(theKey) &&
-                oldKeyboardState.IsKeyDown(theKey);
-        }
-
         public override void Update(GameTime gameTime)
         {
-            keyboardState = Keyboard.GetState();
-            if (CheckKey(Keys.Down))
+            if (GeneralManager.Singleton.CheckKey(Keys.Down))
             {
                 selectedIndex++;
                 if (selectedIndex == menuItems.Length)
                     selectedIndex = 0;
             }
 
-            if (CheckKey(Keys.Up))
+            if (GeneralManager.Singleton.CheckKey(Keys.Up))
             {
                 selectedIndex--;
                 if (selectedIndex < 0)
                     selectedIndex = menuItems.Length - 1;
             }
 
-            if (CheckKey(Keys.Enter))
+            if (GeneralManager.Singleton.CheckKey(Keys.Enter))
             {
                 IsEnterPressed = true;
             }

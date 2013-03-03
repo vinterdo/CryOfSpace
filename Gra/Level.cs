@@ -37,6 +37,19 @@ namespace Gra
             base.Draw(gameTime);
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            if (Visible)
+            {
+                if (GeneralManager.Singleton.CheckKey(Keys.Escape))
+                {
+                    this.Hide();
+                    ScreenManager.Singleton.InGameMenu.Visible = true;
+                }
+                base.Update(gameTime);
+            }
+        }
+
         public override void Show()
         {
             base.Show();
