@@ -28,8 +28,12 @@ namespace Gra
 
         public override void Draw(GameTime gameTime)
         {
-            RenderConnections(gameTime);
-            RenderVertexes(gameTime);
+            if (Visible)
+            {
+                Renderer.Singleton.RenderBackground(gameTime);
+                RenderConnections(gameTime);
+                RenderVertexes(gameTime);
+            }
             base.Draw(gameTime);
         }
 

@@ -24,7 +24,7 @@ namespace Gra
 
         Color normal = Color.White;
         Color hilite = Color.Yellow;
-        KeyboardState keyboardState;
+        public KeyboardState keyboardState;
         KeyboardState oldKeyboardState;
         SpriteBatch spriteBatch;
         SpriteFont spriteFont;
