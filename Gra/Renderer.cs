@@ -16,7 +16,7 @@ namespace Gra
     public sealed class Renderer
     {
 
-        SpriteBatch batch;
+        public SpriteBatch batch;
         Texture2D Blank;
         Texture2D Background1;
         Texture2D Background2;

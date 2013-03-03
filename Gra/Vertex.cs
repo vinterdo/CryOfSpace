@@ -14,39 +14,39 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
-    public class Vertex:ICloneable
+    public class Vertex:DrawableGameComponent,ICloneable
     {
         public Vector2 Position;
         public Texture2D Tex;
+        SpriteBatch spriteBatch;
+
         public void LoadTex(Texture2D _Tex)
         {
             Tex = _Tex;
         }
 
-        Vertex (Vector2 Pos, Texture2D Tex)
+        public Vertex (Game game, Vector2 Pos, Texture2D Tex):base(game)
         {
             this.Position = Pos;
             this.Tex = Tex;
+            spriteBatch = Renderer.Singleton.batch;
         }
 
-        public Vertex()
-        { }
+        public override void Draw(GameTime gameTime)
+        {
+            spriteBatch.Draw(Tex, (Position - new Vector2(Tex.Width / 2, Tex.Height / 2)) * new Vector2((float)(Renderer.Width - 100) / 500, (float)(Renderer.Height - 100) / 500), Color.White);
+            base.Draw(gameTime);
+        }
 
         public object Clone()
         {
-            return new Vertex(this.Position, this.Tex);
+            return new Vertex(Game, this.Position, this.Tex);
 
         }
 
         public float GetLenghtFrom(Vertex Vertex)
         {
             return Vector2.Distance(this.Position, Vertex.Position);
-        }
-
-        public void Render(SpriteBatch spriteBatch)
-        {
-
-            spriteBatch.Draw(Tex, (Position - new Vector2(Tex.Width / 2, Tex.Height / 2)) * new Vector2((float)(Renderer.Width - 100) / 500, (float)(Renderer.Height - 100) / 500) , Color.White);
         }
 
     }

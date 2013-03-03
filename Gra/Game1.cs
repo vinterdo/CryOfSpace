@@ -18,8 +18,8 @@ namespace Gra
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D Indicator;
-        
 
+        MenuComponent Menu1;
         
         public Game1()
         {
@@ -36,9 +36,9 @@ namespace Gra
             Renderer.Singleton.InitRenderer(spriteBatch, Content);
             Renderer.Singleton.LoadContent();
 
-            GeneralManager.Singleton.CurrentLevel = new Level();
+            GeneralManager.Singleton.CurrentLevel = new Level(this, spriteBatch);
             GeneralManager.Singleton.CurrentLevel.Generate();
-            GeneralManager.Singleton.CurrentLevel.AddConnection(1, 2);
+            Menu1 = new MenuComponent(this, spriteBatch, Content.Load<SpriteFont>("Kootenay"), new string[] { "hah", "ok" });
 
 
         }
@@ -56,6 +56,7 @@ namespace Gra
 
         protected override void Update(GameTime gameTime)
         {
+            Menu1.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -67,8 +68,8 @@ namespace Gra
             spriteBatch.Begin();
             Renderer.Singleton.RenderBackground(gameTime);
             
-            GeneralManager.Singleton.CurrentLevel.RenderConnections(spriteBatch);
-            GeneralManager.Singleton.CurrentLevel.RenderVertexes(spriteBatch);
+            GeneralManager.Singleton.CurrentLevel.Draw(gameTime);;
+            Menu1.Draw(gameTime);
             spriteBatch.End();
 
 

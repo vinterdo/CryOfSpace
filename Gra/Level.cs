@@ -14,62 +14,66 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
-    public class Level
+    public class Level:GameScreen
     {
-        List<Vertex> Ver;
         List<Connection> Connections;
+        SpriteBatch SpriteBatch;
+        
 
-        public Level()
+        public Level(Game game, SpriteBatch spriteBatch):base(game, spriteBatch)
         {
-            Ver = new List<Vertex>();
+            SpriteBatch = spriteBatch;
             Connections = new List<Connection>();
         }
 
-        public void RenderVertexes(SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime)
         {
-            foreach (Vertex v in Ver)
+            RenderConnections(gameTime);
+            RenderVertexes(gameTime);
+            base.Draw(gameTime);
+        }
+
+        public override void Show()
+        {
+            base.Show();
+        }
+
+        public void RenderVertexes(GameTime gameTime)
+        {
+            foreach (DrawableGameComponent v in Components)
             {
-                v.Render(spriteBatch);
+                if(v is Vertex)
+                    v.Draw(gameTime);
             }
         }
 
-        public void AddVertex(Vertex v)
+        public Vertex CreateVertex(Game game, Vector2 Pos1, Texture2D Tex)
         {
-            Ver.Add(v);
-        }
-
-        public Vertex CreateVertex(Vector2 Pos1, Texture2D Tex)
-        {
-            Vertex Tmp = new Vertex();
-            Tmp.Position = Pos1;
-            Tmp.Tex = Tex;
+            Vertex Tmp = new Vertex(game, Pos1, Tex);
 
             var ItemToAdd = Tmp.Clone();
             
-            //AddVertex(ItemToAdd as Vertex);
             return ItemToAdd as Vertex;
         }
 
 
-        public void AddConnection(int A, int B)
+        public void AddConnection(int A, int B, Vector2 Position1, Vector2 Position2)
         {
-            Connection Tmp = new Connection();
+            Connection Tmp = new Connection(base.Game);
             Tmp.A = A;
             Tmp.B = B;
-            Connections.Add(Tmp);
+            Tmp.Position1 = Position1;
+            Tmp.Position2 = Position2;
+            Components.Add(Tmp);
         }
 
-        public void DrawConnection(int id, SpriteBatch spriteBatch)
-        {
-            Renderer.Singleton.Line(1.0f, Ver[Connections[id].A].Position * new Vector2((float)(Renderer.Width - 100) / 500, (float)(Renderer.Height - 100) / 500) , Ver[Connections[id].B].Position * new Vector2((float)(Renderer.Width - 100) / 500, (float)(Renderer.Height - 100) / 500), Color.Gray);
-        }
-
-        public void RenderConnections(SpriteBatch spriteBatch)
+        public void RenderConnections(GameTime gameTime)
         {
             int i = 0;
-            foreach (Connection Con in Connections)
+            foreach (DrawableGameComponent Con in Components)
             {
-                DrawConnection(i, spriteBatch);
+                if(Con is Connection)
+                    (Con as Connection).Draw(gameTime);
                 i++;
             }
         }
@@ -79,9 +83,11 @@ namespace Gra
             int VertexNumber = 50 - GeneralManager.Singleton.GetRandom() % 20;
             List<int> AbleToConnect = new List<int>();
 
+            List<Vertex> Ver = new List<Vertex>();
+
             for (int i = 0; i < VertexNumber; i++)
             {
-                Vertex v = CreateVertex(new Vector2(GeneralManager.Singleton.GetRandom() % 500+ 10.0f, GeneralManager.Singleton.GetRandom() % 500+10.0f), Renderer.Singleton.Content.Load<Texture2D>("indicator"));
+                Vertex v = CreateVertex(this.game, new Vector2(GeneralManager.Singleton.GetRandom() % 500+ 10.0f, GeneralManager.Singleton.GetRandom() % 500+10.0f), Renderer.Singleton.Content.Load<Texture2D>("indicator"));
 
                 bool IsGood = true;
 
@@ -109,7 +115,10 @@ namespace Gra
                 }
 
 
-                if (IsGood) AddVertex(v);
+                if (IsGood)
+                {
+                    Ver.Add(v);
+                }
                 else
                 {
                     i--;
@@ -118,18 +127,35 @@ namespace Gra
 
                 foreach (int Able in AbleToConnect)
                 {
-                    AddConnection(i, Able);
+                    AddConnection(i, Able, v.Position, Ver[Able].Position);
                 }
             }
-            
+            foreach (Vertex v in Ver)
+            {
+                Components.Add(v);
+            }
         }
+
+        
     }
 
-    public class Connection
+    public class Connection : DrawableGameComponent
     {
         public int A;
         public int B;
 
+        public Vector2 Position1;
+        public Vector2 Position2;
 
+        public Connection(Game game)
+            : base(game)
+        {
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            Renderer.Singleton.Line(1.0f, Position1 * new Vector2((float)(Renderer.Width - 100) / 500, (float)(Renderer.Height - 100) / 500), Position2 * new Vector2((float)(Renderer.Width - 100) / 500, (float)(Renderer.Height - 100) / 500), Color.Gray);
+            base.Draw(gameTime);
+        }
     }
 }
