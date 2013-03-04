@@ -23,7 +23,7 @@ namespace Gra
         int selectedIndex;
 
         Color normal = Color.White;
-        Color hilite = Color.Yellow;
+        Color hilite = Color.Aquamarine;
         public KeyboardState keyboardState;
         public KeyboardState oldKeyboardState;
         SpriteBatch spriteBatch;
@@ -114,18 +114,31 @@ namespace Gra
             base.Draw(gameTime);
             Vector2 location = position;
             Color tint;
+            Vector2 Size;
+
 
             for (int i = 0; i < menuItems.Length; i++)
             {
                 if (i == selectedIndex)
+                {
+                    Size = new Vector2(1.2f, 1.1f);
                     tint = hilite;
+                }
                 else
+                {
+                    Size = new Vector2(1.0f, 1.0f);
                     tint = normal;
+                }
                 spriteBatch.DrawString(
                     spriteFont,
                     menuItems[i],
                     location,
-                    tint);
+                    tint,
+                    0,
+                    Vector2.Zero,
+                    Size,
+                    SpriteEffects.None,
+                    0);
                 location.Y += spriteFont.LineSpacing + 5;
             }
         }

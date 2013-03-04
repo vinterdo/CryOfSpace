@@ -26,7 +26,7 @@ namespace Gra
 
         public override void Initialize()
         {
-            Menu = new MenuComponent(Game, spriteBatch, Renderer.Singleton.Content.Load<SpriteFont>("Kootenay"), new string[]{"New Game", "Load Game", "Back"});
+            Menu = new MenuComponent(Game, spriteBatch, Renderer.Singleton.Content.Load<SpriteFont>("Font"), new string[] { "New Game", "Load Game", "Back" });
             base.Initialize();
         }
 
