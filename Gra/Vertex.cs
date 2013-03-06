@@ -14,16 +14,14 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
+    [Serializable]
     public class Vertex:DrawableGameComponent,ICloneable
     {
         public Vector2 Position;
-        public Texture2D Tex;
+        Texture2D Tex;
         SpriteBatch spriteBatch;
 
-        public void LoadTex(Texture2D _Tex)
-        {
-            Tex = _Tex;
-        }
+        
 
         public Vertex (Game game, Vector2 Pos, Texture2D Tex):base(game)
         {

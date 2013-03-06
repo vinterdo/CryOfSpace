@@ -14,16 +14,17 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
+    [Serializable]
     public class Level:GameScreen
     {
-        List<Connection> Connections;
         SpriteBatch SpriteBatch;
+        public int ConnectionsCount = 0;
+        public int VertexCount = 0;
         
 
         public Level(Game game, SpriteBatch spriteBatch):base(game, spriteBatch)
         {
             SpriteBatch = spriteBatch;
-            Connections = new List<Connection>();
         }
 
         public override void Draw(GameTime gameTime)
@@ -81,6 +82,7 @@ namespace Gra
             Tmp.B = B;
             Tmp.Position1 = Position1;
             Tmp.Position2 = Position2;
+            ConnectionsCount++;
             Components.Add(Tmp);
         }
 
@@ -134,6 +136,7 @@ namespace Gra
 
                 if (IsGood)
                 {
+                    VertexCount++;
                     Ver.Add(v);
                 }
                 else
@@ -157,7 +160,7 @@ namespace Gra
 
         
     }
-
+    [Serializable]
     public class Connection : DrawableGameComponent
     {
         public int A;

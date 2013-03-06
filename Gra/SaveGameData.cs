@@ -1,50 +1,110 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.IO;
-using System.Xml.Serialization;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
+using System.Diagnostics;
+using System.Text;
 
 namespace Gra
 {
-    class SaveGameData
+
+    class SaveGameManager
     {
-        Level LevelToSave;
 
-        public void LoadLevel(Level Level)
+
+        static public void Save()
         {
-            LevelToSave = Level;
-        }
+            IAsyncResult result = Guide.BeginShowStorageDeviceSelector(PlayerIndex.One, null, null);
+            StorageDevice device = Guide.EndShowStorageDeviceSelector(result);
 
-        public void Save(StorageDevice device)
-        {
-            StorageContainer container =
-                device.OpenContainer("StorageDemo");
-
-            // Get the path of the save game.
+            SaveGameData data = new SaveGameData();
+            data.Load();
+            StorageContainer container = device.OpenContainer("StorageDemo");
             string filename = Path.Combine(container.Path, "savegame.sav");
-
-            // Open the file, creating it if necessary.
             FileStream stream = File.Open(filename, FileMode.Create);
 
-
-            // Convert the object to XML data and put it in the stream.
             XmlSerializer serializer = new XmlSerializer(typeof(SaveGameData));
-            serializer.Serialize(stream, this);
+            serializer.Serialize(stream, data);
 
-            // Close the file.
             stream.Close();
 
-            // Dispose the container, to commit changes.
             container.Dispose();
         }
+    }
+
+    [Serializable]
+    public class SaveGameData
+    {
+        private Level LevelToSave;
+
+        public RawConnection[] Connections;
+        public RawVertex[] Vertex;
+        
+
+        public string a = "b";
+        public void Load()
+        {
+            LevelToSave = GeneralManager.Singleton.CurrentLevel;
+
+            Connections = new RawConnection[LevelToSave.ConnectionsCount];
+            Vertex = new RawVertex[LevelToSave.VertexCount];
+            
+            
+            int iV = 0;
+            int iC = 0;
+            foreach (GameComponent c in LevelToSave.Components)
+            {
+                if (c is Connection)
+                {
+                    Connections[iC] = GetRawFromConnection(c as Connection);
+                    iC++;
+                }
+                else if (c is Vertex)
+                {
+                    Vertex[iV] = GetRawFromVertex(c as Vertex);
+                    iV++;
+                }
+
+            }
+            
+        }
+        
+        public RawConnection GetRawFromConnection(Connection Connection)
+        {
+            RawConnection Raw = new RawConnection();
+            Raw.A = Connection.A;
+            Raw.B = Connection.B;
+            Raw.Pos1 = Connection.Position1;
+            Raw.Pos2 = Connection.Position2;
+            return Raw;
+        }
+
+        public RawVertex GetRawFromVertex(Vertex Vertex)
+        {
+            RawVertex Raw = new RawVertex();
+            Raw.Position = Vertex.Position;
+
+            return Raw;
+        }
+    }
+
+    [Serializable]
+    public class RawConnection
+    {
+        public int A;
+        public int B;
+        public Vector2 Pos1;
+        public Vector2 Pos2;
+    }
+    [Serializable]
+    public class RawVertex
+    {
+        public Vector2 Position;
     }
 }
