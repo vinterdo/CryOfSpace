@@ -84,6 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animation.cs" />
     <Compile Include="GameScreen.cs" />
     <Compile Include="GameSelectionScreen.cs" />
     <Compile Include="InGameMenu.cs" />

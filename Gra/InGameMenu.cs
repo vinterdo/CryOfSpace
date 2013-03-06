@@ -49,7 +49,6 @@ namespace Gra
 
                             break;
                         case 2:
-
                             SaveGameManager.Save();
                             break;
                         case 3:

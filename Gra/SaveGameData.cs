@@ -63,18 +63,6 @@ namespace Gra
 
             GeneralManager.Singleton.CurrentLevel = new Level(game, spriteBatch);
 
-            using (Vertex Tmp = new Vertex(game, Vector2.Zero, Renderer.Singleton.Content.Load<Texture2D>("indicator")))
-            {
-                int i = 0;
-                foreach (RawVertex v in data.Vertex)
-                {
-                    Tmp.Position = v.Position;
-                    GeneralManager.Singleton.CurrentLevel.Components.Add(Tmp.Clone() as Vertex);
-                    i++;
-                }
-                GeneralManager.Singleton.CurrentLevel.VertexCount = i;
-            }
-
             using (Connection Tmp = new Connection(game))
             {
                 int i = 0;
@@ -88,6 +76,18 @@ namespace Gra
                     i++;
                 }
                 GeneralManager.Singleton.CurrentLevel.ConnectionsCount = i;
+            }
+
+            using (Vertex Tmp = new Vertex(game, Vector2.Zero, Renderer.Singleton.Content.Load<Texture2D>("indicator")))
+            {
+                int i = 0;
+                foreach (RawVertex v in data.Vertex)
+                {
+                    Tmp.Position = v.Position;
+                    GeneralManager.Singleton.CurrentLevel.Components.Add(Tmp.Clone() as Vertex);
+                    i++;
+                }
+                GeneralManager.Singleton.CurrentLevel.VertexCount = i;
             }
 
             GeneralManager.Singleton.IsLevelInitalized = true;
