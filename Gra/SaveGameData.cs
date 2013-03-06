@@ -17,7 +17,6 @@ namespace Gra
     class SaveGameManager
     {
 
-
         static public void Save()
         {
             IAsyncResult result = Guide.BeginShowStorageDeviceSelector(PlayerIndex.One, null, null);
@@ -36,6 +35,67 @@ namespace Gra
 
             container.Dispose();
         }
+
+        static public void Load(Game game, SpriteBatch spriteBatch)
+        {
+            IAsyncResult result = Guide.BeginShowStorageDeviceSelector(PlayerIndex.One, null, null);
+            StorageDevice device = Guide.EndShowStorageDeviceSelector(result);
+
+            result.AsyncWaitHandle.WaitOne();
+
+            StorageContainer container = device.OpenContainer("StorageDemo");
+            result.AsyncWaitHandle.Close();
+
+            string filename = Path.Combine(container.Path, "savegame.sav");
+
+            if (!File.Exists(filename))
+            {
+                // If not, dispose of the container and return.
+                container.Dispose();
+                return;
+            }
+
+            // Open the file.
+            FileStream stream = File.Open(filename, FileMode.Open);
+
+            XmlSerializer serializer = new XmlSerializer(typeof(SaveGameData));
+            SaveGameData data = (SaveGameData)serializer.Deserialize(stream);
+
+            GeneralManager.Singleton.CurrentLevel = new Level(game, spriteBatch);
+
+            using (Vertex Tmp = new Vertex(game, Vector2.Zero, Renderer.Singleton.Content.Load<Texture2D>("indicator")))
+            {
+                int i = 0;
+                foreach (RawVertex v in data.Vertex)
+                {
+                    Tmp.Position = v.Position;
+                    GeneralManager.Singleton.CurrentLevel.Components.Add(Tmp.Clone() as Vertex);
+                    i++;
+                }
+                GeneralManager.Singleton.CurrentLevel.VertexCount = i;
+            }
+
+            using (Connection Tmp = new Connection(game))
+            {
+                int i = 0;
+                foreach (RawConnection v in data.Connections)
+                {
+                    Tmp.A = v.A;
+                    Tmp.B = v.B;
+                    Tmp.Position1 = v.Pos1;
+                    Tmp.Position2 = v.Pos2;
+                    GeneralManager.Singleton.CurrentLevel.Components.Add(Tmp.Clone() as Connection);
+                    i++;
+                }
+                GeneralManager.Singleton.CurrentLevel.ConnectionsCount = i;
+            }
+
+            GeneralManager.Singleton.IsLevelInitalized = true;
+
+            // Close the file.
+            stream.Close();
+            container.Dispose();
+        }
     }
 
     [Serializable]
@@ -45,9 +105,7 @@ namespace Gra
 
         public RawConnection[] Connections;
         public RawVertex[] Vertex;
-        
 
-        public string a = "b";
         public void Load()
         {
             LevelToSave = GeneralManager.Singleton.CurrentLevel;

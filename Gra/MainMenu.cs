@@ -43,6 +43,7 @@ namespace Gra
                             ScreenManager.Singleton.SelectionScreen.Visible = true;
                             break;
                         case 1:
+                            
                             break;
                         case 2:
                             Game.Exit();

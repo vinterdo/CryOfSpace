@@ -45,7 +45,9 @@ namespace Gra
                             this.Visible = false;
                             break;
                         case 1:
-
+                            SaveGameManager.Load(Game, spriteBatch);
+                            this.Visible = false;
+                            GeneralManager.Singleton.CurrentLevel.Visible = true;
                             break;
                         case 2:
                             this.Visible = false;

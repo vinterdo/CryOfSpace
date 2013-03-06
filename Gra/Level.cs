@@ -161,7 +161,7 @@ namespace Gra
         
     }
     [Serializable]
-    public class Connection : DrawableGameComponent
+    public class Connection : DrawableGameComponent, ICloneable
     {
         public int A;
         public int B;
@@ -172,6 +172,17 @@ namespace Gra
         public Connection(Game game)
             : base(game)
         {
+        }
+
+        public object Clone()
+        {
+            Connection Tmp = new Connection(Game);
+            Tmp.A = this.A;
+            Tmp.B = this.B;
+            Tmp.Position1 = this.Position1;
+            Tmp.Position2 = this.Position2;
+            return Tmp;
+
         }
 
         public override void Draw(GameTime gameTime)
