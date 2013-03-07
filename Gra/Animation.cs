@@ -59,14 +59,14 @@ namespace Gra
 
         public override void Update(GameTime gameTime)
         {
-            CurrentTime += (gameTime.ElapsedGameTime.Milliseconds/1000);
-            if (CurrentTime > TimePerFrame)
+            CurrentTime += (gameTime.ElapsedGameTime.Milliseconds);
+            if (CurrentTime > TimePerFrame*1000)
             {
-                CurrentTime -= TimePerFrame;
+                CurrentTime -= TimePerFrame*1000;
                 CurrentFrame += 1;
             }
 
-            if (CurrentFrame > NoFrames)
+            if (CurrentFrame >= NoFrames)
             {
                 CurrentFrame = 0;
             }
