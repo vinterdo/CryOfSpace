@@ -19,27 +19,67 @@ namespace Gra
     /// </summary>
     public class Animation : Microsoft.Xna.Framework.DrawableGameComponent
     {
-        int NoFrames;
-        Vector2 FrameSize;
-        float TimePerFrame;
-        Vector2 Position;
-        List<Texture2D> Frames;
-        int CurrentTime;
+        int NoFrames = 1;
+        Vector2 FrameSize = Vector2.One;
+        float TimePerFrame = 1;
+        Vector2 Position = Vector2.Zero;
+        Texture2D Frames;
+        float CurrentTime = 0;
+        int CurrentFrame = 0;
 
         public Animation(Game game)
             : base(game)
         {
         }
+        
 
         public override void Initialize()
         {
+            Frames = Renderer.Singleton.Content.Load<Texture2D>("indicator");
+            Position = Vector2.Zero;
 
             base.Initialize();
+        }
+        public void SetProperties(Vector2 FrameSize, float TimePerFrame, int NoFrames)
+        {
+            this.FrameSize = FrameSize;
+            this.TimePerFrame = TimePerFrame;
+            this.NoFrames = NoFrames;
+        }
+
+        public void LoadTex(Texture2D Tex)
+        {
+            this.Frames = Tex;
+        }
+
+        public void SetPosition(Vector2 Position)
+        {
+            this.Position = Position;
         }
 
         public override void Update(GameTime gameTime)
         {
+            CurrentTime += (gameTime.ElapsedGameTime.Milliseconds/1000);
+            if (CurrentTime > TimePerFrame)
+            {
+                CurrentTime -= TimePerFrame;
+                CurrentFrame += 1;
+            }
+
+            if (CurrentFrame > NoFrames)
+            {
+                CurrentFrame = 0;
+            }
             base.Update(gameTime);
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            if (Visible)
+            {
+                Renderer.Singleton.batch.Draw(Frames, new Rectangle((int)Position.X, (int)Position.Y, (int)FrameSize.X, (int)FrameSize.Y), new Rectangle((int)FrameSize.X * CurrentFrame, 0, (int)FrameSize.X, (int)FrameSize.Y), Color.White);
+                base.Draw(gameTime);
+            }
         }
     }
 }

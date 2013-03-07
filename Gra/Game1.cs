@@ -34,7 +34,7 @@ namespace Gra
         {
             base.Initialize();
             
-            Renderer.Singleton.InitRenderer(spriteBatch, Content);
+            Renderer.Singleton.InitRenderer(this, spriteBatch, Content);
             Renderer.Singleton.LoadContent();
 
 
@@ -58,6 +58,7 @@ namespace Gra
         {
             GeneralManager.Singleton.Update(gameTime);
             ScreenManager.Singleton.Update(gameTime);
+            Renderer.Singleton.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -74,6 +75,8 @@ namespace Gra
             ScreenManager.Singleton.InGameMenu.Draw(gameTime);
             if(GeneralManager.Singleton.IsLevelInitalized) 
                 GeneralManager.Singleton.CurrentLevel.Draw(gameTime);
+
+            Renderer.Animations["test"].Draw(gameTime);
             spriteBatch.End();
 
 
