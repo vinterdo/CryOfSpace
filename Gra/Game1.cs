@@ -73,6 +73,8 @@ namespace Gra
             ScreenManager.Singleton.MainMenu.Draw(gameTime);
             ScreenManager.Singleton.SelectionScreen.Draw(gameTime);
             ScreenManager.Singleton.InGameMenu.Draw(gameTime);
+            ScreenManager.Singleton.MultiplayerChooseScreen.Draw(gameTime);
+            ScreenManager.Singleton.IpSelectionScreen.Draw(gameTime);
             if(GeneralManager.Singleton.IsLevelInitalized) 
                 GeneralManager.Singleton.CurrentLevel.Draw(gameTime);
 

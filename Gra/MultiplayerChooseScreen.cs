@@ -14,18 +14,18 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
-    public class MainMenu : GameScreen
+    public class MultiplayerChooseScreen : GameScreen
     {
-        public MainMenu(Game game, SpriteBatch spriteBatch)
+        public MultiplayerChooseScreen(Game game,SpriteBatch spriteBatch)
             : base(game, spriteBatch)
         {
+
         }
-
         MenuComponent Menu;
-
+        
         public override void Initialize()
         {
-            Menu = new MenuComponent(Game, spriteBatch, Renderer.Singleton.Content.Load<SpriteFont>("Font"), new string[] { "SinglePlayer", "MultiPlayer", "Quit Game" });
+            Menu = new MenuComponent(Game, spriteBatch, Renderer.Singleton.Content.Load<SpriteFont>("Font"), new string[] { "Host", "Join", "Back" });
             base.Initialize();
         }
 
@@ -33,18 +33,15 @@ namespace Gra
         {
             if (Visible)
             {
-                
                 if (Menu.IsEnterPressed)
                 {
                     switch (Menu.SelectedIndex)
                     {
                         case 0:
-                            this.Visible = false;
-                            ScreenManager.Singleton.SelectionScreen.Visible = true;
                             break;
                         case 1:
                             this.Visible = false;
-                            ScreenManager.Singleton.MultiplayerChooseScreen.Visible = true;
+                            ScreenManager.Singleton.IpSelectionScreen.Visible = true;
                             break;
                         case 2:
                             Game.Exit();
@@ -59,8 +56,10 @@ namespace Gra
 
         public override void Draw(GameTime gameTime)
         {
-            if(Visible)
+            if (Visible)
+            {
                 Menu.Draw(gameTime);
+            }
             base.Draw(gameTime);
         }
     }
