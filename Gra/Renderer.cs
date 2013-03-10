@@ -23,7 +23,7 @@ namespace Gra
         public ContentManager Content;
         public static int Height, Width;
         public static Dictionary<string, Animation> Animations;
-        public Game game;
+        public Game Game;
 
         private Renderer()
         {
@@ -44,7 +44,7 @@ namespace Gra
 
         public void InitRenderer(Game game, SpriteBatch spriteBatch, ContentManager Content)
         {
-            this.game = game;
+            this.Game = game;
             batch = spriteBatch;
             Height = batch.GraphicsDevice.Viewport.Height;
             Width = batch.GraphicsDevice.Viewport.Width;
@@ -85,7 +85,7 @@ namespace Gra
 
         public void CreateAnimation(string name, Vector2 FrameSize, float TimePerFrame, int NoFrames)
         {
-            Animation a = new Animation(game);
+            Animation a = new Animation(Game);
             a.SetProperties(FrameSize, TimePerFrame, NoFrames);
             Animations.Add(name, a);
         }

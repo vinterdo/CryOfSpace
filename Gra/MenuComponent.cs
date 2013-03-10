@@ -27,11 +27,12 @@ namespace Gra
         public KeyboardState keyboardState;
         public KeyboardState oldKeyboardState;
         SpriteBatch spriteBatch;
-        SpriteFont spriteFont;
-        Vector2 position;
+        public SpriteFont spriteFont;
+        public Vector2 position;
         float width = 0f;
         float height = 0f;
         public bool IsEnterPressed;
+        public float Spacing = 5;
 
 
         public int SelectedIndex
@@ -139,7 +140,7 @@ namespace Gra
                     Size,
                     SpriteEffects.None,
                     0);
-                location.Y += spriteFont.LineSpacing + 5;
+                location.Y += spriteFont.LineSpacing + Spacing;
             }
         }
     }

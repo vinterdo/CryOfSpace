@@ -44,7 +44,8 @@ namespace Gra
                             ScreenManager.Singleton.IpSelectionScreen.Visible = true;
                             break;
                         case 2:
-                            Game.Exit();
+                            this.Visible = false;
+                            ScreenManager.Singleton.MainMenu.Visible = true;
                             break;
                     }
                 }
