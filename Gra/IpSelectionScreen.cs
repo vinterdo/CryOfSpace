@@ -47,6 +47,12 @@ namespace Gra
                 {
                     IpTextBox.IsFocused = true;
                     IpTextBox.Update(gameTime);
+
+                    if (GeneralManager.Singleton.CheckKey(Keys.Enter))
+                    {
+                        NetworkManager.Singleton.IsHost = false;
+                        NetworkManager.Singleton.ConnectTo(IpTextBox.Text);
+                    }
                 }
                 else if(Menu.SelectedIndex == 1)
                 {

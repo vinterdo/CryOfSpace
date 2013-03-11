@@ -23,7 +23,7 @@ namespace Gra
         }
 
         public Rectangle Box;
-        string Text = "";
+        public string Text = "";
         public bool IsFocused;
         Color FocusedColor;
         Color UnfocusedColor;
