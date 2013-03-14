@@ -59,6 +59,7 @@ namespace Gra
             GeneralManager.Singleton.Update(gameTime);
             ScreenManager.Singleton.Update(gameTime);
             Renderer.Singleton.Update(gameTime);
+            NetworkManager.Singleton.Update();
             base.Update(gameTime);
         }
 

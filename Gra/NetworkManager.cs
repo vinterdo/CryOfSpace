@@ -18,6 +18,9 @@ namespace Gra
             InGame
         }
 
+        bool IsInitalized = false;
+
+
         UdpClient UdpClient;
         TcpClient TcpClient;
         TcpListener TcpListener;
@@ -46,6 +49,23 @@ namespace Gra
 
         public void Update()
         {
+            if (IsInitalized)
+            {
+                if (IsHost)
+                {
+                    foreach (TcpClient c in Clients)
+                    {
+                        if (c != null)
+                        {
+                            SendLevel(c);
+                        }
+                    }
+                }
+                else
+                {
+                    ReciveLevel(TcpClient);
+                }
+            }
             //TcpListener.
         }
 
@@ -69,16 +89,40 @@ namespace Gra
                 TcpListener = new TcpListener(Address, port);
                 TcpListener.Start();
                 TcpListener.BeginAcceptTcpClient(new AsyncCallback(AcceptTcpClientCallback), TcpListener);
+                IsInitalized = true;
+                IsHost = true;
             }
             catch 
             { 
             }
+            
         }
 
         public void AcceptTcpClientCallback(IAsyncResult asyncResult)
         {
             TcpListener l = asyncResult.AsyncState as TcpListener;
             Clients.Add(l.EndAcceptTcpClient(asyncResult));
+        }
+
+        public void SendLevel(TcpClient Client)
+        {
+            //List<byte[]> Buffer = new List<byte[]>();
+            System.Text.ASCIIEncoding encoding = new ASCIIEncoding();
+            byte[] Buffer = encoding.GetBytes("LevelPacket".ToCharArray());
+            Client.GetStream().Write(Buffer, 0, 0);
+
+            Client.GetStream().Flush();
+        }
+
+        public void ReciveLevel(TcpClient Client)
+        {
+            byte[] Buffer = new byte[]{};
+            Client.GetStream().Read(Buffer, 0, 0);
+            string PacketType = Buffer.ToString();
+            if (PacketType == "LevelPacket")
+            {
+                var i = 0;
+            }
         }
 
         

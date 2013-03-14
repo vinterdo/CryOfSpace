@@ -38,6 +38,8 @@ namespace Gra
                     switch (Menu.SelectedIndex)
                     {
                         case 0:
+                            NetworkManager.Singleton.InitalizeServer("127.0.0.1");
+
                             break;
                         case 1:
                             this.Visible = false;
