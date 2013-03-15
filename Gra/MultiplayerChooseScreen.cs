@@ -20,6 +20,7 @@ namespace Gra
             : base(game, spriteBatch)
         {
 
+
         }
         MenuComponent Menu;
         
@@ -39,6 +40,11 @@ namespace Gra
                     {
                         case 0:
                             NetworkManager.Singleton.InitalizeServer("127.0.0.1");
+                            this.Visible = false;
+                            GeneralManager.Singleton.CurrentLevel = new Level(Renderer.Singleton.Game, Renderer.Singleton.batch);
+                            GeneralManager.Singleton.CurrentLevel.Generate();
+                            GeneralManager.Singleton.CurrentLevel.Show();
+                            GeneralManager.Singleton.IsLevelInitalized = true;
 
                             break;
                         case 1:

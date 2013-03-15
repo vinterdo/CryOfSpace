@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
+using System.IO;
 
 namespace Gra
 {
@@ -74,6 +75,7 @@ namespace Gra
             try
             {
                 TcpClient = new TcpClient(host, port);
+                IsInitalized = true;
             }
             catch
             {
@@ -109,15 +111,32 @@ namespace Gra
             //List<byte[]> Buffer = new List<byte[]>();
             System.Text.ASCIIEncoding encoding = new ASCIIEncoding();
             byte[] Buffer = encoding.GetBytes("LevelPacket".ToCharArray());
-            Client.GetStream().Write(Buffer, 0, 0);
+            try
+            {
+                Client.GetStream().Write(Buffer, 0, 0);
+                Client.GetStream().Flush();
+            }
+            catch(Exception e)
+            {
+                //Add Client Remove and disconnect log
+            }
 
-            Client.GetStream().Flush();
+            
         }
 
         public void ReciveLevel(TcpClient Client)
         {
-            byte[] Buffer = new byte[]{};
-            Client.GetStream().Read(Buffer, 0, 0);
+            char[] Buffer = new char[100];
+            StreamReader SR = new StreamReader(Client.GetStream());
+            try
+            {
+                SR.Read(Buffer, 0, 11);
+            }
+            catch (Exception e)
+            {
+                e = null;
+            }
+            //Client.GetStream().Read(Buffer, 0, 20);
             string PacketType = Buffer.ToString();
             if (PacketType == "LevelPacket")
             {
