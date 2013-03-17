@@ -22,7 +22,7 @@ namespace Gra
         bool IsInitalized = false;
 
 
-        UdpClient UdpClient;
+        //UdpClient UdpClient;
         TcpClient TcpClient;
         TcpListener TcpListener;
         int port = 25565;
@@ -75,10 +75,13 @@ namespace Gra
             try
             {
                 TcpClient = new TcpClient(host, port);
+                TcpClient.Connect(new IPEndPoint(IPAddress.Parse(host), port+1));
                 IsInitalized = true;
             }
-            catch
+            catch(Exception e)
             {
+                e = null;
+                
             }
         }
 
@@ -109,11 +112,10 @@ namespace Gra
         public void SendLevel(TcpClient Client)
         {
             //List<byte[]> Buffer = new List<byte[]>();
-            System.Text.ASCIIEncoding encoding = new ASCIIEncoding();
-            byte[] Buffer = encoding.GetBytes("LevelPacket".ToCharArray());
+            StreamWriter SW = new StreamWriter(Client.GetStream());
             try
             {
-                Client.GetStream().Write(Buffer, 0, 0);
+                SW.Write("LevelPacket".ToCharArray());
                 Client.GetStream().Flush();
             }
             catch(Exception e)
@@ -140,7 +142,6 @@ namespace Gra
             string PacketType = Buffer.ToString();
             if (PacketType == "LevelPacket")
             {
-                var i = 0;
             }
         }
 
