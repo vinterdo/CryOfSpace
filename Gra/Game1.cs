@@ -18,6 +18,7 @@ namespace Gra
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D Indicator;
+        Hull ExampleHull;
         
 
         
@@ -42,6 +43,9 @@ namespace Gra
             ScreenManager.Singleton.Initalize(this);
             //GeneralManager.Singleton.CurrentLevel.Hide();
             ScreenManager.Singleton.MainMenu.Visible = true;
+
+            ExampleHull = new Hull();
+            ExampleHull.Load("ships/ship.xml");
         }
 
         protected override void LoadContent()
