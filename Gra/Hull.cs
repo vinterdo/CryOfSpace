@@ -26,11 +26,11 @@ namespace Gra
         float SpeedModifier;
         float Weight;
 
-        //public Animation OutsideView;
-        //public Animation InsideView;
-        //public Animation ConduitsView;
-        //public Animation Explosion;
-        //public Animation Wreck;
+        public RawAnimation OutsideView;
+        public RawAnimation InsideView;
+        public RawAnimation ConduitsView;
+        public RawAnimation Explosion;
+        public RawAnimation Wreck;
         int SizeX;
         int SizeY;
         Vector2 Center;
@@ -72,17 +72,17 @@ namespace Gra
             this.Center = data.Center;
             this.BasicHull = data.BasicHull;
             this.AtmosphereMask = data.AtmosphereMask;
-            //this.Explosion = data.Explosion;
+            this.Explosion = data.Explosion;
             this.HullBreachs = data.HullBreachs;
             this.HullModifier = data.HullModifier;
-            //this.InsideView = data.InsideView;
-            //this.OutsideView = data.OutsideView;
+            this.InsideView = data.InsideView;
+            this.OutsideView = data.OutsideView;
             this.SizeX = data.SizeX;
             this.SizeY = data.SizeY;
             this.SpeedModifier = data.SpeedModifier;
             this.Weight = data.Weight;
-            //this.Wreck = data.Wreck;
-            //this.ConduitsView = data.ConduitsView;
+            this.Wreck = data.Wreck;
+            this.ConduitsView = data.ConduitsView;
 
 
             // Close the file.
