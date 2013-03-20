@@ -17,6 +17,26 @@ namespace Gra
     
     public class Ship : Microsoft.Xna.Framework.DrawableGameComponent
     {
+        public Hull Hull;
+        //List<Component> Components = new List<Component>();
+        //List<Crew> Crew = new List<Crew>();
+        //List<Distaster> Distasters = new List<Distaster>();
+
+
+        EnergyConduit[][] EnergyConduits;
+        PlasmaConduit[][] PlasmaConduits;
+        CoolantConduit[][] CoolantConduits;
+        DataConduit[][] DataConduits;
+        OxygenConduit[][] OxygenConduits;
+        AntimaterConduit[][] AntimaterConduits;
+
+        public Animation OutsideView;
+        public Animation InsideView;
+        public Animation ConduitsView;
+        public Animation Explosion;
+        public Animation Wreck;
+        
+
         public Ship(Game game)
             : base(game)
         {
@@ -24,14 +44,20 @@ namespace Gra
 
         public override void Initialize()
         {
-            
+            Hull.OutsideView.RegisterAnimation();
+            OutsideView = Renderer.Animations["ship2"];
             base.Initialize();
         }
 
         public override void Update(GameTime gameTime)
         {
-
+            OutsideView.Update(gameTime);
             base.Update(gameTime);
+        }
+
+        public void DrawOutside(GameTime gameTime)
+        {
+            OutsideView.Draw(gameTime);
         }
     }
 }

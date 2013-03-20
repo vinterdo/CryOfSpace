@@ -20,7 +20,7 @@ namespace Gra
         float TimePerFrame = 1;
         Vector2 Position = Vector2.Zero;
         //Texture2D Frames;
-        string TextureName = "";
+        public string TextureName = "";
 
         public void SetProperties(Vector2 FrameSize, float TimePerFrame, int NoFrames)
         {

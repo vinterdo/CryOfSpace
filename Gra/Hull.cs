@@ -17,23 +17,29 @@ namespace Gra
     
     public class Hull
     {
-        bool[][] ConduitsMask;
-        bool[][] ComponentsMask;
-        bool[][] AtmosphereMask;
 
-        float BasicHull;
-        float HullModifier;
-        float SpeedModifier;
-        float Weight;
+
+        public static Dictionary<string, Hull> Hulls = new Dictionary<string,Hull>();
+
+        public string Name;
+
+        public bool[][] ConduitsMask;
+        public bool[][] ComponentsMask;
+        public bool[][] AtmosphereMask;
+
+        public float BasicHull;
+        public float HullModifier;
+        public float SpeedModifier;
+        public float Weight;
 
         public RawAnimation OutsideView;
         public RawAnimation InsideView;
         public RawAnimation ConduitsView;
         public RawAnimation Explosion;
         public RawAnimation Wreck;
-        int SizeX;
-        int SizeY;
-        Vector2 Center;
+        public int SizeX;
+        public int SizeY;
+        public Vector2 Center;
 
         public List<Vector2> HullBreachs;
         
@@ -45,7 +51,7 @@ namespace Gra
 
         public void Initialize()
         {
-
+            Hulls.Add(this.Name, this);
         }
 
         public void Update(GameTime gameTime)

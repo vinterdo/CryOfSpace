@@ -84,6 +84,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AntimaterConduit.cs" />
+    <Compile Include="Component.cs" />
+    <Compile Include="Conduit.cs" />
+    <Compile Include="CoolantConduit.cs" />
+    <Compile Include="Crew.cs" />
+    <Compile Include="DataConduit.cs" />
+    <Compile Include="Disasters.cs" />
+    <Compile Include="EnergyConduit.cs" />
     <Compile Include="Hull.cs" />
     <Compile Include="IpSelectionScreen.cs" />
     <Compile Include="LevelPacket.cs" />
@@ -97,7 +105,9 @@
     <Compile Include="MenuComponent.cs" />
     <Compile Include="GeneralManager.cs" />
     <Compile Include="Level.cs" />
+    <Compile Include="OxygenConduit.cs" />
     <Compile Include="Packet.cs" />
+    <Compile Include="PlasmaConduit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />

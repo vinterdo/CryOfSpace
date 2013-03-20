@@ -19,7 +19,7 @@ namespace Gra
         SpriteBatch spriteBatch;
         Texture2D Indicator;
         Hull ExampleHull;
-        
+        Ship USSGruz;
 
         
         
@@ -44,8 +44,63 @@ namespace Gra
             //GeneralManager.Singleton.CurrentLevel.Hide();
             ScreenManager.Singleton.MainMenu.Visible = true;
 
+            //=============
             ExampleHull = new Hull();
-            ExampleHull.Load("ships/ship.xml");
+            ExampleHull.Name = "Test";
+            ExampleHull.AtmosphereMask = new bool[10][]{new bool[]{false, false, false, false, false, false, false, false, false, false}, 
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false}};
+            ExampleHull.BasicHull = 100.0f;
+            ExampleHull.Center = new Vector2(5, 5);
+            ExampleHull.ComponentsMask = new bool[10][]{new bool[]{false, false, false, false, false, false, false, false, false, false}, 
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false}};
+            ExampleHull.ConduitsMask = new bool[10][]{new bool[]{false, false, false, false, false, false, false, false, false, false}, 
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
+                                                          new bool[]{false, false, false, false, false, false, false, false, false, false}};
+            ExampleHull.ConduitsView = new RawAnimation();
+            ExampleHull.Explosion = new RawAnimation();
+            ExampleHull.HullBreachs = new List<Vector2>();
+            ExampleHull.HullModifier = 1.0f;
+            ExampleHull.InsideView = new RawAnimation();
+            ExampleHull.OutsideView = new RawAnimation();
+            ExampleHull.OutsideView.TextureName = "ship2";
+            ExampleHull.OutsideView.SetProperties(new Vector2(300, 300), 1000, 1);
+            ExampleHull.OutsideView.CreateAnimation();
+            ExampleHull.SizeX = 10;
+            ExampleHull.SizeY = 10;
+            ExampleHull.SpeedModifier = 1.0f;
+            ExampleHull.Weight = 100.0f;
+            ExampleHull.Wreck = new RawAnimation();
+
+            ExampleHull.Initialize();
+            //ExampleHull.Load("ships/ship.xml");
+
+            USSGruz = new Ship(this);
+            USSGruz.Hull = ExampleHull;
+            USSGruz.Initialize();
+            //=============
         }
 
         protected override void LoadContent()
@@ -85,6 +140,8 @@ namespace Gra
                 GeneralManager.Singleton.CurrentLevel.Draw(gameTime);
 
             Renderer.Animations["test"].Draw(gameTime);
+            USSGruz.DrawOutside(gameTime);
+            
             spriteBatch.End();
 
 
