@@ -20,21 +20,28 @@ namespace Gra
         public Vector2 Position;
         Texture2D Tex;
         SpriteBatch spriteBatch;
-
+        public Rectangle Rect;
         
 
         public Vertex (Game game, Vector2 Pos, Texture2D Tex):base(game)
         {
             this.Position = Pos;
             this.Tex = Tex;
+            this.Rect = new Rectangle((int)Pos.X, (int)Pos.Y, (int)Tex.Width, (int)Tex.Height);
             spriteBatch = Renderer.Singleton.batch;
         }
 
-        public override void Draw(GameTime gameTime)
+        public void DrawOutside(GameTime gameTime)
         {
             spriteBatch.Draw(Tex, (Position - new Vector2(Tex.Width / 2, Tex.Height / 2)) * new Vector2((float)(Renderer.Width - 100) / 500, (float)(Renderer.Height - 100) / 500), Color.White);
             base.Draw(gameTime);
         }
+
+        public void DrawInside(GameTime gameTime)
+        {
+
+        }
+
 
         public object Clone()
         {

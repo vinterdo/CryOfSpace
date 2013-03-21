@@ -42,6 +42,20 @@ namespace Gra
         {
             if (Visible)
             {
+                if (GeneralManager.Singleton.CheckLMB())
+                {
+                    Point MousePoint = new Point(Mouse.GetState().X, Mouse.GetState().Y);
+                    foreach(DrawableGameComponent C in Components)
+                    {
+                        if (C is Vertex)
+                        {
+                            if ((C as Vertex).Rect.Contains(MousePoint))
+                            {
+                                Game.Exit();
+                            }
+                        }
+                    }
+                }
                 if (GeneralManager.Singleton.CheckKey(Keys.Escape))
                 {
                     this.Hide();
@@ -61,7 +75,7 @@ namespace Gra
             foreach (DrawableGameComponent v in Components)
             {
                 if(v is Vertex)
-                    v.Draw(gameTime);
+                    (v as Vertex).DrawOutside(gameTime);
             }
         }
 

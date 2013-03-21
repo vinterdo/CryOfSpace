@@ -20,11 +20,24 @@ namespace Gra
         public bool IsLevelInitalized;
         KeyboardState keyboardState;
         KeyboardState oldKeyboardState;
+        public Vector2 MousePos;
+        MouseState OldMouseState;
+        MouseState NewMouseState;
+
+
 
         private GeneralManager()
         {
             IsLevelInitalized = false;
             Random = new Random();
+        }
+
+        public bool CheckLMB()
+        {
+            if (OldMouseState.LeftButton == ButtonState.Released && NewMouseState.LeftButton == ButtonState.Pressed)
+                return true;
+            else
+                return false;
         }
 
         static public GeneralManager Singleton
@@ -43,6 +56,8 @@ namespace Gra
             if(IsLevelInitalized) CurrentLevel.Update(gameTime);
             oldKeyboardState = keyboardState;
             keyboardState = Keyboard.GetState();
+            OldMouseState = NewMouseState;
+            NewMouseState = Mouse.GetState();
         }
 
         public int GetRandom()

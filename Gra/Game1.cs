@@ -30,6 +30,7 @@ namespace Gra
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
+            IsMouseVisible = true;
         }
 
         protected override void Initialize()
