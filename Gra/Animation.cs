@@ -23,7 +23,7 @@ namespace Gra
         Vector2 FrameSize = Vector2.One;
         float TimePerFrame = 1;
         Vector2 Position = Vector2.Zero;
-        Texture2D Frames;
+        public Texture2D Frames;
         float CurrentTime = 0;
         int CurrentFrame = 0;
 
