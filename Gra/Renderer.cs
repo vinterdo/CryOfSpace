@@ -20,6 +20,7 @@ namespace Gra
         Texture2D Blank;
         Texture2D Background1;
         Texture2D Background2;
+        public Texture2D PlayerIndicator;
         public ContentManager Content;
         public static int Height, Width;
         public static Dictionary<string, Animation> Animations;
@@ -59,6 +60,7 @@ namespace Gra
             this.Background2 = Content.Load<Texture2D>("bg2");
             CreateAnimation("test", new Vector2(100, 100), 0.5f, 10);
             Animations["test"].LoadTex(Content.Load<Texture2D>("test"));
+            PlayerIndicator = Content.Load<Texture2D>("PlayerIndicator");
         }
 
         public void Line(float width, Vector2 from, Vector2 to, Color color)

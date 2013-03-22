@@ -21,10 +21,13 @@ namespace Gra
         public Texture2D Tex;
         SpriteBatch spriteBatch;
         public Rectangle Rect;
+
+        public List<Player> Players;
         
 
         public Vertex (Game game, Vector2 Pos, Texture2D Tex):base(game)
         {
+            Players = new List<Player>();
             this.Position = Pos;
             this.Tex = Tex;
             this.Rect = new Rectangle((int)(Pos.X), (int)(Pos.Y), (int)Tex.Width, (int)Tex.Height);
@@ -34,12 +37,21 @@ namespace Gra
         public void DrawOutside(GameTime gameTime)
         {
             spriteBatch.Draw(Tex, (Position - new Vector2(Tex.Width / 2, Tex.Height / 2)) * new Vector2((float)(Renderer.Width - 100) / 500, (float)(Renderer.Height - 100) / 500), Color.White);
+
+            if (Players.Count > 0)
+            {
+                spriteBatch.Draw(Renderer.Singleton.PlayerIndicator, (Position ) * new Vector2((float)(Renderer.Width - 100) / 500, (float)(Renderer.Height - 100) / 500), Color.White);
+            }
+
             base.Draw(gameTime);
         }
 
         public void DrawInside(GameTime gameTime)
         {
-
+            foreach (Player P in Players)
+            {
+                P.Ship.DrawOutside(gameTime);
+            }
         }
 
 

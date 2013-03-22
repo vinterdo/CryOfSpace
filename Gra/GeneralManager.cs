@@ -24,6 +24,11 @@ namespace Gra
         MouseState OldMouseState;
         MouseState NewMouseState;
 
+        public static Dictionary<string, Player> Players = new Dictionary<string, Player>();
+
+        public Vertex CurrentVertex;
+
+        public int GameState = 1; // 1 - level, 2 - vertex
 
 
         private GeneralManager()

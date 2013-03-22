@@ -53,7 +53,9 @@ namespace Gra
                             Vector2 MouseToVertexPos = (MousePoint + new Vector2((C as Vertex).Tex.Width / 2, (C as Vertex).Tex.Height / 2)) / new Vector2((float)(Renderer.Width - 100) / 500, (float)(Renderer.Height - 100) / 500);
                             if ((C as Vertex).Rect.Contains((int)MouseToVertexPos.X, (int)MouseToVertexPos.Y))
                             {
-                                
+                                GeneralManager.Singleton.CurrentVertex = C as Vertex;
+                                GeneralManager.Singleton.GameState = 2;
+                                break;
                             }
                         }
                     }
@@ -124,6 +126,10 @@ namespace Gra
             {
                 Vertex v = CreateVertex(this.game, new Vector2(GeneralManager.Singleton.GetRandom() % 500+ 10.0f, GeneralManager.Singleton.GetRandom() % 500+10.0f), Renderer.Singleton.Content.Load<Texture2D>("indicator"));
 
+                if (i == 0)
+                {
+                    v.Players.Add(GeneralManager.Players["test"]);
+                }
                 bool IsGood = true;
 
                 AbleToConnect.Clear();
@@ -171,6 +177,7 @@ namespace Gra
                 Components.Add(v);
             }
 
+            
             GeneralManager.Singleton.IsLevelInitalized = true;
         }
 

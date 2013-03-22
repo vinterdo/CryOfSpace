@@ -15,7 +15,18 @@ namespace Gra
 {
     public class Player
     {
-        Ship Ship;
+        public Ship Ship;
+
+        public Player()
+        {
+            Ship = new Ship(Renderer.Singleton.Game);
+            
+        }
+
+        public void Initalize()
+        {
+            Ship.Initialize();
+        }
 
         public void Update(GameTime gameTime)
         {

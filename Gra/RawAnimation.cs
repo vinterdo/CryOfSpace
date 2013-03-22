@@ -39,7 +39,11 @@ namespace Gra
 
         public void RegisterAnimation()
         {
-            Renderer.Animations.Add(TextureName, CreateAnimation());
+            if (!Renderer.Animations.ContainsKey(TextureName))
+            {
+                Renderer.Animations.Add(TextureName, CreateAnimation());
+
+            }
         }
     }
 }

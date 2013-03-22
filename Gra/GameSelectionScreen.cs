@@ -39,9 +39,13 @@ namespace Gra
                     switch (Menu.SelectedIndex)
                     {
                         case 0:
+                            GeneralManager.Players.Add("test", new Player());
+                            GeneralManager.Players["test"].Ship.Hull = Hull.Hulls["Test"];
+                            GeneralManager.Players["test"].Initalize();
                             GeneralManager.Singleton.CurrentLevel = new Level(Game, spriteBatch);
                             GeneralManager.Singleton.CurrentLevel.Generate();
                             GeneralManager.Singleton.CurrentLevel.Show();
+                            
                             this.Visible = false;
                             break;
                         case 1:
