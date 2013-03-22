@@ -44,14 +44,16 @@ namespace Gra
             {
                 if (GeneralManager.Singleton.CheckLMB())
                 {
-                    Point MousePoint = new Point(Mouse.GetState().X, Mouse.GetState().Y);
+                    Vector2 MousePoint = new Vector2(Math.Abs(Mouse.GetState().X), Mouse.GetState().Y);
+                    
                     foreach(DrawableGameComponent C in Components)
                     {
                         if (C is Vertex)
                         {
-                            if ((C as Vertex).Rect.Contains(MousePoint))
+                            Vector2 MouseToVertexPos = (MousePoint + new Vector2((C as Vertex).Tex.Width / 2, (C as Vertex).Tex.Height / 2)) / new Vector2((float)(Renderer.Width - 100) / 500, (float)(Renderer.Height - 100) / 500);
+                            if ((C as Vertex).Rect.Contains((int)MouseToVertexPos.X, (int)MouseToVertexPos.Y))
                             {
-                                Game.Exit();
+                                
                             }
                         }
                     }

@@ -18,7 +18,7 @@ namespace Gra
     public class Vertex:DrawableGameComponent,ICloneable
     {
         public Vector2 Position;
-        Texture2D Tex;
+        public Texture2D Tex;
         SpriteBatch spriteBatch;
         public Rectangle Rect;
         
@@ -27,7 +27,7 @@ namespace Gra
         {
             this.Position = Pos;
             this.Tex = Tex;
-            this.Rect = new Rectangle((int)Pos.X, (int)Pos.Y, (int)Tex.Width, (int)Tex.Height);
+            this.Rect = new Rectangle((int)(Pos.X), (int)(Pos.Y), (int)Tex.Width, (int)Tex.Height);
             spriteBatch = Renderer.Singleton.batch;
         }
 

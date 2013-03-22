@@ -141,7 +141,7 @@ namespace Gra
                 GeneralManager.Singleton.CurrentLevel.Draw(gameTime);
 
             Renderer.Animations["test"].Draw(gameTime);
-            USSGruz.DrawOutside(gameTime);
+            //USSGruz.DrawOutside(gameTime);
             
             spriteBatch.End();
 
