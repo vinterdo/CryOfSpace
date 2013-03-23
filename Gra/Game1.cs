@@ -59,7 +59,7 @@ namespace Gra
                                                           new bool[]{false, false, false, false, false, false, false, false, false, false},
                                                           new bool[]{false, false, false, false, false, false, false, false, false, false}};
             ExampleHull.BasicHull = 100.0f;
-            ExampleHull.Center = new Vector2(5, 5);
+            ExampleHull.Center = new Vector2(150, 150);
             ExampleHull.ComponentsMask = new bool[10][]{new bool[]{false, false, false, false, false, false, false, false, false, false}, 
                                                           new bool[]{false, false, false, false, false, false, false, false, false, false},
                                                           new bool[]{false, false, false, false, false, false, false, false, false, false},
@@ -94,6 +94,7 @@ namespace Gra
             ExampleHull.SpeedModifier = 1.0f;
             ExampleHull.Weight = 100.0f;
             ExampleHull.Wreck = new RawAnimation();
+            
 
             ExampleHull.Initialize();
             //ExampleHull.Load("ships/ship.xml");

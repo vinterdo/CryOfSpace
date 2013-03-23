@@ -22,7 +22,7 @@ namespace Gra
         int NoFrames = 1;
         Vector2 FrameSize = Vector2.One;
         float TimePerFrame = 1;
-        Vector2 Position = Vector2.Zero;
+        public Vector2 Position = Vector2.Zero;
         public Texture2D Frames;
         float CurrentTime = 0;
         int CurrentFrame = 0;
@@ -78,6 +78,15 @@ namespace Gra
             if (Visible)
             {
                 Renderer.Singleton.batch.Draw(Frames, new Rectangle((int)Position.X, (int)Position.Y, (int)FrameSize.X, (int)FrameSize.Y), new Rectangle((int)FrameSize.X * CurrentFrame, 0, (int)FrameSize.X, (int)FrameSize.Y), Color.White);
+                base.Draw(gameTime);
+            }
+        }
+
+        public void Draw(GameTime gameTime, float Angle, Vector2 Center)
+        {
+            if (Visible)
+            {
+                Renderer.Singleton.batch.Draw(Frames, new Rectangle((int)Position.X, (int)Position.Y, (int)FrameSize.X, (int)FrameSize.Y), new Rectangle((int)FrameSize.X * CurrentFrame, 0, (int)FrameSize.X, (int)FrameSize.Y), Color.White, Angle, Center, SpriteEffects.None, 0);
                 base.Draw(gameTime);
             }
         }

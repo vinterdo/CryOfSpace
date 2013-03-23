@@ -18,7 +18,7 @@ namespace Gra
         Random Random;
         public Level CurrentLevel;
         public bool IsLevelInitalized;
-        KeyboardState keyboardState;
+        public KeyboardState keyboardState;
         KeyboardState oldKeyboardState;
         public Vector2 MousePos;
         MouseState OldMouseState;
@@ -58,6 +58,11 @@ namespace Gra
 
         public void Update(GameTime gameTime)
         {
+            foreach(KeyValuePair<string, Player> P in Players)
+            {
+                P.Value.Update(gameTime);
+            }
+
             if(IsLevelInitalized) CurrentLevel.Update(gameTime);
             oldKeyboardState = keyboardState;
             keyboardState = Keyboard.GetState();
@@ -73,6 +78,13 @@ namespace Gra
         public bool CheckKey(Keys Key)
         {
             return oldKeyboardState.IsKeyUp(Key) && keyboardState.IsKeyDown(Key);
+        }
+
+        public Vector2 GetVectorFromAngle(float Angle)
+        {
+            var Tmp = new Vector2((float)Math.Sin(Angle), (float)Math.Cos(Angle));
+            Tmp.Normalize();
+            return Tmp;
         }
     }
 }

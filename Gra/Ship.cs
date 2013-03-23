@@ -35,6 +35,10 @@ namespace Gra
         public Animation ConduitsView;
         public Animation Explosion;
         public Animation Wreck;
+
+        float Angle;
+        Vector2 Position;
+        Vector2 Speed;
         
 
         public Ship(Game game)
@@ -51,13 +55,32 @@ namespace Gra
 
         public override void Update(GameTime gameTime)
         {
+            if (GeneralManager.Singleton.keyboardState.IsKeyDown(Keys.W))
+            {
+                Speed += GeneralManager.Singleton.GetVectorFromAngle(-1 * Angle + (float)Math.PI/2) / 1000;
+            }
+            if (GeneralManager.Singleton.keyboardState.IsKeyDown(Keys.D))
+            {
+                Angle += 0.002f;
+            }
+            if (GeneralManager.Singleton.keyboardState.IsKeyDown(Keys.A))
+            {
+                Angle -= 0.002f;
+            }
+            if (GeneralManager.Singleton.keyboardState.IsKeyDown(Keys.S))
+            {
+                Speed *= 0.95f;
+            }
+
+            Position += Speed;
+            OutsideView.Position = Position;
             OutsideView.Update(gameTime);
             base.Update(gameTime);
         }
 
         public void DrawOutside(GameTime gameTime)
         {
-            OutsideView.Draw(gameTime);
+            OutsideView.Draw(gameTime, Angle, Hull.Center);
         }
     }
 }

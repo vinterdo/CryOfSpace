@@ -30,7 +30,7 @@ namespace Gra
 
         public void Update(GameTime gameTime)
         {
-
+            Ship.Update(gameTime);
         }
     }
 }
