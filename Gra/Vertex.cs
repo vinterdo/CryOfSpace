@@ -60,11 +60,11 @@ namespace Gra
 
             foreach (Player P in Players)
             {
-                if(P.Equals(GeneralManager.Singleton.CurrentPlayer))
+                if(P.Equals(GeneralManager.Singleton.CurrentPlayer) && P.Ship.State == Ship.ShipState.InVertex)
                 {
                     IsCurrentPlayerOnVertex = true;
                 }
-                P.Ship.DrawOutside(gameTime);
+                if(P.Ship.State == Ship.ShipState.InVertex) P.Ship.DrawOutside(gameTime);
             }
 
             if (IsCurrentPlayerOnVertex)
@@ -130,6 +130,7 @@ namespace Gra
 
         public override void Update(GameTime gameTime)
         {
+            
             if (GeneralManager.Singleton.MousePos.X < 100 && Camera.X > 0)
                 Camera.X -= (int)(100 - GeneralManager.Singleton.MousePos.X) / 10;
             if (GeneralManager.Singleton.MousePos.X > Renderer.Width - 100 && Camera.X < Size - Renderer.Width)
@@ -145,6 +146,11 @@ namespace Gra
             foreach (Player P in Players)
             {
                 P.Ship.SetDrawPosition(new Vector2(Camera.X, Camera.Y));
+                if (P.Ship.Position.X < Size / 100 || P.Ship.Position.X > (Size / 100) * 99 || P.Ship.Position.Y < Size / 100 || P.Ship.Position.Y > (Size / 100) * 99)
+                {
+                    GeneralManager.Singleton.GameState = 1;
+                    P.Ship.State = Ship.ShipState.WaitingForTravel;
+                }
             }
 
             base.Update(gameTime);
