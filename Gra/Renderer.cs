@@ -25,6 +25,8 @@ namespace Gra
         public static int Height, Width;
         public static Dictionary<string, Animation> Animations;
         public Game Game;
+        public Texture2D Background;
+        public Texture2D ShipIndicator;
 
         private Renderer()
         {
@@ -61,6 +63,8 @@ namespace Gra
             CreateAnimation("test", new Vector2(100, 100), 0.5f, 10);
             Animations["test"].LoadTex(Content.Load<Texture2D>("test"));
             PlayerIndicator = Content.Load<Texture2D>("PlayerIndicator");
+            Background = Content.Load<Texture2D>("SpaceBackground1");
+            ShipIndicator = Content.Load<Texture2D>("ShipIndicator");
         }
 
         public void Line(float width, Vector2 from, Vector2 to, Color color)

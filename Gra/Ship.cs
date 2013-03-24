@@ -37,9 +37,11 @@ namespace Gra
         public Animation Wreck;
 
         float Angle;
-        Vector2 Position;
+        public Vector2 Position;
+        public Vector2 DrawPosition;
         Vector2 Speed;
-        
+
+        public ShipState State;
 
         public Ship(Game game)
             : base(game)
@@ -73,14 +75,27 @@ namespace Gra
             }
 
             Position += Speed;
-            OutsideView.Position = Position;
+            
+            OutsideView.Position = DrawPosition;
             OutsideView.Update(gameTime);
             base.Update(gameTime);
+        }
+
+        public void SetDrawPosition(Vector2 Offset)
+        {
+            DrawPosition = Position - Offset;
         }
 
         public void DrawOutside(GameTime gameTime)
         {
             OutsideView.Draw(gameTime, Angle, Hull.Center);
+        }
+
+        public enum ShipState
+        {
+            InVertex,
+            WaitingForTravel,
+            Travelling
         }
     }
 }

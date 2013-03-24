@@ -23,6 +23,7 @@ namespace Gra
         public Vector2 MousePos;
         MouseState OldMouseState;
         MouseState NewMouseState;
+        public Player CurrentPlayer; 
 
         public static Dictionary<string, Player> Players = new Dictionary<string, Player>();
 
@@ -68,6 +69,8 @@ namespace Gra
             keyboardState = Keyboard.GetState();
             OldMouseState = NewMouseState;
             NewMouseState = Mouse.GetState();
+
+            MousePos = new Vector2(NewMouseState.X, NewMouseState.Y);
         }
 
         public int GetRandom()

@@ -65,8 +65,15 @@ namespace Gra
                     this.Hide();
                     ScreenManager.Singleton.InGameMenu.Visible = true;
                 }
+
+                
                 base.Update(gameTime);
             }
+            
+            foreach (DrawableGameComponent C in Components)
+                {
+                    C.Update(gameTime);
+                }
         }
 
         public override void Show()
@@ -86,6 +93,8 @@ namespace Gra
         public Vertex CreateVertex(Game game, Vector2 Pos1, Texture2D Tex)
         {
             Vertex Tmp = new Vertex(game, Pos1, Tex);
+            Tmp.Background = Renderer.Singleton.Background;
+            Tmp.BackgroundScale = new Vector2(1.3f, 1.4f);
 
             var ItemToAdd = Tmp.Clone();
             
@@ -128,6 +137,9 @@ namespace Gra
 
                 if (i == 0)
                 {
+                    GeneralManager.Players["test"].Ship.Position = new Vector2(2000, 2000);
+                    GeneralManager.Players["test"].Ship.State = Ship.ShipState.InVertex;
+                    GeneralManager.Singleton.CurrentPlayer = GeneralManager.Players["test"];
                     v.Players.Add(GeneralManager.Players["test"]);
                 }
                 bool IsGood = true;

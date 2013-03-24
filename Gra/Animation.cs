@@ -20,7 +20,7 @@ namespace Gra
     public class Animation : Microsoft.Xna.Framework.DrawableGameComponent
     {
         int NoFrames = 1;
-        Vector2 FrameSize = Vector2.One;
+        public Vector2 FrameSize = Vector2.One;
         float TimePerFrame = 1;
         public Vector2 Position = Vector2.Zero;
         public Texture2D Frames;
