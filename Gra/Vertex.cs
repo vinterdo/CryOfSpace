@@ -43,8 +43,8 @@ namespace Gra
             LensFlares = new List<LensFlare>();
             LensFlares.Add(new LensFlare(game));
             LensFlares[0].Initialize(); 
-            LensFlares[0].Distance = 2000.0f;
-            LensFlares[0].LightPosition = new Vector2(1000, 1000);
+            LensFlares[0].Distance = 500.0f;
+            LensFlares[0].LightPosition = new Vector2(500, 500);
         }
 
         public void DrawOutside(GameTime gameTime)
@@ -64,6 +64,11 @@ namespace Gra
             if (Visible)
             {
                 spriteBatch.Draw(Renderer.Singleton.Background, new Rectangle(0, 0, Camera.Width, Camera.Height), new Rectangle((int)(Camera.X / 10), (int)(Camera.Y / 10), (int)(Renderer.Singleton.Background.Width / BackgroundScale.X), (int)(Renderer.Singleton.Background.Height / BackgroundScale.Y)), Color.White);
+
+                foreach (LensFlare L in LensFlares)
+                {
+                    L.Draw(gameTime, new Vector2((Camera.X)/10, (Camera.Y)/10) * BackgroundScale, Vector2.Zero);
+                }
 
                 bool IsCurrentPlayerOnVertex = false;
 
@@ -123,10 +128,7 @@ namespace Gra
                     }
 
                 }
-                foreach (LensFlare L in LensFlares)
-                {
-                    L.Draw(gameTime, new Vector2(Camera.X, Camera.Y), Vector2.Zero);
-                }
+                
                 spriteBatch.Draw(Renderer.Singleton.FromVertexToLevelGUI, Vector2.Zero, Color.White);
             }
         }
