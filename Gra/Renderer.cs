@@ -28,6 +28,8 @@ namespace Gra
         public Texture2D Background;
         public Texture2D ShipIndicator;
 
+        public Texture2D FromVertexToLevelGUI;
+
         private Renderer()
         {
         }
@@ -65,6 +67,7 @@ namespace Gra
             PlayerIndicator = Content.Load<Texture2D>("PlayerIndicator");
             Background = Content.Load<Texture2D>("SpaceBackground1");
             ShipIndicator = Content.Load<Texture2D>("ShipIndicator");
+            FromVertexToLevelGUI = Content.Load<Texture2D>("view system gui");
         }
 
         public void Line(float width, Vector2 from, Vector2 to, Color color)

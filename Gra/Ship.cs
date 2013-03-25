@@ -39,7 +39,7 @@ namespace Gra
         float Angle;
         public Vector2 Position;
         public Vector2 DrawPosition;
-        Vector2 Speed;
+        public Vector2 Speed;
 
         public ShipState State;
 

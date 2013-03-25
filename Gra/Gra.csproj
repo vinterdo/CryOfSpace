@@ -94,6 +94,7 @@
     <Compile Include="EnergyConduit.cs" />
     <Compile Include="Hull.cs" />
     <Compile Include="IpSelectionScreen.cs" />
+    <Compile Include="LensFlare.cs" />
     <Compile Include="LevelPacket.cs" />
     <Compile Include="MultiplayerChooseScreen.cs" />
     <Compile Include="NetworkManager.cs" />

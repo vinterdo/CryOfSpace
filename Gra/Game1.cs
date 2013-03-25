@@ -153,8 +153,7 @@ namespace Gra
                 
             }
 
-            Renderer.Animations["test"].Draw(gameTime);
-            //USSGruz.DrawOutside(gameTime);
+            //Renderer.Animations["test"].Draw(gameTime);
             
             spriteBatch.End();
 
