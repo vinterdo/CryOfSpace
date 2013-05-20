@@ -82,6 +82,8 @@ namespace Gra
             }
         }
 
+
+
         public void Draw(GameTime gameTime, float Angle, Vector2 Center)
         {
             if (Visible)
@@ -90,5 +92,6 @@ namespace Gra
                 base.Draw(gameTime);
             }
         }
+
     }
 }

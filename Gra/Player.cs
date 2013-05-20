@@ -15,12 +15,13 @@ namespace Gra
 {
     public class Player
     {
+        public List<Component> ComponentsInventory;
         public Ship Ship;
 
         public Player()
         {
             Ship = new Ship(Renderer.Singleton.Game);
-            
+            ComponentsInventory = new List<Component>();
         }
 
         public void Initalize()

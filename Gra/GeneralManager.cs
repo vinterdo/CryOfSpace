@@ -14,6 +14,8 @@ namespace Gra
 {
     public sealed class GeneralManager
     {
+        public static SoundManager SoundManager;
+
         static GeneralManager Instance = new GeneralManager();
         Random Random;
         public Level CurrentLevel;
@@ -34,16 +36,15 @@ namespace Gra
 
         private GeneralManager()
         {
+            SoundManager = new SoundManager(Renderer.Singleton.Game);
+            SoundManager.Initialize();
             IsLevelInitalized = false;
             Random = new Random();
         }
 
         public bool CheckLMB()
         {
-            if (OldMouseState.LeftButton == ButtonState.Released && NewMouseState.LeftButton == ButtonState.Pressed)
-                return true;
-            else
-                return false;
+            return OldMouseState.LeftButton == ButtonState.Released && NewMouseState.LeftButton == ButtonState.Pressed;
         }
 
         static public GeneralManager Singleton
@@ -85,9 +86,22 @@ namespace Gra
 
         public Vector2 GetVectorFromAngle(float Angle)
         {
-            var Tmp = new Vector2((float)Math.Sin(Angle), (float)Math.Cos(Angle));
-            Tmp.Normalize();
-            return Tmp;
+            return new Vector2((float)Math.Sin(Angle), (float)Math.Cos(Angle));
+        }
+
+        public Vector2 RotateVector(float Angle, Vector2 Vec, Vector2 Center)
+        {
+            return new Vector2((float)(Math.Cos(Angle) * (Vec.X - Center.X) - Math.Sin(Angle) * (Vec.Y - Center.Y)), (float)(Math.Sin(Angle) * (Vec.X - Center.X) + Math.Cos(Angle) * (Vec.Y - Center.Y))) + Center;
+        }
+
+        public bool CheckCollision(Vector2 Vec, Rectangle Rect)
+        {
+            return Vec.X > Rect.X && Vec.Y > Rect.Y && Vec.X < Rect.X + Rect.Width && Vec.Y < Rect.Y + Rect.Height;
+        }
+
+        public bool CheckCollision(Vector2 Vec, Rectangle Rect, float Angle, Vector2 Center)
+        {
+            return CheckCollision(RotateVector(Angle * -1, Vec, Center), Rect);
         }
     }
 }

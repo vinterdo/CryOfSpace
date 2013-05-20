@@ -30,7 +30,8 @@ namespace Gra
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
-            IsMouseVisible = true;
+            //graphics.IsFullScreen = true;
+            //IsMouseVisible = true;
         }
 
         protected override void Initialize()
@@ -84,13 +85,19 @@ namespace Gra
             ExampleHull.Explosion = new RawAnimation();
             ExampleHull.HullBreachs = new List<Vector2>();
             ExampleHull.HullModifier = 1.0f;
+
             ExampleHull.InsideView = new RawAnimation();
+            ExampleHull.InsideView.TextureName = "ship2-inside";
+            ExampleHull.InsideView.SetProperties(new Vector2(300, 300), 1000, 1);
+            ExampleHull.InsideView.CreateAnimation();
+
             ExampleHull.OutsideView = new RawAnimation();
             ExampleHull.OutsideView.TextureName = "ship2";
             ExampleHull.OutsideView.SetProperties(new Vector2(300, 300), 1000, 1);
             ExampleHull.OutsideView.CreateAnimation();
-            ExampleHull.SizeX = 10;
-            ExampleHull.SizeY = 10;
+
+            ExampleHull.SizeX = 300;
+            ExampleHull.SizeY = 300;
             ExampleHull.SpeedModifier = 1.0f;
             ExampleHull.Weight = 100.0f;
             ExampleHull.Wreck = new RawAnimation();
@@ -103,6 +110,8 @@ namespace Gra
             USSGruz.Hull = ExampleHull;
             USSGruz.Initialize();
             //=============
+
+            
         }
 
         protected override void LoadContent()
@@ -129,8 +138,13 @@ namespace Gra
         {
             GraphicsDevice.Clear(Color.Black);
 
-            
-            spriteBatch.Begin();
+
+            foreach(KeyValuePair<string, Player> P in GeneralManager.Players)
+            {
+                P.Value.Ship.CreateInsideTex(gameTime);
+            }
+
+            spriteBatch.Begin(SpriteBlendMode.AlphaBlend);
 
 
             ScreenManager.Singleton.MainMenu.Draw(gameTime);
@@ -144,7 +158,12 @@ namespace Gra
                 switch (GeneralManager.Singleton.GameState)
                 {
                     case 1:
+                        ScreenManager.Singleton.ProjectView.Draw(gameTime);
+                        spriteBatch.End();
+                        spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
                         GeneralManager.Singleton.CurrentLevel.Draw(gameTime);
+                        spriteBatch.End();
+                        spriteBatch.Begin(SpriteBlendMode.AlphaBlend);
                         break;
                     case 2:
                         GeneralManager.Singleton.CurrentVertex.DrawInside(gameTime);
@@ -154,7 +173,9 @@ namespace Gra
             }
 
             //Renderer.Animations["test"].Draw(gameTime);
-            
+
+
+            spriteBatch.Draw(Renderer.Singleton.CursorTex, GeneralManager.Singleton.MousePos - new Vector2(15, 15), Color.White);
             spriteBatch.End();
 
 

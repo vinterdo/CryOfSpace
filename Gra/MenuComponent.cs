@@ -87,6 +87,7 @@ namespace Gra
         {
             if (GeneralManager.Singleton.CheckKey(Keys.Down))
             {
+                GeneralManager.SoundManager.PlaySound("beep");
                 selectedIndex++;
                 if (selectedIndex == menuItems.Length)
                     selectedIndex = 0;
@@ -94,6 +95,7 @@ namespace Gra
 
             if (GeneralManager.Singleton.CheckKey(Keys.Up))
             {
+                GeneralManager.SoundManager.PlaySound("beep");
                 selectedIndex--;
                 if (selectedIndex < 0)
                     selectedIndex = menuItems.Length - 1;
@@ -102,6 +104,7 @@ namespace Gra
             if (GeneralManager.Singleton.CheckKey(Keys.Enter))
             {
                 IsEnterPressed = true;
+                GeneralManager.SoundManager.PlaySound("beep");
             }
             else IsEnterPressed = false;
 
@@ -117,7 +120,7 @@ namespace Gra
             Color tint;
             Vector2 Size;
 
-
+            spriteBatch.Draw(Renderer.Singleton.TextBackground, new Rectangle((int)location.X - 100, (int)location.Y -50, (int)width * 2, (int)(height) + 100) , Color.White);
             for (int i = 0; i < menuItems.Length; i++)
             {
                 if (i == selectedIndex)
@@ -130,6 +133,7 @@ namespace Gra
                     Size = new Vector2(1.0f, 1.0f);
                     tint = normal;
                 }
+                
                 spriteBatch.DrawString(
                     spriteFont,
                     menuItems[i],

@@ -22,6 +22,7 @@ namespace Gra
         public InGameMenu InGameMenu;
         public MultiplayerChooseScreen MultiplayerChooseScreen;
         public IpSelectionScreen IpSelectionScreen;
+        public ProjectViewScreen ProjectView;
 
 
 
@@ -46,6 +47,7 @@ namespace Gra
             InGameMenu.Update(gameTime);
             MultiplayerChooseScreen.Update(gameTime);
             IpSelectionScreen.Update(gameTime);
+            ProjectView.Update(gameTime);
         }
 
 
@@ -61,6 +63,8 @@ namespace Gra
             MultiplayerChooseScreen.Initialize();
             IpSelectionScreen = new IpSelectionScreen(game, Renderer.Singleton.batch);
             IpSelectionScreen.Initialize();
+            ProjectView = new ProjectViewScreen(game, Renderer.Singleton.batch);
+            ProjectView.Initialize();
         }
     }
 }

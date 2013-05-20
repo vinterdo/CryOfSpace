@@ -92,6 +92,8 @@
     <Compile Include="DataConduit.cs" />
     <Compile Include="Disasters.cs" />
     <Compile Include="EnergyConduit.cs" />
+    <Compile Include="Engine.cs" />
+    <Compile Include="Generator.cs" />
     <Compile Include="Hull.cs" />
     <Compile Include="IpSelectionScreen.cs" />
     <Compile Include="LensFlare.cs" />
@@ -108,9 +110,11 @@
     <Compile Include="Level.cs" />
     <Compile Include="OxygenConduit.cs" />
     <Compile Include="Packet.cs" />
+    <Compile Include="Particle.cs" />
     <Compile Include="PlasmaConduit.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerController.cs" />
+    <Compile Include="ProjectViewScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
@@ -119,8 +123,11 @@
     <Compile Include="SaveGameData.cs" />
     <Compile Include="ScreenManager.cs" />
     <Compile Include="Ship.cs" />
+    <Compile Include="SoundManager.cs" />
+    <Compile Include="SpaceStationComponent.cs" />
     <Compile Include="TextBox.cs" />
     <Compile Include="Vertex.cs" />
+    <Compile Include="VertexComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

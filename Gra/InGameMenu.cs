@@ -56,6 +56,7 @@ namespace Gra
                             GeneralManager.Singleton.IsLevelInitalized = false;
                             this.Visible = false;
                             ScreenManager.Singleton.MainMenu.Visible = true;
+                            GeneralManager.SoundManager.UnLoop("shipengine");
                             break;
 
                     }

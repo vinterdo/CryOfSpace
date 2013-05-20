@@ -27,6 +27,14 @@ namespace Gra
         public Game Game;
         public Texture2D Background;
         public Texture2D ShipIndicator;
+        public Texture2D TextBackground;
+        public Texture2D CursorTex;
+        public Texture2D VertexMenuBackground;
+        public Texture2D ViewVertexButton;
+        public Texture2D FlyToVertexButton;
+        public Texture2D ProjectButton;
+        public Texture2D ProjectGUI;
+        public Texture2D ProjectViewBackground;
 
         public Texture2D FromVertexToLevelGUI;
 
@@ -60,14 +68,21 @@ namespace Gra
         public void LoadContent()
         {
             this.Blank = Content.Load<Texture2D>("Blank");
-            this.Background1 = Content.Load<Texture2D>("bg1");
-            this.Background2 = Content.Load<Texture2D>("bg2");
-            CreateAnimation("test", new Vector2(100, 100), 0.5f, 10);
-            Animations["test"].LoadTex(Content.Load<Texture2D>("test"));
+            this.Background1 = Content.Load<Texture2D>("BackgroundVertex");
+            this.Background2 = Content.Load<Texture2D>("hud");
             PlayerIndicator = Content.Load<Texture2D>("PlayerIndicator");
             Background = Content.Load<Texture2D>("SpaceBackground1");
             ShipIndicator = Content.Load<Texture2D>("ShipIndicator");
             FromVertexToLevelGUI = Content.Load<Texture2D>("view system gui");
+            TextBackground = Content.Load<Texture2D>("TextBackground");
+            CursorTex = Content.Load<Texture2D>("Cursor");
+            VertexMenuBackground = Content.Load<Texture2D>("VertexMenu");
+            ViewVertexButton = Content.Load<Texture2D>("ViewButtonVertex");
+            FlyToVertexButton = Content.Load<Texture2D>("FlyToButtonVertex");
+            ProjectButton = Content.Load<Texture2D>("ProjectButton");
+            ProjectGUI = Content.Load<Texture2D>("ProjectGUI");
+            ProjectViewBackground = Content.Load<Texture2D>("ProjectViewBackground");
+            
         }
 
         public void Line(float width, Vector2 from, Vector2 to, Color color)
@@ -76,19 +91,18 @@ namespace Gra
             float length = Vector2.Distance(from, to);
 
             batch.Draw(Blank, from, null, color,
-                       angle, Vector2.Zero, new Vector2(length/2, width),
-                       SpriteEffects.None, 0);
+                       angle, Vector2.Zero, new Vector2(length/10, width),
+                       SpriteEffects.None, 1);
         }
 
         public void RenderBackground(GameTime gameTime)
         {
-            int Time = gameTime.TotalGameTime.Milliseconds + gameTime.TotalGameTime.Seconds * 1000 + gameTime.TotalGameTime.Minutes * 60000;
+            Vector2 RandomPos = new Vector2((float)Math.Sin(((gameTime.TotalRealTime.Milliseconds + gameTime.TotalRealTime.Seconds * 1000) * Math.PI) / 15250) * 15, (float)Math.Cos(((gameTime.TotalRealTime.Milliseconds + gameTime.TotalRealTime.Seconds * 1000) * Math.PI) / 30500) * 15);
+            RandomPos += new Vector2(GeneralManager.Singleton.MousePos.X / Renderer.Width * -30 + 15, GeneralManager.Singleton.MousePos.Y / Renderer.Height * -30 + 15);
 
-            batch.Draw(Background2, new Rectangle(Time / 1000 % Width, 0, Width, Height), Color.Gray);
-            batch.Draw(Background2, new Rectangle(Time / 1000 % Width - Width, 0, Width, Height), Color.Gray);
-            
-            batch.Draw(Background1, new Rectangle(Time/100%Width, 0 ,Width, Height), Color.White);
-            batch.Draw(Background1, new Rectangle(Time / 100 % Width - Width, 0, Width, Height), Color.White);
+            batch.Draw(Background1, new Rectangle((int)RandomPos.X - 15, (int)RandomPos.Y - 15 ,Width + 15, Height+ 15), new Color(Color.White, 0.3f));
+
+            batch.Draw(Background2, new Rectangle(0, 0, Width, Height), new Color(Color.White, 1.0f));
 
         }
 
