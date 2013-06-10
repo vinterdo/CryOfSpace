@@ -14,37 +14,34 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
-    /// <summary>
-    /// This is a game component that implements IUpdateable.
-    /// </summary>
-    public class CoolantConduit : Conduit
+    public class Generator : Component
     {
-        public CoolantConduit(Game game)
+        public Generator(Game game)
             : base(game)
         {
+            Tex = Renderer.Singleton.Content.Load<Texture2D>("Generator");
+            
+            //Anim = Renderer.Animations["Generator"];
             // TODO: Construct any child components here
         }
 
-        /// <summary>
-        /// Allows the game component to perform any initialization it needs to before starting
-        /// to run.  This is where it can query for any required services and load content.
-        /// </summary>
         public override void Initialize()
         {
-            // TODO: Add your initialization code here
-
+            
             base.Initialize();
         }
 
-        /// <summary>
-        /// Allows the game component to update itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            // TODO: Add your update code here
 
             base.Update(gameTime);
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            Renderer.Singleton.batch.Draw(Tex, Position, Color.White);
+           // Anim.Draw(gameTime, 0.0f, Position);
+            base.Draw(gameTime);
         }
     }
 }

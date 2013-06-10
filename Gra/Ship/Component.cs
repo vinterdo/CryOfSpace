@@ -14,34 +14,29 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
-    /// <summary>
-    /// This is a game component that implements IUpdateable.
-    /// </summary>
-    public class Engine : Component
+    public abstract class Component : Microsoft.Xna.Framework.DrawableGameComponent
     {
-        
-        public Engine(Game game)
+        public Vector2 Position;
+        public Vector2 Size = Vector2.One;
+        public Texture2D Tex;
+        //public Animation Anim;
+
+        public Component(Game game)
             : base(game)
         {
-            Tex = Renderer.Singleton.Content.Load<Texture2D>("Engine");
         }
 
         public override void Initialize()
         {
-
-            base.Initialize();
         }
 
         public override void Update(GameTime gameTime)
         {
 
-            base.Update(gameTime);
         }
 
-        public override void Draw(GameTime gameTime)
+        public void Draw(GameTime gameTime, RenderTarget2D Render)
         {
-            Renderer.Singleton.batch.Draw(Tex, Position, Color.White);
-            base.Draw(gameTime);
         }
     }
 }

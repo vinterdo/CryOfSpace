@@ -18,19 +18,10 @@ namespace Gra
     public class Ship : Microsoft.Xna.Framework.DrawableGameComponent
     {
         public Hull Hull;
-        //List<Component> Components = new List<Component>();
         //List<Crew> Crew = new List<Crew>();
         //List<Distaster> Distasters = new List<Distaster>();
 
         Texture2D InsideTex;
-
-
-        EnergyConduit[][] EnergyConduits;
-        PlasmaConduit[][] PlasmaConduits;
-        CoolantConduit[][] CoolantConduits;
-        DataConduit[][] DataConduits;
-        OxygenConduit[][] OxygenConduits;
-        AntimaterConduit[][] AntimaterConduits;
 
         public List<Component> Components;
 
@@ -187,9 +178,17 @@ namespace Gra
             InsideView.Position = Vector2.Zero;
 
             InsideView.Draw(gameTime);
-            foreach (Component C in Components)
+            foreach (Slot S in Hull.Slots)
             {
-                C.Draw(gameTime);
+                Rectangle DestRect = new Rectangle((int)S.Position.X - 15, (int)S.Position.Y -15, 30, 30);
+                Renderer.Singleton.batch.Draw(Renderer.Singleton.SlotBackground, DestRect, Color.White);
+
+                if (S.Component != null)
+                {
+                    //S.Component.Anim.Draw(gameTime, 0.0f, S.Component.Position);
+                    Renderer.Singleton.batch.Draw(S.Component.Tex, DestRect, Color.White);
+                }
+                
             }
 
             Renderer.Singleton.batch.End();

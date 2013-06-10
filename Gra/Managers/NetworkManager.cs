@@ -80,8 +80,7 @@ namespace Gra
             }
             catch(Exception e)
             {
-                e = null;
-                
+                Console.Write(e.Message);
             }
         }
 

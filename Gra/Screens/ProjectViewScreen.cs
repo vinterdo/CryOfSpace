@@ -52,6 +52,34 @@ namespace Gra
                         GeneralManager.Singleton.CurrentLevel.Show();
                         GeneralManager.SoundManager.PlaySound("beep");
                     }
+
+
+                    foreach (Slot S in GeneralManager.Singleton.CurrentPlayer.Ship.Hull.Slots)
+                    {
+                        if (new Rectangle((int)S.Position.X - 15 + Renderer.Width / 2 - GeneralManager.Singleton.CurrentPlayer.Ship.Hull.SizeX / 2, (int)S.Position.Y - 15 + Renderer.Height / 2 - GeneralManager.Singleton.CurrentPlayer.Ship.Hull.SizeY / 2, 30, 30).Contains((int)GeneralManager.Singleton.MousePos.X, (int)GeneralManager.Singleton.MousePos.Y))
+                        {
+                            if (Selected != null)
+                            {
+
+                                GeneralManager.SoundManager.PlaySound("beep");
+
+                                if (S.Component != null)
+                                {
+                                    GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(S.Component);
+                                }
+
+                                S.Component = Selected;
+                                GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Remove(Selected);
+                                Selected = null;
+
+                            }
+                            else
+                            {
+                                GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(S.Component);
+                                S.Component = null;
+                            }
+                        }
+                    }
                 }
 
                 if (Rects[0].Contains((int)GeneralManager.Singleton.MousePos.X, (int)GeneralManager.Singleton.MousePos.Y) && GeneralManager.Singleton.CheckLMB())
@@ -103,7 +131,7 @@ namespace Gra
                 {
                     if (Selected != null && Selected.Equals(GeneralManager.Singleton.CurrentPlayer.ComponentsInventory[i]))
                     {
-                        Renderer.Singleton.batch.Draw(GeneralManager.Singleton.CurrentPlayer.ComponentsInventory[i].Tex, new Rectangle((int)(Renderer.Width * 0.056) * (i + 1 - Rewind) - 3, (int)(Renderer.Height * 0.91) - 3, (int)(Renderer.Width * 0.05) + 6, (int)(Renderer.Height * 0.05) + 6) , Color.Red);
+                        Renderer.Singleton.batch.Draw(Renderer.Singleton.SelectedBackground, new Rectangle((int)(Renderer.Width * 0.056) * (i + 1 - Rewind) - 3, (int)(Renderer.Height * 0.91) - 3, (int)(Renderer.Width * 0.05) + 6, (int)(Renderer.Height * 0.05) + 6) , Color.White);
                     }
                     Renderer.Singleton.batch.Draw(GeneralManager.Singleton.CurrentPlayer.ComponentsInventory[i].Tex, new Rectangle((int)(Renderer.Width * 0.056) * (i + 1 - Rewind), (int)(Renderer.Height * 0.91), (int)(Renderer.Width * 0.05), (int)(Renderer.Height * 0.05)), Color.White);
                 }

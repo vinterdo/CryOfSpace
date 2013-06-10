@@ -35,6 +35,8 @@ namespace Gra
         public Texture2D ProjectButton;
         public Texture2D ProjectGUI;
         public Texture2D ProjectViewBackground;
+        public Texture2D SlotBackground;
+        public Texture2D SelectedBackground;
 
         public Texture2D FromVertexToLevelGUI;
 
@@ -82,6 +84,13 @@ namespace Gra
             ProjectButton = Content.Load<Texture2D>("ProjectButton");
             ProjectGUI = Content.Load<Texture2D>("ProjectGUI");
             ProjectViewBackground = Content.Load<Texture2D>("ProjectViewBackground");
+            SlotBackground = Content.Load<Texture2D>("SlotBackground");
+            SelectedBackground = Content.Load<Texture2D>("SelectionBackground");
+
+
+
+            CreateAnimation("Generator", new Vector2(100f, 100f), 1f, 1, Content.Load<Texture2D>("Generator"));
+            CreateAnimation("engine", new Vector2(100, 100), 0.05f, 11, Content.Load<Texture2D>("engine"));
             
         }
 
@@ -106,9 +115,10 @@ namespace Gra
 
         }
 
-        public void CreateAnimation(string name, Vector2 FrameSize, float TimePerFrame, int NoFrames)
+        public void CreateAnimation(string name, Vector2 FrameSize, float TimePerFrame, int NoFrames, Texture2D Tex)
         {
             Animation a = new Animation(Game);
+            a.LoadTex(Tex);
             a.SetProperties(FrameSize, TimePerFrame, NoFrames);
             Animations.Add(name, a);
         }

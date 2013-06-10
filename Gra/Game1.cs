@@ -41,6 +41,8 @@ namespace Gra
             Renderer.Singleton.InitRenderer(this, spriteBatch, Content);
             Renderer.Singleton.LoadContent();
 
+            
+
 
             ScreenManager.Singleton.Initalize(this);
             //GeneralManager.Singleton.CurrentLevel.Hide();
@@ -49,38 +51,10 @@ namespace Gra
             //=============
             ExampleHull = new Hull();
             ExampleHull.Name = "Test";
-            ExampleHull.AtmosphereMask = new bool[10][]{new bool[]{false, false, false, false, false, false, false, false, false, false}, 
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false}};
+            
             ExampleHull.BasicHull = 100.0f;
             ExampleHull.Center = new Vector2(150, 150);
-            ExampleHull.ComponentsMask = new bool[10][]{new bool[]{false, false, false, false, false, false, false, false, false, false}, 
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false}};
-            ExampleHull.ConduitsMask = new bool[10][]{new bool[]{false, false, false, false, false, false, false, false, false, false}, 
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false},
-                                                          new bool[]{false, false, false, false, false, false, false, false, false, false}};
+            
             ExampleHull.ConduitsView = new RawAnimation();
             ExampleHull.Explosion = new RawAnimation();
             ExampleHull.HullBreachs = new List<Vector2>();
@@ -101,9 +75,20 @@ namespace Gra
             ExampleHull.SpeedModifier = 1.0f;
             ExampleHull.Weight = 100.0f;
             ExampleHull.Wreck = new RawAnimation();
-            
+
+            ExampleHull.SlotsNum = 9;
+
 
             ExampleHull.Initialize();
+            ExampleHull.Slots[0].Position = new Vector2(82, 70);
+            ExampleHull.Slots[1].Position = new Vector2(82, 225);
+            ExampleHull.Slots[2].Position = new Vector2(71, 133);
+            ExampleHull.Slots[3].Position = new Vector2(101, 133);
+            ExampleHull.Slots[4].Position = new Vector2(71, 163);
+            ExampleHull.Slots[5].Position = new Vector2(101, 163);
+            ExampleHull.Slots[6].Position = new Vector2(184, 133);
+            ExampleHull.Slots[7].Position = new Vector2(184, 162);
+            ExampleHull.Slots[8].Position = new Vector2(227, 148);
             //ExampleHull.Load("ships/ship.xml");
 
             USSGruz = new Ship(this);
@@ -172,7 +157,7 @@ namespace Gra
                 
             }
 
-            //Renderer.Animations["test"].Draw(gameTime);
+            Renderer.Animations["engine"].Draw(gameTime);
 
 
             spriteBatch.Draw(Renderer.Singleton.CursorTex, GeneralManager.Singleton.MousePos - new Vector2(15, 15), Color.White);

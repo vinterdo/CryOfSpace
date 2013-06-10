@@ -18,14 +18,14 @@ namespace Gra
     public class Hull
     {
 
+        public int SlotsNum = 1;
+        public Slot[] Slots;
 
         public static Dictionary<string, Hull> Hulls = new Dictionary<string,Hull>();
 
         public string Name;
 
-        public bool[][] ConduitsMask;
-        public bool[][] ComponentsMask;
-        public bool[][] AtmosphereMask;
+        //public bool[][] AtmosphereMask;
 
         public float BasicHull;
         public float HullModifier;
@@ -51,6 +51,11 @@ namespace Gra
 
         public void Initialize()
         {
+            Slots = new Slot[SlotsNum];
+            for(int i =0; i < SlotsNum; i++)
+            {
+                Slots[i] = new Slot();
+            }
             Hulls.Add(this.Name, this);
         }
 
@@ -73,11 +78,8 @@ namespace Gra
 
             XmlSerializer serializer = new XmlSerializer(typeof(Hull));
             Hull data = (Hull)serializer.Deserialize(stream);
-            this.ConduitsMask = data.ConduitsMask;
-            this.ComponentsMask = data.ComponentsMask;
             this.Center = data.Center;
             this.BasicHull = data.BasicHull;
-            this.AtmosphereMask = data.AtmosphereMask;
             this.Explosion = data.Explosion;
             this.HullBreachs = data.HullBreachs;
             this.HullModifier = data.HullModifier;
