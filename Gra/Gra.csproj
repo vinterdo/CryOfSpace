@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Level\SpaceStation\SpaceStationMenu.cs" />
     <Compile Include="Level\TradeOptions.cs" />
+    <Compile Include="Ship\Cargo.cs" />
     <Compile Include="Ship\Component.cs" />
     <Compile Include="Ship\Crew.cs" />
     <Compile Include="Ship\Disasters.cs" />
@@ -103,7 +104,7 @@
     <Compile Include="Screens\GameSelectionScreen.cs" />
     <Compile Include="Screens\InGameMenu.cs" />
     <Compile Include="Screens\MainMenu.cs" />
-    <Compile Include="GUI Components\MenuComponent.cs" />
+    <Compile Include="V-API\MenuComponent.cs" />
     <Compile Include="Managers\GeneralManager.cs" />
     <Compile Include="Level\Level.cs" />
     <Compile Include="Packet.cs" />
@@ -121,7 +122,7 @@
     <Compile Include="Ship\Ship.cs" />
     <Compile Include="Managers\SoundManager.cs" />
     <Compile Include="Level\SpaceStation\SpaceStation.cs" />
-    <Compile Include="GUI Components\TextBox.cs" />
+    <Compile Include="V-API\TextBox.cs" />
     <Compile Include="Level\Vertex.cs" />
     <Compile Include="Level\VertexComponent.cs" />
   </ItemGroup>

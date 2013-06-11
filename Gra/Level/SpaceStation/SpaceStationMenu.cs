@@ -16,6 +16,8 @@ namespace Gra
 {
     class SpaceStationMenu : Window
     {
+        public static SpriteFont Font = Renderer.Singleton.Content.Load<SpriteFont>("Font");
+
         public SpaceStationMenu(Game game)
             : base(game, "SpaceStationMenuBG", new Rectangle(Renderer.Width/10, Renderer.Height/10, (Renderer.Width*8)/10,(Renderer.Height*8)/10))
         {
@@ -35,16 +37,27 @@ namespace Gra
 
         public void DrawTrade(TradeOptions Options)
         {
+            int i = 0;
             foreach (BuyOption B in Options.Buy)
             {
-                Rectangle Slot = new Rectangle((int)(Renderer.Width * 1.5 / 10), (int)(Renderer.Height * 1.5 / 10), (int)(Renderer.Width/ 10), (int)(Renderer.Height /10));
+                i++;
+                Rectangle Slot = new Rectangle((int)(Renderer.Width * 1.5 / 10), (int)(10 + Renderer.Height * i / 10), (int)(Renderer.Width/ 10), (int)(Renderer.Height /10));
                 Renderer.Singleton.batch.Draw(Renderer.Singleton.SlotBackground, Slot, Color.White);
+                Renderer.Singleton.batch.Draw(B.Item.Tex, Slot, Color.White);
+                Renderer.Singleton.batch.Draw(Renderer.Singleton.SlotBackground, new Rectangle(Slot.X + Slot.Width * 3 / 4, Slot.Y + Slot.Height * 3 / 4, Slot.Width * 1 / 4, Slot.Height * 1 / 4), Color.White);
+                Renderer.Singleton.batch.DrawString(Font, B.Price.ToString(), new Vector2(Slot.X + Slot.Width * 3 / 4, Slot.Y + Slot.Height * 3 / 4), Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0.0f);
             }
+
+            i = 0;
 
             foreach (SellOption B in Options.Sell)
             {
-                Rectangle Slot = new Rectangle((int)(Renderer.Width * 1.5 / 10), (int)(Renderer.Height * 2.5 / 10), (int)(Renderer.Width / 10), (int)(Renderer.Height / 10));
+                i++;
+                Rectangle Slot = new Rectangle((int)(Renderer.Width * 2.5 / 10), (int)(10 + Renderer.Height * i  / 10), (int)(Renderer.Width / 10), (int)(Renderer.Height / 10));
                 Renderer.Singleton.batch.Draw(Renderer.Singleton.SlotBackground, Slot, Color.White);
+                Renderer.Singleton.batch.Draw(B.Item.Tex, Slot, Color.White);
+                Renderer.Singleton.batch.Draw(Renderer.Singleton.SlotBackground, new Rectangle(Slot.X + Slot.Width * 3 / 4, Slot.Y + Slot.Height * 3 / 4, Slot.Width * 1 / 4, Slot.Height * 1 / 4), Color.White);
+                Renderer.Singleton.batch.DrawString(Font, B.Price.ToString(), new Vector2(Slot.X + Slot.Width * 3 / 4, Slot.Y + Slot.Height * 3 / 4), Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0.0f);
             }
         }
     }

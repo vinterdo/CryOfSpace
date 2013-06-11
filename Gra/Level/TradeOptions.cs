@@ -35,8 +35,8 @@ namespace Gra
             this.Price = Price;
         }
 
-        Component Item;
-        int Price;
+        public Component Item;
+        public int Price;
     }
 
     class SellOption
@@ -47,8 +47,8 @@ namespace Gra
             this.Price = Price;
         }
 
-        Component Item;
-        int Price;
+        public Component Item;
+        public int Price;
     }
 
 }

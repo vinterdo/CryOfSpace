@@ -17,6 +17,8 @@ namespace Gra
     [Serializable]
     public class Vertex:DrawableGameComponent,ICloneable
     {
+        public static bool MinimapEnabled = true;
+
         public Vector2 Position;
         public Texture2D Tex;
         SpriteBatch spriteBatch;
@@ -271,7 +273,27 @@ namespace Gra
 
         public void DrawMinimap()
         {
-            spriteBatch.Draw(Renderer.Singleton.MinimapOverlay, new Rectangle(Renderer.Width * 8 / 10, 0, Renderer.Width * 2 / 10, Renderer.Height * 2 / 10), Color.White);
+            if (MinimapEnabled)
+            {
+                int SizeX = Renderer.Width * 2 / 10;
+                int SizeY = Renderer.Height * 2 / 10;
+
+                spriteBatch.Draw(Renderer.Singleton.MinimapBackground, new Rectangle((int)(Renderer.Width * 0.8), 0, SizeX, SizeY), Color.White);
+
+
+                foreach (VertexComponent C in Components)
+                {
+                    spriteBatch.Draw(Renderer.Singleton.IndicatorRed, new Vector2(Renderer.Width * 0.8f, 0) + C.Position / Size * new Vector2(SizeX, SizeY), Color.White);
+                }
+
+                foreach (Ship S in Ships)
+                {
+                    spriteBatch.Draw(Renderer.Singleton.IndicatorGreen, new Vector2(Renderer.Width * 0.8f, 0) + S.Position / Size * new Vector2(SizeX, SizeY), Color.White);
+
+                }
+
+                spriteBatch.Draw(Renderer.Singleton.MinimapOverlay, new Rectangle((int)(Renderer.Width * 0.8), 0, SizeX, SizeY), Color.White);
+            }
         }
     }
 }

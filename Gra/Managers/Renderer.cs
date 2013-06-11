@@ -39,6 +39,9 @@ namespace Gra
         public Texture2D SelectedBackground;
         public Texture2D SpaceStationMenuBG;
         public Texture2D MinimapOverlay;
+        public Texture2D IndicatorRed;
+        public Texture2D IndicatorGreen;
+        public Texture2D MinimapBackground;
 
         public Texture2D FromVertexToLevelGUI;
 
@@ -90,6 +93,10 @@ namespace Gra
             SelectedBackground = Content.Load<Texture2D>("SelectionBackground");
             SpaceStationMenuBG = Content.Load<Texture2D>("SpaceStationMenu");
             MinimapOverlay = Content.Load<Texture2D>("MinimapOverlay");
+            IndicatorRed = Content.Load<Texture2D>("IndicatorRed");
+            IndicatorGreen = Content.Load<Texture2D>("IndicatorGreen");
+            MinimapBackground = Content.Load<Texture2D>("MinimapBackground");
+            
             
         }
 

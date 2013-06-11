@@ -219,10 +219,10 @@ namespace Gra
                     Station.Initialize();
                     Station.Position = new Vector2(GeneralManager.Singleton.GetRandom() % 3000 + 1000, GeneralManager.Singleton.GetRandom() % 3000 + 1000);
 
-                    if (GeneralManager.Singleton.GetRandom() % 3 == 0) Station.TradeOptions.AddBuyOption(new BuyOption(new Engine(Game), 50));
-                    if (GeneralManager.Singleton.GetRandom() % 3 == 0) Station.TradeOptions.AddBuyOption(new BuyOption(new Generator(Game), 150));
-                    if (GeneralManager.Singleton.GetRandom() % 3 == 0) Station.TradeOptions.AddSellOption(new SellOption(new Engine(Game), 60));
-                    if (GeneralManager.Singleton.GetRandom() % 3 == 0) Station.TradeOptions.AddSellOption(new SellOption(new Generator(Game), 180));
+                    if (GeneralManager.Singleton.GetRandom() % 2 == 0) Station.TradeOptions.AddBuyOption(new BuyOption(new Engine(Game), 50));
+                    if (GeneralManager.Singleton.GetRandom() % 2 == 0) Station.TradeOptions.AddBuyOption(new BuyOption(new Generator(Game), 150));
+                    if (GeneralManager.Singleton.GetRandom() % 2 == 0) Station.TradeOptions.AddSellOption(new SellOption(new Engine(Game), 60));
+                    if (GeneralManager.Singleton.GetRandom() % 2 == 0) Station.TradeOptions.AddSellOption(new SellOption(new Generator(Game), 180));
                     
                     v.Components.Add(Station);
                 }
@@ -298,8 +298,8 @@ namespace Gra
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(game));
+            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Cargo(game));
+            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Cargo(game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(game));

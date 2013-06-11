@@ -38,6 +38,7 @@ namespace Gra
             {
                 if (GeneralManager.Singleton.CheckCollision(GeneralManager.Singleton.MousePos, GetRect()))
                 {
+                    //Vertex.MinimapEnabled = !Vertex.MinimapEnabled;
                     OnClick();
                 }
             }
