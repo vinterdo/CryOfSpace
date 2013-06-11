@@ -21,7 +21,9 @@ namespace Gra
         Hull ExampleHull;
         Ship USSGruz;
 
-        
+
+        Text Test;
+
         
         public Game1()
         {
@@ -96,6 +98,11 @@ namespace Gra
             USSGruz.Initialize();
             //=============
 
+            Test = new Text(this);
+            Test.Rect = new Rectangle(10, 10, 100, 30);
+            Test.Name = "Doooopaaaaa";
+            Test.Font = Content.Load<SpriteFont>("Font");
+
             
         }
 
@@ -160,6 +167,9 @@ namespace Gra
 
 
             spriteBatch.Draw(Renderer.Singleton.CursorTex, GeneralManager.Singleton.MousePos - new Vector2(15, 15), Color.White);
+
+            Test.Draw(gameTime);
+
             spriteBatch.End();
 
 
