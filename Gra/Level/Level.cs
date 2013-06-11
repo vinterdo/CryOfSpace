@@ -209,6 +209,8 @@ namespace Gra
 
             for (int i = 0; i < VertexNumber; i++)
             {
+                // Vertex generation
+
                 Vertex v = CreateVertex(this.game, new Vector2(GeneralManager.Singleton.GetRandom() % 500+ 10.0f, GeneralManager.Singleton.GetRandom() % 500+10.0f), Renderer.Singleton.Content.Load<Texture2D>("indicator"));
 
                 if (GeneralManager.Singleton.GetRandom() % 3 == 0)
@@ -216,8 +218,16 @@ namespace Gra
                     SpaceStationComponent Station = new SpaceStationComponent(game);
                     Station.Initialize();
                     Station.Position = new Vector2(GeneralManager.Singleton.GetRandom() % 3000 + 1000, GeneralManager.Singleton.GetRandom() % 3000 + 1000);
+
+                    if (GeneralManager.Singleton.GetRandom() % 3 == 0) Station.TradeOptions.AddBuyOption(new BuyOption(new Engine(Game), 50));
+                    if (GeneralManager.Singleton.GetRandom() % 3 == 0) Station.TradeOptions.AddBuyOption(new BuyOption(new Generator(Game), 150));
+                    if (GeneralManager.Singleton.GetRandom() % 3 == 0) Station.TradeOptions.AddSellOption(new SellOption(new Engine(Game), 60));
+                    if (GeneralManager.Singleton.GetRandom() % 3 == 0) Station.TradeOptions.AddSellOption(new SellOption(new Generator(Game), 180));
+                    
                     v.Components.Add(Station);
                 }
+
+                //========================
 
                 if (i == 0)
                 {

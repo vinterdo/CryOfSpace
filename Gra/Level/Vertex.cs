@@ -198,6 +198,7 @@ namespace Gra
                 }
                 
                 spriteBatch.Draw(Renderer.Singleton.FromVertexToLevelGUI, Vector2.Zero, Color.White);
+                DrawMinimap();
             }
         }
 
@@ -266,6 +267,11 @@ namespace Gra
                     base.Update(gameTime);
                 }
             }
+        }
+
+        public void DrawMinimap()
+        {
+            spriteBatch.Draw(Renderer.Singleton.MinimapOverlay, new Rectangle(Renderer.Width * 8 / 10, 0, Renderer.Width * 2 / 10, Renderer.Height * 2 / 10), Color.White);
         }
     }
 }

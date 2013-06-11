@@ -38,6 +38,7 @@ namespace Gra
         public Texture2D SlotBackground;
         public Texture2D SelectedBackground;
         public Texture2D SpaceStationMenuBG;
+        public Texture2D MinimapOverlay;
 
         public Texture2D FromVertexToLevelGUI;
 
@@ -88,6 +89,7 @@ namespace Gra
             SlotBackground = Content.Load<Texture2D>("SlotBackground");
             SelectedBackground = Content.Load<Texture2D>("SelectionBackground");
             SpaceStationMenuBG = Content.Load<Texture2D>("SpaceStationMenu");
+            MinimapOverlay = Content.Load<Texture2D>("MinimapOverlay");
             
         }
 
