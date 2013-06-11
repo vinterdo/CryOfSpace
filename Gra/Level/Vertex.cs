@@ -47,10 +47,8 @@ namespace Gra
             Connections = new List<Vertex>();
             Components = new List<VertexComponent>();
 
-            SpaceStationComponent Station = new SpaceStationComponent(game);
-            Station.Initialize();
-            Station.Position = Vector2.One * 1000;
-            Components.Add(Station);
+            
+            
 
         }
 

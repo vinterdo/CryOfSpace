@@ -101,23 +101,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="lensflare1.png">
-      <Name>lensflare1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="lensflare2.png">
-      <Name>lensflare2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="lensflare3.png">
-      <Name>lensflare3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="MainMenuLight.png">
       <Name>MainMenuLight</Name>
       <Importer>TextureImporter</Importer>
@@ -293,6 +276,13 @@
   <ItemGroup>
     <Compile Include="SelectionBackground.png">
       <Name>SelectionBackground</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SpaceStationMenu.png">
+      <Name>SpaceStationMenu</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

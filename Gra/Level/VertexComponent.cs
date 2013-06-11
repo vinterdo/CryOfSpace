@@ -50,5 +50,10 @@ namespace Gra
         {
             DrawPosition = Position - Offset;
         }
+
+        public Rectangle GetRect()
+        {
+            return new Rectangle((int)DrawPosition.X - Tex.Width / 2, (int)DrawPosition.Y - Tex.Height/2, (int)Tex.Width, (int)Tex.Height);
+        }
     }
 }

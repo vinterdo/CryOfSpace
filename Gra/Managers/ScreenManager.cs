@@ -65,6 +65,7 @@ namespace Gra
             IpSelectionScreen.Initialize();
             ProjectView = new ProjectViewScreen(game, Renderer.Singleton.batch);
             ProjectView.Initialize();
+
         }
     }
 }

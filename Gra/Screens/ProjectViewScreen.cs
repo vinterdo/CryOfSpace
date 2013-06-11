@@ -133,7 +133,7 @@ namespace Gra
                     {
                         Renderer.Singleton.batch.Draw(Renderer.Singleton.SelectedBackground, new Rectangle((int)(Renderer.Width * 0.056) * (i + 1 - Rewind) - 3, (int)(Renderer.Height * 0.91) - 3, (int)(Renderer.Width * 0.05) + 6, (int)(Renderer.Height * 0.05) + 6) , Color.White);
                     }
-                    Renderer.Singleton.batch.Draw(GeneralManager.Singleton.CurrentPlayer.ComponentsInventory[i].Tex, new Rectangle((int)(Renderer.Width * 0.056) * (i + 1 - Rewind), (int)(Renderer.Height * 0.91), (int)(Renderer.Width * 0.05), (int)(Renderer.Height * 0.05)), Color.White);
+                    Renderer.Singleton.batch.Draw(GeneralManager.Singleton.CurrentPlayer.ComponentsInventory[i].Tex, new Rectangle((int)(Renderer.Width * 0.056) * (i + 1 - Rewind), (int)(Renderer.Height * 0.91), (int)(Renderer.Width * 0.05), (int)(Renderer.Height * 0.05)), Color.White);// Coœ tu jest nie tak (wtf)
                 }
 
 

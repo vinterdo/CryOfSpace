@@ -7,9 +7,6 @@ Content\PlayerIndicator.xnb
 Content\SpaceBackground1.xnb
 Content\ShipIndicator.xnb
 Content\view system gui.xnb
-Content\lensflare1.xnb
-Content\lensflare2.xnb
-Content\lensflare3.xnb
 Content\MainMenuLight.xnb
 Content\MainMenuBackground.xnb
 Content\MainMenuForeground.xnb
@@ -36,3 +33,4 @@ Content\Generator.xnb
 Content\SlotBackground.xnb
 Content\engine anim.xnb
 Content\SelectionBackground.xnb
+Content\SpaceStationMenu.xnb

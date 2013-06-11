@@ -157,7 +157,6 @@ namespace Gra
                 
             }
 
-            Renderer.Animations["engine"].Draw(gameTime);
 
 
             spriteBatch.Draw(Renderer.Singleton.CursorTex, GeneralManager.Singleton.MousePos - new Vector2(15, 15), Color.White);

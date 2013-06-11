@@ -37,6 +37,7 @@ namespace Gra
         public Texture2D ProjectViewBackground;
         public Texture2D SlotBackground;
         public Texture2D SelectedBackground;
+        public Texture2D SpaceStationMenuBG;
 
         public Texture2D FromVertexToLevelGUI;
 
@@ -86,11 +87,7 @@ namespace Gra
             ProjectViewBackground = Content.Load<Texture2D>("ProjectViewBackground");
             SlotBackground = Content.Load<Texture2D>("SlotBackground");
             SelectedBackground = Content.Load<Texture2D>("SelectionBackground");
-
-
-
-            CreateAnimation("Generator", new Vector2(100f, 100f), 1f, 1, Content.Load<Texture2D>("Generator"));
-            CreateAnimation("engine", new Vector2(100, 100), 0.05f, 11, Content.Load<Texture2D>("engine"));
+            SpaceStationMenuBG = Content.Load<Texture2D>("SpaceStationMenu");
             
         }
 

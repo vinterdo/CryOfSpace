@@ -211,6 +211,14 @@ namespace Gra
             {
                 Vertex v = CreateVertex(this.game, new Vector2(GeneralManager.Singleton.GetRandom() % 500+ 10.0f, GeneralManager.Singleton.GetRandom() % 500+10.0f), Renderer.Singleton.Content.Load<Texture2D>("indicator"));
 
+                if (GeneralManager.Singleton.GetRandom() % 3 == 0)
+                {
+                    SpaceStationComponent Station = new SpaceStationComponent(game);
+                    Station.Initialize();
+                    Station.Position = new Vector2(GeneralManager.Singleton.GetRandom() % 3000 + 1000, GeneralManager.Singleton.GetRandom() % 3000 + 1000);
+                    v.Components.Add(Station);
+                }
+
                 if (i == 0)
                 {
                     GeneralManager.Players["test"].Ship.Position = new Vector2(2000, 2000);
