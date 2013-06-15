@@ -54,6 +54,8 @@ namespace Gra
         public void Initalize(Game game)
         {
             MainMenu = new MainMenu(game, Renderer.Singleton.batch);
+            MainMenu.Fade = 1f;
+            MainMenu.ScreenState = GameScreen.State.FadeIn;
             MainMenu.Initialize();
             SelectionScreen = new GameSelectionScreen(game, Renderer.Singleton.batch);
             SelectionScreen.Initialize();

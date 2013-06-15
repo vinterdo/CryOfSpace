@@ -43,6 +43,7 @@ namespace Gra
         public Texture2D IndicatorGreen;
         public Texture2D MinimapBackground;
         public Texture2D MoneyBackground;
+        public Texture2D ConnectionTex;
 
         public Texture2D FromVertexToLevelGUI;
 
@@ -76,6 +77,7 @@ namespace Gra
         public void LoadContent()
         {
             this.Blank = Content.Load<Texture2D>("Blank");
+            ConnectionTex = Content.Load<Texture2D>("Connection");
             this.Background1 = Content.Load<Texture2D>("BackgroundVertex");
             this.Background2 = Content.Load<Texture2D>("hud");
             PlayerIndicator = Content.Load<Texture2D>("PlayerIndicator");
@@ -107,7 +109,7 @@ namespace Gra
             float angle = (float)Math.Atan2(to.Y - from.Y, to.X - from.X);
             float length = Vector2.Distance(from, to);
 
-            batch.Draw(Blank, from, null, color,
+            batch.Draw(ConnectionTex, from, null, color,
                        angle, Vector2.Zero, new Vector2(length/10, width),
                        SpriteEffects.None, 1);
         }

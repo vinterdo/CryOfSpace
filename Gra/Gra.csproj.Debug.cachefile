@@ -1,5 +1,4 @@
 Content\indicator.xnb
-Content\Blank.xnb
 Content\Font.xnb
 Content\TextBox.xnb
 Content\ship2.xnb
@@ -40,3 +39,5 @@ Content\IndicatorGreen.xnb
 Content\MinimapBackground.xnb
 Content\Cargo.xnb
 Content\MoneyBackground.xnb
+Content\Connection.xnb
+Content\Blank.xnb

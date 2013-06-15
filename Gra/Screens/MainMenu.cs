@@ -27,6 +27,8 @@ namespace Gra
         Texture2D BackgroundLight;
         Vector2 BackgroundPos = new Vector2(0,0);
 
+        
+
         public override void Initialize()
         {
             Menu = new MenuComponent(Game, spriteBatch, Renderer.Singleton.Content.Load<SpriteFont>("Font"), new string[] { "SinglePlayer", "MultiPlayer", "Quit Game" });
@@ -41,13 +43,16 @@ namespace Gra
             if (Visible)
             {
                 
+                
                 if (Menu.IsEnterPressed)
                 {
                     switch (Menu.SelectedIndex)
                     {
                         case 0:
-                            this.Visible = false;
-                            ScreenManager.Singleton.SelectionScreen.Visible = true;
+                            //this.Visible = false;
+                            Target = ScreenManager.Singleton.SelectionScreen;
+                            ScreenState = State.FadeOut;
+                            //ScreenManager.Singleton.SelectionScreen.Visible = true;
                             break;
                         case 1:
                             this.Visible = false;

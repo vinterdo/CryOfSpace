@@ -21,6 +21,22 @@ namespace Gra
         protected Game game;
         protected SpriteBatch spriteBatch;
 
+        public enum State
+        {
+            FadeIn,
+            FadeOut,
+            Normal
+        }
+        public float Fade = 0f;
+        public State ScreenState = State.Normal;
+        public Color FadeColor = Color.Black;
+
+        public bool FadeOutFinished = false;
+        public bool FadeInFinished = false;
+
+        public GameScreen Target;
+
+
         public List<DrawableGameComponent> Components
         {
             get { return components; }
@@ -45,15 +61,55 @@ namespace Gra
             foreach (GameComponent component in components)
                 if (component.Enabled == true)
                     component.Update(gameTime);
+
+            if (FadeOutFinished)
+                FadeOutFinished = false;
+            if (FadeInFinished)
+                FadeInFinished = false;
+
+            if (ScreenState == State.FadeIn)
+            {
+                Fade -= 0.02f;
+                if (Fade <= 0)
+                {
+                    Fade = 0;
+                    ScreenState = State.Normal;
+                    FadeInFinished = true;
+                }
+            }
+
+            if (ScreenState == State.FadeOut)
+            {
+                Fade += 0.02f;
+                if (Fade >= 1)
+                {
+                    Fade = 1;
+                    ScreenState = State.Normal;
+                    FadeOutFinished = true;
+                }
+            }
+
+            if (FadeOutFinished && Target!= null)
+            {
+                this.Visible = false;
+                Target.Visible = true;
+                Target.ScreenState = State.FadeIn;
+                Target.Fade = 1f;
+            }
+
         }
  
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
             foreach (GameComponent component in components)
+            {
                 if (component is DrawableGameComponent &&
-                    ((DrawableGameComponent) component).Visible)
-                    ((DrawableGameComponent) component).Draw(gameTime);
+                    ((DrawableGameComponent)component).Visible)
+                    ((DrawableGameComponent)component).Draw(gameTime);
+            }
+
+            Renderer.Singleton.batch.Draw(Renderer.Singleton.SlotBackground, new Rectangle(0, 0, Renderer.Width, Renderer.Height), new Color(FadeColor, Fade));
         }
 
         public virtual void Show()
