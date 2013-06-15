@@ -44,7 +44,13 @@ namespace Gra
             }
             Angle += gameTime.ElapsedGameTime.Milliseconds / 10000.0f;
 
-            Menu.Update(gameTime, TradeOptions);
+            if(GeneralManager.Singleton.CurrentVertex != null)
+            {
+                if (GeneralManager.Singleton.CurrentVertex.Components.Contains(this))
+                {
+                    Menu.Update(gameTime, TradeOptions);
+                }
+            }
 
             base.Update(gameTime);
 
