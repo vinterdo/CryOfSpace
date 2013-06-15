@@ -86,12 +86,12 @@
   <ItemGroup>
     <Compile Include="Level\SpaceStation\SpaceStationMenu.cs" />
     <Compile Include="Level\TradeOptions.cs" />
-    <Compile Include="Ship\Cargo.cs" />
+    <Compile Include="Ship\Components\Cargo.cs" />
     <Compile Include="Ship\Component.cs" />
     <Compile Include="Ship\Crew.cs" />
     <Compile Include="Ship\Disasters.cs" />
-    <Compile Include="Ship\Engine.cs" />
-    <Compile Include="Ship\Generator.cs" />
+    <Compile Include="Ship\Components\Engine.cs" />
+    <Compile Include="Ship\Components\Generator.cs" />
     <Compile Include="Ship\Hull.cs" />
     <Compile Include="Screens\IpSelectionScreen.cs" />
     <Compile Include="Level\LevelPacket.cs" />

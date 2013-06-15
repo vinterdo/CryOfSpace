@@ -17,6 +17,7 @@ namespace Gra
     {
         public List<Component> ComponentsInventory;
         public Ship Ship;
+        public int Money= 100;
 
         public Player()
         {

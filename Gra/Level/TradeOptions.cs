@@ -27,7 +27,7 @@ namespace Gra
         }
     }
 
-    class BuyOption
+    class BuyOption : Option
     {
         public BuyOption(Component Item, int Price)
         {
@@ -35,11 +35,18 @@ namespace Gra
             this.Price = Price;
         }
 
-        public Component Item;
-        public int Price;
+        public override void OnClick()
+        {
+            if (GeneralManager.Singleton.CurrentPlayer.Money >= Price)
+            {
+                GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(Item);
+                GeneralManager.Singleton.CurrentPlayer.Money -= Price;
+                
+            }
+        }
     }
 
-    class SellOption
+    class SellOption: Option
     {
         public SellOption(Component Item, int Price)
         {
@@ -47,8 +54,29 @@ namespace Gra
             this.Price = Price;
         }
 
+        public override void OnClick()
+        {
+            foreach (Component C in GeneralManager.Singleton.CurrentPlayer.ComponentsInventory)
+            {
+                
+                if (C.Name == Item.Name)
+                {
+                    GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Remove(C);
+                    GeneralManager.Singleton.CurrentPlayer.Money += Price;
+                    break;
+                }
+            }
+            
+        }
+
+    }
+
+    abstract class Option
+    {
         public Component Item;
         public int Price;
+
+        public abstract void OnClick();
     }
 
 }

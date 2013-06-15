@@ -19,6 +19,8 @@ namespace Gra
         public Vector2 Position;
         public Vector2 Size = Vector2.One;
         public Texture2D Tex;
+
+        public string Name;
         //public Animation Anim;
 
         public Component(Game game)

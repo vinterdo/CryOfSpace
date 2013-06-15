@@ -78,10 +78,13 @@ namespace Gra
                                     // FlyTo Button
                                     if (!(V.Equals(GeneralManager.Singleton.CurrentPlayer.Ship.CurrentVertex)) && GeneralManager.Singleton.CurrentPlayer.Ship.State == Ship.ShipState.InVertex && (new Rectangle((int)(ScreenPosition.X - Renderer.Width * 0.1), (int)(ScreenPosition.Y + Renderer.Height * 0.06f), (int)(Renderer.Width * 0.1) + 15, (int)(Renderer.Height * 0.03))).Contains(MousePoint))
                                     {
-                                        IsLMBFound = true;
-                                        GeneralManager.Singleton.CurrentPlayer.Ship.FlyTo(V);
-                                        V.IsMenuOpened = false;
-                                        GeneralManager.SoundManager.PlaySound("beep");
+                                        if (V.CheckFlightAbility())
+                                        {
+                                            IsLMBFound = true;
+                                            GeneralManager.Singleton.CurrentPlayer.Ship.FlyTo(V);
+                                            V.IsMenuOpened = false;
+                                            GeneralManager.SoundManager.PlaySound("beep");
+                                        }
                                     }
                                 }
                                 else
@@ -99,10 +102,13 @@ namespace Gra
                                     // FlyTo Button
                                     if (!(V.Equals(GeneralManager.Singleton.CurrentPlayer.Ship.CurrentVertex)) && GeneralManager.Singleton.CurrentPlayer.Ship.State == Ship.ShipState.InVertex && (new Rectangle((int)(ScreenPosition.X - Renderer.Width * 0.1), (int)(ScreenPosition.Y - (Renderer.Width * 0.1) - 15 + Renderer.Height * 0.06f), (int)(Renderer.Width * 0.1) + 15, (int)(Renderer.Height * 0.03))).Contains(MousePoint))
                                     {
-                                        IsLMBFound = true;
-                                        GeneralManager.Singleton.CurrentPlayer.Ship.FlyTo(V);
-                                        V.IsMenuOpened = false;
-                                        GeneralManager.SoundManager.PlaySound("beep");
+                                        if (V.CheckFlightAbility())
+                                        {
+                                            IsLMBFound = true;
+                                            GeneralManager.Singleton.CurrentPlayer.Ship.FlyTo(V);
+                                            V.IsMenuOpened = false;
+                                            GeneralManager.SoundManager.PlaySound("beep");
+                                        }
                                     }
                                 }
                             }

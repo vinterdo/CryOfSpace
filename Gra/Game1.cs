@@ -154,6 +154,7 @@ namespace Gra
                         spriteBatch.End();
                         spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
                         GeneralManager.Singleton.CurrentLevel.Draw(gameTime);
+                        Renderer.Singleton.DrawMoney();
                         spriteBatch.End();
                         spriteBatch.Begin(SpriteBlendMode.AlphaBlend);
                         break;

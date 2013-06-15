@@ -42,6 +42,7 @@ namespace Gra
         public Texture2D IndicatorRed;
         public Texture2D IndicatorGreen;
         public Texture2D MinimapBackground;
+        public Texture2D MoneyBackground;
 
         public Texture2D FromVertexToLevelGUI;
 
@@ -96,6 +97,7 @@ namespace Gra
             IndicatorRed = Content.Load<Texture2D>("IndicatorRed");
             IndicatorGreen = Content.Load<Texture2D>("IndicatorGreen");
             MinimapBackground = Content.Load<Texture2D>("MinimapBackground");
+            MoneyBackground = Content.Load<Texture2D>("MoneyBackground");
             
             
         }
@@ -135,6 +137,18 @@ namespace Gra
             {
                 a.Value.Update(gameTime);
             }
+        }
+
+        public void DrawMoney()
+        {
+            Rectangle Rect = new Rectangle((int)(Width * 0.4), 0, (int)(Width * 0.2), (int)(Height * 0.1));
+            batch.Draw(MoneyBackground, Rect, Color.White);
+            Text Money = new Text(Game);
+            Money.Rect = Rect;
+            Money.Font = Content.Load<SpriteFont>("Font");
+            Money.Name = GeneralManager.Singleton.CurrentPlayer.Money.ToString();
+            Money.Draw(null);
+
         }
     }
 }

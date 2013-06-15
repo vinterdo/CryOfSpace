@@ -14,17 +14,15 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
-    /// <summary>
-    /// This is a game component that implements IUpdateable.
-    /// </summary>
-    public class Engine : Component
+    public class Cargo : Component
     {
         
-        public Engine(Game game)
+
+        public Cargo(Game game)
             : base(game)
         {
-            Tex = Renderer.Singleton.Content.Load<Texture2D>("Engine");
-            //Anim = Renderer.Animations["engine"];
+            Tex = Renderer.Singleton.Content.Load<Texture2D>("Cargo");
+            Name = "Cargo";
         }
 
         public override void Initialize()

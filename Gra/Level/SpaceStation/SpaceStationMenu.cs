@@ -29,8 +29,35 @@ namespace Gra
             base.Initialize();
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, TradeOptions Options)
         {
+            int i = 0;
+            foreach (BuyOption B in Options.Buy)
+            {
+                i++;
+                Rectangle Slot = new Rectangle((int)(Renderer.Width * 1.5 / 10), (int)(10 + Renderer.Height * i / 10), (int)(Renderer.Width / 10), (int)(Renderer.Height / 10));
+                if (GeneralManager.Singleton.CheckLMB() && GeneralManager.Singleton.CheckCollision(GeneralManager.Singleton.MousePos, Slot))
+                {
+                    B.OnClick();
+                    Options.Buy.Remove(B);
+                    break;
+                }
+            }
+
+            i = 0;
+
+            foreach (SellOption B in Options.Sell)
+            {
+                i++;
+                Rectangle Slot = new Rectangle((int)(Renderer.Width * 2.5 / 10), (int)(10 + Renderer.Height * i / 10), (int)(Renderer.Width / 10), (int)(Renderer.Height / 10));
+                if (GeneralManager.Singleton.CheckLMB() && GeneralManager.Singleton.CheckCollision(GeneralManager.Singleton.MousePos, Slot))
+                {
+                    B.OnClick();
+                    Options.Sell.Remove(B);
+                    break;
+                }
+            }
+
 
             base.Update(gameTime);
         }

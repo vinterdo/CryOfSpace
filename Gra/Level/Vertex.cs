@@ -68,6 +68,24 @@ namespace Gra
             base.Draw(gameTime);
         }
 
+
+        public bool CheckFlightAbility()
+        {
+            bool HasConnection = false;
+
+            if (!(this.Equals(GeneralManager.Singleton.CurrentPlayer.Ship.CurrentVertex)) && GeneralManager.Singleton.CurrentPlayer.Ship.State == Ship.ShipState.InVertex)
+            {
+                
+                foreach (Vertex V in Connections)
+                {
+                    if (V.Equals(GeneralManager.Singleton.CurrentPlayer.Ship.CurrentVertex)) HasConnection = true;
+                }
+                
+            }
+
+            return HasConnection;
+        }
+
         public void DrawMenu(GameTime gameTime)
         {
             Vector2 ScreenPosition = (Position) * new Vector2((float)(Renderer.Width * 0.6) / 500, (float)(Renderer.Height * 0.6) / 500) - new Vector2(15, 15) + new Vector2((float)Renderer.Width * 0.2f, (float)Renderer.Height * 0.2f) + new Vector2(15,15);
@@ -80,18 +98,12 @@ namespace Gra
                     spriteBatch.Draw(Renderer.Singleton.VertexMenuBackground, new Rectangle((int)(ScreenPosition.X - Renderer.Width * 0.1), (int)ScreenPosition.Y, (int)(Renderer.Width * 0.1) + 15, (int)(Renderer.Height * 0.2)), null, Color.White, 0.0f, Vector2.One, SpriteEffects.None, 0.4f);
                     // View Button
                     spriteBatch.Draw(Renderer.Singleton.ViewVertexButton,new Rectangle((int)(ScreenPosition.X - Renderer.Width * 0.1), (int)(ScreenPosition.Y + Renderer.Height * 0.03f), (int)(Renderer.Width * 0.1) + 15, (int)(Renderer.Height * 0.03)), null, Color.White, 0.0f, Vector2.One, SpriteEffects.None, 0.3f);
-                    if (!(this.Equals(GeneralManager.Singleton.CurrentPlayer.Ship.CurrentVertex)) && GeneralManager.Singleton.CurrentPlayer.Ship.State == Ship.ShipState.InVertex)
-                    {
-                        bool HasConnection = false;
-                        foreach (Vertex V in Connections)
-                        {
-                            if (V.Equals(GeneralManager.Singleton.CurrentPlayer.Ship.CurrentVertex)) HasConnection = true;
-                        }
-                        if (HasConnection) // ad connection chceck
+                    
+                        if (CheckFlightAbility()) // ad connection chceck
                         {
                             spriteBatch.Draw(Renderer.Singleton.FlyToVertexButton, new Rectangle((int)(ScreenPosition.X - Renderer.Width * 0.1), (int)(ScreenPosition.Y + Renderer.Height * 0.06f), (int)(Renderer.Width * 0.1) + 15, (int)(Renderer.Height * 0.03)), null, Color.White, 0.0f, Vector2.One, SpriteEffects.None, 0.3f);
                         }
-                    }
+                    
                 }
                 else
                 {
@@ -201,6 +213,7 @@ namespace Gra
                 
                 spriteBatch.Draw(Renderer.Singleton.FromVertexToLevelGUI, Vector2.Zero, Color.White);
                 DrawMinimap();
+                Renderer.Singleton.DrawMoney();
             }
         }
 

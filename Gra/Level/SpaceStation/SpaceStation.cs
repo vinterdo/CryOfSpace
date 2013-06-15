@@ -43,6 +43,9 @@ namespace Gra
                 }
             }
             Angle += gameTime.ElapsedGameTime.Milliseconds / 10000.0f;
+
+            Menu.Update(gameTime, TradeOptions);
+
             base.Update(gameTime);
 
         }
