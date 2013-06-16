@@ -71,6 +71,7 @@ namespace Gra
                                     {
                                         IsLMBFound = true;
                                         V.IsMenuOpened = false;
+                                        
                                         GeneralManager.SoundManager.PlaySound("beep");
                                         GeneralManager.Singleton.CurrentVertex = C as Vertex;
                                         GeneralManager.Singleton.GameState = 2;
@@ -136,18 +137,24 @@ namespace Gra
                 }
                 if (GeneralManager.Singleton.CheckKey(Keys.Escape))
                 {
-                    this.Hide();
-                    ScreenManager.Singleton.InGameMenu.Visible = true;
+                    //this.Hide();
+                    //ScreenManager.Singleton.InGameMenu.Visible = true;
+                    ScreenState = State.FadeOut;
+                    Fade = 0;
+                    Target = ScreenManager.Singleton.InGameMenu;
                 }
 
-                
+
                 base.Update(gameTime);
-            }
-            
-            foreach (DrawableGameComponent C in Components)
+                if (FadeOutFinished)
+                    Visible = false;
+
+
+                /*foreach (DrawableGameComponent C in Components)
                 {
                     C.Update(gameTime);
-                }
+                }*/
+            }
         }
 
         public override void Show()

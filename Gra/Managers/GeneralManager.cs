@@ -65,6 +65,19 @@ namespace Gra
                 P.Value.Update(gameTime);
             }
 
+            if(IsLevelInitalized)
+            {
+                foreach (DrawableGameComponent C in CurrentLevel.Components)
+                {
+                    if (C is Vertex)
+                    {
+                        Vertex Vert = C as Vertex;
+                        Vert.Update(gameTime);
+
+                    }
+                }
+            }
+
             if(IsLevelInitalized) CurrentLevel.Update(gameTime);
             oldKeyboardState = keyboardState;
             keyboardState = Keyboard.GetState();

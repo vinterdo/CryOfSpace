@@ -247,7 +247,6 @@ namespace Gra
                         GeneralManager.Singleton.GameState = 1;
                         GeneralManager.SoundManager.PlaySound("beep");
 
-
                     }
 
                     if (GeneralManager.Singleton.MousePos.X < 100 && Camera.X > 0)

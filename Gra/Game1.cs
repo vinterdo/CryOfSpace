@@ -21,9 +21,6 @@ namespace Gra
         Hull ExampleHull;
         Ship USSGruz;
 
-
-        Text Test;
-
         
         public Game1()
         {
@@ -98,12 +95,6 @@ namespace Gra
             USSGruz.Initialize();
             //=============
 
-            Test = new Text(this);
-            Test.Rect = new Rectangle(10, 10, 100, 30);
-            Test.Name = "Doooopaaaaa";
-            Test.Font = Content.Load<SpriteFont>("Font");
-
-            
         }
 
         protected override void LoadContent()
@@ -150,10 +141,13 @@ namespace Gra
                 switch (GeneralManager.Singleton.GameState)
                 {
                     case 1:
+                        if (GeneralManager.Singleton.CurrentLevel.Visible)
+                        {
+                            GeneralManager.Singleton.CurrentLevel.Draw(gameTime);
+                        }
                         ScreenManager.Singleton.ProjectView.Draw(gameTime);
                         spriteBatch.End();
                         spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
-                        GeneralManager.Singleton.CurrentLevel.Draw(gameTime);
                         Renderer.Singleton.DrawMoney();
                         spriteBatch.End();
                         spriteBatch.Begin(SpriteBlendMode.AlphaBlend);
@@ -169,7 +163,6 @@ namespace Gra
 
             spriteBatch.Draw(Renderer.Singleton.CursorTex, GeneralManager.Singleton.MousePos - new Vector2(15, 15), Color.White);
 
-            Test.Draw(gameTime);
 
             spriteBatch.End();
 

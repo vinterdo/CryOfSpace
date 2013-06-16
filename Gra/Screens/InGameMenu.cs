@@ -41,8 +41,9 @@ namespace Gra
                     switch (Menu.SelectedIndex)
                     {
                         case 0:
-                            this.Visible = false;
-                            GeneralManager.Singleton.CurrentLevel.Show();
+                            //this.Visible = false;
+                            Target = GeneralManager.Singleton.CurrentLevel;
+                            ScreenState = State.FadeOut;
 
                             break;
                         case 1:
@@ -50,12 +51,14 @@ namespace Gra
                             break;
                         case 2:
                             SaveGameManager.Save();
+                            GeneralManager.SoundManager.PlaySound("beep");
                             break;
                         case 3:
                             GeneralManager.Singleton.CurrentLevel = null;
                             GeneralManager.Singleton.IsLevelInitalized = false;
                             this.Visible = false;
                             ScreenManager.Singleton.MainMenu.Visible = true;
+                            ScreenManager.Singleton.MainMenu.Fade = 0;
                             GeneralManager.SoundManager.UnLoop("shipengine");
                             break;
 

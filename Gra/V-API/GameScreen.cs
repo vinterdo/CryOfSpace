@@ -95,6 +95,7 @@ namespace Gra
                 Target.Visible = true;
                 Target.ScreenState = State.FadeIn;
                 Target.Fade = 1f;
+                Target = null;
             }
 
         }

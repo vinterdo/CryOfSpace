@@ -49,14 +49,12 @@ namespace Gra
                     switch (Menu.SelectedIndex)
                     {
                         case 0:
-                            //this.Visible = false;
                             Target = ScreenManager.Singleton.SelectionScreen;
                             ScreenState = State.FadeOut;
-                            //ScreenManager.Singleton.SelectionScreen.Visible = true;
                             break;
                         case 1:
-                            this.Visible = false;
-                            ScreenManager.Singleton.MultiplayerChooseScreen.Visible = true;
+                            Target = ScreenManager.Singleton.MultiplayerChooseScreen;
+                            ScreenState = State.FadeOut;
                             break;
                         case 2:
                             Game.Exit();

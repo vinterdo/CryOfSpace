@@ -62,26 +62,29 @@ namespace Gra
                             GeneralManager.SoundManager.LoadSound("DroppHSpace");
 
                             GeneralManager.SoundManager.PlaySound("WelcomeAboard");
-                            
                             GeneralManager.SoundManager.PlayInLoop("shipengine");
 
-                            
-                            this.Visible = false;
+                            ScreenState = State.FadeOut;
                             break;
                         case 1:
                             SaveGameManager.Load(Game, spriteBatch);
-                            this.Visible = false;
-                            GeneralManager.Singleton.CurrentLevel.Visible = true;
+                            ScreenState = State.FadeOut;
+                            Target = GeneralManager.Singleton.CurrentLevel;
                             break;
                         case 2:
-                            this.Visible = false;
-                            ScreenManager.Singleton.MainMenu.Visible = true;
+                            ScreenState = State.FadeOut;
+                            Target = ScreenManager.Singleton.MainMenu;
                             break;
                     }
                 }
+
+                if (FadeOutFinished)
+                    Visible = false;
+
                 Menu.Update(gameTime);
+                base.Update(gameTime);
             }
-            base.Update(gameTime);
+            
         }
 
         public override void Draw(GameTime gameTime)
@@ -101,8 +104,10 @@ namespace Gra
 
 
                 Menu.Draw(gameTime);
+
+                base.Draw(gameTime);
             }
-            base.Draw(gameTime);
+            
         } 
     }
 }
