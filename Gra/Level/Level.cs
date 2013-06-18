@@ -34,7 +34,7 @@ namespace Gra
                 RenderVertexes(gameTime);
                 spriteBatch.Draw(Renderer.Singleton.ProjectButton, new Rectangle((int)(Renderer.Width * 0.4),(int)( Renderer.Height * 0.88), (int)(Renderer.Width*0.2), (int)(Renderer.Height*0.07)), Color.White);
             }
-            base.Draw(gameTime);
+            //base.Draw(gameTime);
         }
 
         public override void Update(GameTime gameTime)
@@ -54,15 +54,15 @@ namespace Gra
                     Rectangle MouseRect = new Rectangle((int)MousePoint.X - 15, (int)MousePoint.Y - 15, 30, 30);
 
                     bool IsLMBFound = false;
-
+                    
                     foreach (DrawableGameComponent C in Components)
                     {
-                        if (C is Vertex)
+                        if (C is VertexScreen)
                         {
-                            Vertex V = C as Vertex;
-                            if (V.IsMenuOpened)
+                            VertexScreen V = C as VertexScreen;
+                            if (V.Vertex.IsMenuOpened)
                             {
-                                Vector2 ScreenPosition = (V.Position) * new Vector2((float)(Renderer.Width * 0.6) / 500, (float)(Renderer.Height * 0.6) / 500) - new Vector2(15, 15) + new Vector2((float)Renderer.Width * 0.2f, (float)Renderer.Height * 0.2f) + new Vector2(15, 15);
+                                Vector2 ScreenPosition = (V.Vertex.Position) * new Vector2((float)(Renderer.Width * 0.6) / 500, (float)(Renderer.Height * 0.6) / 500) - new Vector2(15, 15) + new Vector2((float)Renderer.Width * 0.2f, (float)Renderer.Height * 0.2f) + new Vector2(15, 15);
 
                                 if (ScreenPosition.Y < Renderer.Height / 2)
                                 {
@@ -70,20 +70,20 @@ namespace Gra
                                     if ((new Rectangle((int)(ScreenPosition.X - Renderer.Width * 0.1), (int)(ScreenPosition.Y + Renderer.Height * 0.03f), (int)(Renderer.Width * 0.1) + 15, (int)(Renderer.Height * 0.03))).Contains(MousePoint))
                                     {
                                         IsLMBFound = true;
-                                        V.IsMenuOpened = false;
+                                        V.Vertex.IsMenuOpened = false;
                                         
                                         GeneralManager.SoundManager.PlaySound("beep");
-                                        GeneralManager.Singleton.CurrentVertex = C as Vertex;
+                                        GeneralManager.Singleton.CurrentVertex = C as VertexScreen;
                                         GeneralManager.Singleton.GameState = 2;
                                     }
                                     // FlyTo Button
                                     if (!(V.Equals(GeneralManager.Singleton.CurrentPlayer.Ship.CurrentVertex)) && GeneralManager.Singleton.CurrentPlayer.Ship.State == Ship.ShipState.InVertex && (new Rectangle((int)(ScreenPosition.X - Renderer.Width * 0.1), (int)(ScreenPosition.Y + Renderer.Height * 0.06f), (int)(Renderer.Width * 0.1) + 15, (int)(Renderer.Height * 0.03))).Contains(MousePoint))
                                     {
-                                        if (V.CheckFlightAbility())
+                                        if (V.Vertex.CheckFlightAbility())
                                         {
                                             IsLMBFound = true;
                                             GeneralManager.Singleton.CurrentPlayer.Ship.FlyTo(V);
-                                            V.IsMenuOpened = false;
+                                            V.Vertex.IsMenuOpened = false;
                                             GeneralManager.SoundManager.PlaySound("beep");
                                         }
                                     }
@@ -94,20 +94,20 @@ namespace Gra
                                     if ((new Rectangle((int)(ScreenPosition.X - Renderer.Width * 0.1), (int)(ScreenPosition.Y - (Renderer.Width * 0.1) - 15 + Renderer.Height * 0.03f), (int)(Renderer.Width * 0.1) + 15, (int)(Renderer.Height * 0.03))).Contains(MousePoint))
                                     {
                                         IsLMBFound = true;
-                                        V.IsMenuOpened = false;
+                                        V.Vertex.IsMenuOpened = false;
                                         GeneralManager.SoundManager.PlaySound("beep");
-                                        GeneralManager.Singleton.CurrentVertex = C as Vertex;
+                                        GeneralManager.Singleton.CurrentVertex = C as VertexScreen;
                                         GeneralManager.Singleton.GameState = 2;
                                     }
 
                                     // FlyTo Button
                                     if (!(V.Equals(GeneralManager.Singleton.CurrentPlayer.Ship.CurrentVertex)) && GeneralManager.Singleton.CurrentPlayer.Ship.State == Ship.ShipState.InVertex && (new Rectangle((int)(ScreenPosition.X - Renderer.Width * 0.1), (int)(ScreenPosition.Y - (Renderer.Width * 0.1) - 15 + Renderer.Height * 0.06f), (int)(Renderer.Width * 0.1) + 15, (int)(Renderer.Height * 0.03))).Contains(MousePoint))
                                     {
-                                        if (V.CheckFlightAbility())
+                                        if (V.Vertex.CheckFlightAbility())
                                         {
                                             IsLMBFound = true;
                                             GeneralManager.Singleton.CurrentPlayer.Ship.FlyTo(V);
-                                            V.IsMenuOpened = false;
+                                            V.Vertex.IsMenuOpened = false;
                                             GeneralManager.SoundManager.PlaySound("beep");
                                         }
                                     }
@@ -115,6 +115,7 @@ namespace Gra
                             }
                         }
                     }
+                     
 
                     if (!IsLMBFound)
                     {
@@ -167,7 +168,7 @@ namespace Gra
             foreach (DrawableGameComponent v in Components)
             {
                 if(v is Vertex)
-                    (v as Vertex).DrawOutside(gameTime);
+                    (v as Vertex).Draw(gameTime);
             }
 
             foreach (DrawableGameComponent v in Components)
@@ -177,15 +178,15 @@ namespace Gra
             }
         }
 
-        public Vertex CreateVertex(Game game, Vector2 Pos1, Texture2D Tex)
+        public VertexScreen CreateVertex(Game game, Vector2 Pos1, Texture2D Tex)
         {
-            Vertex Tmp = new Vertex(game, Pos1, Tex);
+            VertexScreen Tmp = new VertexScreen(game, Pos1, Tex);
             Tmp.Background = Renderer.Singleton.Background;
             Tmp.BackgroundScale = new Vector2(1.3f, 1.4f);
 
             var ItemToAdd = Tmp.Clone();
             
-            return ItemToAdd as Vertex;
+            return ItemToAdd as VertexScreen;
         }
 
        
@@ -218,13 +219,13 @@ namespace Gra
             int VertexNumber = 50 - GeneralManager.Singleton.GetRandom() % 20;
             List<int> AbleToConnect = new List<int>();
 
-            List<Vertex> Ver = new List<Vertex>();
+            List<VertexScreen> Ver = new List<VertexScreen>();
 
             for (int i = 0; i < VertexNumber; i++)
             {
                 // Vertex generation
 
-                Vertex v = CreateVertex(this.game, new Vector2(GeneralManager.Singleton.GetRandom() % 500+ 10.0f, GeneralManager.Singleton.GetRandom() % 500+10.0f), Renderer.Singleton.Content.Load<Texture2D>("indicator"));
+                VertexScreen v = CreateVertex(this.game, new Vector2(GeneralManager.Singleton.GetRandom() % 500+ 10.0f, GeneralManager.Singleton.GetRandom() % 500+10.0f), Renderer.Singleton.Content.Load<Texture2D>("indicator"));
 
                 if (GeneralManager.Singleton.GetRandom() % 3 == 0)
                 {
@@ -255,7 +256,7 @@ namespace Gra
                 AbleToConnect.Clear();
                 for(int j =0 ; j < i; j++)
                 {
-                    float Lenght = v.GetLenghtFrom(Ver[j]);
+                    float Lenght = v.Vertex.GetLenghtFrom(Ver[j].Vertex);
                     if (Lenght < 60)
                     {
                         IsGood = false;
@@ -280,6 +281,7 @@ namespace Gra
                 {
                     VertexCount++;
                     Ver.Add(v);
+                    Components.Add(v.Vertex);
                 }
                 else
                 {
@@ -289,23 +291,16 @@ namespace Gra
 
                 foreach (int Able in AbleToConnect)
                 {
-                    AddConnection(i, Able, v.Position, Ver[Able].Position);
-                    v.Connections.Add(Ver[Able]);
-                    Ver[Able].Connections.Add(v);
+                    AddConnection(i, Able, v.Vertex.Position, Ver[Able].Vertex.Position);
+                    v.Vertex.Connections.Add(Ver[Able].Vertex);
+                    Ver[Able].Vertex.Connections.Add(v.Vertex);
                 }
             }
-            foreach (Vertex v in Ver)
+            foreach (VertexScreen v in Ver)
             {
                 Components.Add(v);
             }
             // Do usuniecia
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(game));

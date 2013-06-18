@@ -25,8 +25,8 @@ namespace Gra
 
         public List<Component> Components;
 
-        public Vertex CurrentVertex;
-        public Vertex DestinationVertex;
+        public VertexScreen CurrentVertex;
+        public VertexScreen DestinationVertex;
         public float TimeToArrival = 0.0f;
 
         public Animation OutsideView;
@@ -142,7 +142,7 @@ namespace Gra
             Renderer.Singleton.batch.Draw(InsideTex, DrawPosition , null, Color.White, Angle, Hull.Center, 1.0f, SpriteEffects.None, 1.0f);
         }
 
-        public void FlyTo(Vertex V)
+        public void FlyTo(VertexScreen V)
         {
             if (CurrentVertex != null)
             {

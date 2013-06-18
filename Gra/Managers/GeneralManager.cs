@@ -28,8 +28,9 @@ namespace Gra
         public Player CurrentPlayer; 
 
         public static Dictionary<string, Player> Players = new Dictionary<string, Player>();
+        public static List<VertexScreen> Vertexes = new List<VertexScreen>();
 
-        public Vertex CurrentVertex;
+        public VertexScreen CurrentVertex;
 
         public int GameState = 1; // 1 - level, 2 - vertex
 
@@ -65,17 +66,32 @@ namespace Gra
                 P.Value.Update(gameTime);
             }
 
+            if(CurrentVertex != null)
+            {
+                CurrentVertex.Update(gameTime);
+            }
+
             if(IsLevelInitalized)
             {
-                foreach (DrawableGameComponent C in CurrentLevel.Components)
+
+                foreach (VertexScreen V in Vertexes)
+                {
+                    V.Update(gameTime);
+                }
+
+
+                /*foreach (DrawableGameComponent C in CurrentLevel.Components)
                 {
                     if (C is Vertex)
                     {
                         Vertex Vert = C as Vertex;
-                        Vert.Update(gameTime);
+                        if (Vert.Active)
+                        {
+                            Vert.Update(gameTime);
+                        }
 
                     }
-                }
+                }*/
             }
 
             if(IsLevelInitalized) CurrentLevel.Update(gameTime);

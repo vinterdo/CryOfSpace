@@ -153,7 +153,7 @@ namespace Gra
                         spriteBatch.Begin(SpriteBlendMode.AlphaBlend);
                         break;
                     case 2:
-                        GeneralManager.Singleton.CurrentVertex.DrawInside(gameTime);
+                        GeneralManager.Singleton.CurrentVertex.Draw(gameTime);
                         break;
                 }
                 

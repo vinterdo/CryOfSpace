@@ -19,7 +19,7 @@ namespace Gra
         public Color Color;
         public float Angle;
         public float Size;
-        float Opacity;
+        public float Opacity;
     }
 
     public class Particle : Microsoft.Xna.Framework.DrawableGameComponent, IDisposable
@@ -38,6 +38,7 @@ namespace Gra
         public float AliveTime;
 
 
+
         public Particle(Game game)
             : base(game)
         {
@@ -49,11 +50,6 @@ namespace Gra
             base.Initialize();
         }
 
-        public void Dispose()
-        {
-            
-            base.Dispose(true);
-        }
 
         public override void Update(GameTime gameTime)
         {
@@ -74,6 +70,12 @@ namespace Gra
         public void CalculateChange()
         {
             ChangeState.Color = new Color((ChangeState.Color.ToVector4() - CurrentState.Color.ToVector4()) / AliveTime);
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            Renderer.Singleton.batch.Draw(Tex, Position, new Color(CurrentState.Color, CurrentState.Opacity));
+            base.Draw(gameTime);
         }
     }
 }

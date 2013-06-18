@@ -119,7 +119,7 @@ namespace Gra
             }
             catch(Exception e)
             {
-                //Add Client Remove and disconnect log
+                Console.WriteLine(e.StackTrace);
             }
 
             
@@ -135,7 +135,7 @@ namespace Gra
             }
             catch (Exception e)
             {
-                e = null;
+                Console.WriteLine(e.StackTrace);
             }
             //Client.GetStream().Read(Buffer, 0, 20);
             string PacketType = Buffer.ToString();
