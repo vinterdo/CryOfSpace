@@ -83,6 +83,23 @@ namespace Gra
                 ShipView = !ShipView;
             }
 
+            foreach (Slot S in Hull.Slots)
+            {
+                if (S.Component != null)
+                {
+                    if (S.Component is Weapon)
+                    {
+                        (S.Component as Weapon).Update(gameTime, DrawPosition);
+                    }
+                    else
+                    {
+                        S.Component.Update(gameTime);
+                    }
+                }
+
+                
+            }
+
             switch (State)
             {
                 case ShipState.InVertex:
@@ -134,6 +151,16 @@ namespace Gra
         public void DrawOutside(GameTime gameTime)
         {
             OutsideView.Draw(gameTime, Angle, Hull.Center);
+            foreach (Slot S in Hull.Slots)
+            {
+                if (S.Component != null)
+                {
+                    if (S.Component is Weapon)
+                    {
+                        (S.Component as Weapon).DrawBullets(gameTime, DrawPosition);
+                    }
+                }
+            }
         }
 
         public void DrawInside(GameTime gameTime)

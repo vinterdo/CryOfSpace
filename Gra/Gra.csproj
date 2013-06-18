@@ -87,8 +87,12 @@
     <Compile Include="Level\SpaceStation\SpaceStationMenu.cs" />
     <Compile Include="Level\TradeOptions.cs" />
     <Compile Include="Level\VertexScreen.cs" />
+    <Compile Include="Ship\Bullets\Bullet.cs" />
+    <Compile Include="Ship\Bullets\Bullet_Gauss.cs" />
     <Compile Include="Ship\Components\Cargo.cs" />
     <Compile Include="Ship\Component.cs" />
+    <Compile Include="Ship\Components\Weapon.cs" />
+    <Compile Include="Ship\Components\Weapon_GaussCannonB50.cs" />
     <Compile Include="Ship\Crew.cs" />
     <Compile Include="Ship\Disasters.cs" />
     <Compile Include="Ship\Components\Engine.cs" />

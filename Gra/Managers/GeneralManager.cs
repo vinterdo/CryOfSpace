@@ -25,7 +25,8 @@ namespace Gra
         public Vector2 MousePos;
         MouseState OldMouseState;
         MouseState NewMouseState;
-        public Player CurrentPlayer; 
+        public Player CurrentPlayer;
+        public bool IsLMBDown;
 
         public static Dictionary<string, Player> Players = new Dictionary<string, Player>();
         public static List<VertexScreen> Vertexes = new List<VertexScreen>();
@@ -100,6 +101,8 @@ namespace Gra
             OldMouseState = NewMouseState;
             NewMouseState = Mouse.GetState();
 
+            IsLMBDown = NewMouseState.LeftButton == ButtonState.Pressed;
+
             MousePos = new Vector2(NewMouseState.X, NewMouseState.Y);
         }
 
@@ -116,6 +119,11 @@ namespace Gra
         public Vector2 GetVectorFromAngle(float Angle)
         {
             return new Vector2((float)Math.Sin(Angle), (float)Math.Cos(Angle));
+        }
+
+        public float GetAngleFromVector(Vector2 Vec)
+        {
+            return (float)Math.Atan2(Vec.X, Vec.Y);
         }
 
         public Vector2 RotateVector(float Angle, Vector2 Vec, Vector2 Center)

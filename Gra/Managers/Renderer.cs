@@ -44,6 +44,8 @@ namespace Gra
         public Texture2D MinimapBackground;
         public Texture2D MoneyBackground;
         public Texture2D ConnectionTex;
+        public Texture2D GaussCannonB50;
+        public Texture2D GaussBullet;
 
         public Texture2D FromVertexToLevelGUI;
 
@@ -100,6 +102,8 @@ namespace Gra
             IndicatorGreen = Content.Load<Texture2D>("IndicatorGreen");
             MinimapBackground = Content.Load<Texture2D>("MinimapBackground");
             MoneyBackground = Content.Load<Texture2D>("MoneyBackground");
+            GaussCannonB50 = Content.Load<Texture2D>("GaussCannonB50");
+            GaussBullet = Content.Load<Texture2D>("GaussBullet");
             
             
         }
