@@ -17,6 +17,7 @@ namespace Gra
     public class VertexScreen : DrawableGameComponent, ICloneable
     {
         public static bool MinimapEnabled = true;
+        public static bool WeaponsMenuEnabled = true;
 
         public Texture2D Tex;
         SpriteBatch spriteBatch;
@@ -227,6 +228,14 @@ namespace Gra
                 }
 
                 spriteBatch.Draw(Renderer.Singleton.MinimapOverlay, new Rectangle((int)(Renderer.Width * 0.8), 0, SizeX, SizeY), Color.White);
+            }
+        }
+
+        public void DrawWeaponsMenu()
+        {
+            if (WeaponsMenuEnabled)
+            {
+                spriteBatch.Draw(Renderer.Singleton.WeaponsMenu, Renderer.GetPartialRect(0.8f, 0.2f, 0.2f, 0.6f), Color.White);
             }
         }
     }

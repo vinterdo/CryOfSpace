@@ -48,7 +48,7 @@ namespace Gra
 
         public override void Draw(GameTime gameTime)
         {
-            Vector2 ScreenPosition = (Position) * new Vector2((float)(Renderer.Width * 0.6) / 500, (float)(Renderer.Height * 0.6) / 500) - new Vector2(15, 15) + new Vector2((float)Renderer.Width * 0.2f, (float)Renderer.Height * 0.2f);
+            Vector2 ScreenPosition = (Position) * Renderer.GetPartialVector(0.6f, 0.6f) /500 - new Vector2(15, 15) + Renderer.GetPartialVector(0.2f, 0.2f);
             spriteBatch.Draw(Tex, ScreenPosition, null, Color.White, 0.0f, Vector2.One, 1.0f, SpriteEffects.None, 0.5f);
 
 

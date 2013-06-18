@@ -17,14 +17,20 @@ namespace Gra
     {
 
         public SpriteBatch batch;
+
         Texture2D Blank;
         Texture2D Background1;
         Texture2D Background2;
-        public Texture2D PlayerIndicator;
+
         public ContentManager Content;
+
+        
         public static int Height, Width;
         public static Dictionary<string, Animation> Animations;
         public Game Game;
+
+
+        public Texture2D PlayerIndicator;
         public Texture2D Background;
         public Texture2D ShipIndicator;
         public Texture2D TextBackground;
@@ -46,6 +52,10 @@ namespace Gra
         public Texture2D ConnectionTex;
         public Texture2D GaussCannonB50;
         public Texture2D GaussBullet;
+        public Texture2D WeaponsMenu;
+        public Texture2D CheckBoxOff;
+        public Texture2D CheckBoxOn;
+
 
         public Texture2D FromVertexToLevelGUI;
 
@@ -104,6 +114,10 @@ namespace Gra
             MoneyBackground = Content.Load<Texture2D>("MoneyBackground");
             GaussCannonB50 = Content.Load<Texture2D>("GaussCannonB50");
             GaussBullet = Content.Load<Texture2D>("GaussBullet");
+            WeaponsMenu = Content.Load<Texture2D>("WeaponMenu");
+            CheckBoxOff = Content.Load<Texture2D>("CheckBoxOff");
+            CheckBoxOn = Content.Load<Texture2D>("CheckBoxOn");
+
             
             
         }
@@ -117,6 +131,27 @@ namespace Gra
                        angle, Vector2.Zero, new Vector2(length/10, width),
                        SpriteEffects.None, 1);
         }
+
+        static public int GetPartialWidth(float Part)
+        {
+            return (int)(Width * Part);
+        }
+
+        static public int GetPartialHeight(float Part)
+        {
+            return (int)(Height * Part);
+        }
+
+        static public Vector2 GetPartialVector(float PartX, float PartY)
+        {
+            return new Vector2(Width * PartX, Height * PartY);
+        }
+
+        static public Rectangle GetPartialRect(float PartX, float PartY, float PartWidth, float PartHeight)
+        {
+            return new Rectangle((int)(Width * PartX), (int)(Height * PartY), (int)(Width * PartWidth), (int)(Height * PartHeight));
+        }
+
 
         public void RenderBackground(GameTime gameTime)
         {

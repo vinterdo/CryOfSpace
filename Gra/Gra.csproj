@@ -104,6 +104,7 @@
     <Compile Include="Managers\NetworkManager.cs" />
     <Compile Include="Ship\Slot.cs" />
     <Compile Include="V-API\Animation.cs" />
+    <Compile Include="V-API\CheckBox.cs" />
     <Compile Include="V-API\Text.cs" />
     <Compile Include="V-API\Window.cs" />
     <Compile Include="V-API\GameScreen.cs" />
