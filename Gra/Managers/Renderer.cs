@@ -55,6 +55,9 @@ namespace Gra
         public Texture2D WeaponsMenu;
         public Texture2D CheckBoxOff;
         public Texture2D CheckBoxOn;
+        public Texture2D HeatGradient;
+        public Texture2D ProgressBackground;
+        public Texture2D ProgressOverlay;
 
 
         public Texture2D FromVertexToLevelGUI;
@@ -117,6 +120,9 @@ namespace Gra
             WeaponsMenu = Content.Load<Texture2D>("WeaponMenu");
             CheckBoxOff = Content.Load<Texture2D>("CheckBoxOff");
             CheckBoxOn = Content.Load<Texture2D>("CheckBoxOn");
+            HeatGradient = Content.Load<Texture2D>("HeatGradient");
+            ProgressBackground = Content.Load<Texture2D>("ProgressBackground");
+            ProgressOverlay = Content.Load<Texture2D>("ProgressOverlay");
 
             
             
