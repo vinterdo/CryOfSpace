@@ -167,6 +167,17 @@ namespace Gra
         {
 
             Renderer.Singleton.batch.Draw(InsideTex, DrawPosition , null, Color.White, Angle, Hull.Center, 1.0f, SpriteEffects.None, 1.0f);
+
+            foreach (Slot S in Hull.Slots)
+            {
+                if (S.Component != null)
+                {
+                    if (S.Component is Weapon)
+                    {
+                        (S.Component as Weapon).DrawBullets(gameTime, DrawPosition);
+                    }
+                }
+            }
         }
 
         public void FlyTo(VertexScreen V)

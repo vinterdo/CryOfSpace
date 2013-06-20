@@ -40,13 +40,25 @@ namespace Gra
 
         public override void Draw(GameTime gameTime)
         {
-            float Scale = 1f;
-            if (Font.MeasureString(Name).X > Rect.Width)
-            {
-                Scale = Rect.Width / Font.MeasureString(Name).X;
-            }
+            float ScaleX = 1f;
+            float ScaleY = 1f;
+            
+            ScaleX = Rect.Width / Font.MeasureString(Name).X;
+            ScaleY = Rect.Height / Font.MeasureString(Name).Y;
 
-            Renderer.Singleton.batch.DrawString(Font, Name, new Vector2(Rect.X, Rect.Y), Color.White, 0.0f, Vector2.Zero, Scale, SpriteEffects.None, 0.0f);
+            if (ScaleX < ScaleY)
+            {
+                float Offset = (Rect.Height / 2f) - (Font.MeasureString(Name).Y * ScaleX) / 2; 
+                Renderer.Singleton.batch.DrawString(Font, Name, new Vector2(Rect.X, Rect.Y + Offset), Color.White, 0.0f, Vector2.Zero, ScaleX, SpriteEffects.None, 0.0f);
+            }
+            else
+            {
+                float Offset = (Rect.Width / 2f) - (Font.MeasureString(Name).X * ScaleY) / 2;
+                Renderer.Singleton.batch.DrawString(Font, Name, new Vector2(Rect.X + Offset, Rect.Y), Color.White, 0.0f, Vector2.Zero, ScaleY, SpriteEffects.None, 0.0f);
+            }
+            
+
+            
             base.Draw(gameTime);
         }
     }

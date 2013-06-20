@@ -29,25 +29,35 @@ namespace Gra
             Cursor,
             Off
         }
+        public enum State
+        {
+            Normal,
+            Overheat,
+            Damaged
+        }
 
         public Mode WeaponMode;
+        public State WeaponState = State.Normal;
 
         public List<Bullet> Bullets;
 
         public float CurrentAngle;
+        public float Heat;
+        public int MaxHeat;
+        public int CoolingPerSecond;
+        public int HeatPerShoot;
+        public int ShootColddown;
+        public int CurrentColddown;
 
 
         public override void Initialize()
         {
-            // TODO: Add your initialization code here
 
             base.Initialize();
         }
 
         public virtual void Update(GameTime gameTime, Vector2 DrawPosition)
         {
-            // TODO: Add your update code here
-
             base.Update(gameTime);
         }
 

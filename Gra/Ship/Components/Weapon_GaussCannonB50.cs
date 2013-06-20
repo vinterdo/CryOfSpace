@@ -23,6 +23,9 @@ namespace Gra
             Tex = Renderer.Singleton.GaussCannonB50;
             Bullets = new List<Bullet>();
             Name = "Gauss B50 Cannon";
+            MaxHeat = 4000;
+            CoolingPerSecond = 200;
+            HeatPerShoot = 20;
         } 
 
         public override void Initialize()
@@ -33,7 +36,7 @@ namespace Gra
 
         public override void Update(GameTime gameTime, Vector2 DrawPosition)
         {
-            if (GeneralManager.Singleton.IsLMBDown && WeaponMode == Weapon.Mode.Cursor)
+            if (GeneralManager.Singleton.IsLMBDown && WeaponMode == Weapon.Mode.Cursor && WeaponState == State.Normal)
             {
                 Bullet Tmp = new Bullet_Gauss(Game, GeneralManager.Singleton.GetAngleFromVector(GeneralManager.Singleton.MousePos - DrawPosition));
                 Tmp.CurrentLife = 0;
@@ -41,12 +44,27 @@ namespace Gra
 
                 Bullets.Add(Tmp);
 
+                Heat += HeatPerShoot;
+
             }
 
             foreach (Bullet B in Bullets)
             {
                 B.Update(gameTime);
             }
+
+            Heat -= CoolingPerSecond * (gameTime.ElapsedGameTime.Milliseconds/1000.0f);
+            if (Heat < 0)
+            {
+                Heat = 0;
+                WeaponState = State.Normal;
+            }
+
+            if (Heat > MaxHeat)
+            {
+                WeaponState = State.Overheat;
+            }
+
             base.Update(gameTime);
         }
 

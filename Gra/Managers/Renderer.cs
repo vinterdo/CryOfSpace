@@ -189,7 +189,7 @@ namespace Gra
         public void DrawMoney()
         {
             Rectangle Rect = new Rectangle((int)(Width * 0.4), 0, (int)(Width * 0.2), (int)(Height * 0.1));
-            batch.Draw(MoneyBackground, Rect, Color.White);
+            batch.Draw(MoneyBackground, Rect, null, Color.White, 0.0f, Vector2.Zero, SpriteEffects.None, 0.2f);
             Text Money = new Text(Game);
             Money.Rect = Rect;
             Money.Font = Content.Load<SpriteFont>("Font");

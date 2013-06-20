@@ -33,6 +33,7 @@ namespace Gra
 
         static List<RadioButton> WeaponMode = WeaponMode = new List<RadioButton>();
         static List<Text> WeaponLabel = new List<Text>();
+        static List<ProgressBar> WeaponHeat = new List<ProgressBar>();
         
 
 
@@ -251,6 +252,11 @@ namespace Gra
                     R.Draw(null);
                 }
 
+                foreach (ProgressBar B in WeaponHeat)
+                {
+                    B.Draw(null);
+                }
+
                 foreach (Text T in WeaponLabel)
                 {
                     T.Draw(null);
@@ -293,6 +299,7 @@ namespace Gra
                                 WeaponMode[i].Choosen = 3;
                                 break;
                         }
+                        WeaponHeat[i].Progress = (float)W.Heat / (float)W.MaxHeat;
                         i++;
                     }
                 }
@@ -332,6 +339,9 @@ namespace Gra
                     Label.Font = Renderer.Singleton.Content.Load<SpriteFont>("Font");
                     WeaponLabel.Add(Label);
 
+                    ProgressBar Progr = new ProgressBar(Game, Renderer.GetPartialRect(0.81f, 0.25f + 0.02f * j, 0.09f, 0.02f), Renderer.Singleton.ProgressBackground, Renderer.Singleton.HeatGradient, Renderer.Singleton.ProgressOverlay);
+
+                    WeaponHeat.Add(Progr);
                 }
 
             }

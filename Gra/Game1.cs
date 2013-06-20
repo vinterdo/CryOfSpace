@@ -21,7 +21,6 @@ namespace Gra
         Hull ExampleHull;
         Ship USSGruz;
 
-        ProgressBar Test;
         
         public Game1()
         {
@@ -96,8 +95,6 @@ namespace Gra
             USSGruz.Initialize();
             //=============
 
-            Test = new ProgressBar(this, Renderer.GetPartialRect(0.1f, 0.1f, 0.2f, 0.05f), Renderer.Singleton.ProgressBackground, Renderer.Singleton.HeatGradient, Renderer.Singleton.ProgressOverlay);
-
         }
 
         protected override void LoadContent()
@@ -118,7 +115,6 @@ namespace Gra
             Renderer.Singleton.Update(gameTime);
             NetworkManager.Singleton.Update();
 
-            Test.Progress = GeneralManager.Singleton.MousePos.X / Renderer.Width;
 
 
             base.Update(gameTime);
@@ -169,7 +165,6 @@ namespace Gra
 
 
             spriteBatch.Draw(Renderer.Singleton.CursorTex, GeneralManager.Singleton.MousePos - new Vector2(15, 15), Color.White);
-            Test.Draw(gameTime);
 
             spriteBatch.End();
 
