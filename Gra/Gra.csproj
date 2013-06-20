@@ -84,6 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Level\Asteroid1.cs" />
     <Compile Include="Level\SpaceStation\SpaceStationMenu.cs" />
     <Compile Include="Level\TradeOptions.cs" />
     <Compile Include="Level\VertexScreen.cs" />

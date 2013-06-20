@@ -58,6 +58,7 @@ namespace Gra
         public Texture2D HeatGradient;
         public Texture2D ProgressBackground;
         public Texture2D ProgressOverlay;
+        public Texture2D Asteroid1;
 
 
         public Texture2D FromVertexToLevelGUI;
@@ -123,6 +124,7 @@ namespace Gra
             HeatGradient = Content.Load<Texture2D>("HeatGradient");
             ProgressBackground = Content.Load<Texture2D>("ProgressBackground");
             ProgressOverlay = Content.Load<Texture2D>("ProgressOverlay");
+            Asteroid1 = Content.Load<Texture2D>("Asteroid1");
 
             
             

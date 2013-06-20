@@ -18,7 +18,6 @@ namespace Gra
         public SpaceStationMenu Menu;
         public TradeOptions TradeOptions;
 
-        float Angle = 0.0f;
         public SpaceStationComponent(Game game)
             : base(game)
         {

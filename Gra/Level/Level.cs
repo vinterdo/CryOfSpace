@@ -227,11 +227,21 @@ namespace Gra
 
                 VertexScreen v = CreateVertex(this.game, new Vector2(GeneralManager.Singleton.GetRandom() % 500+ 10.0f, GeneralManager.Singleton.GetRandom() % 500+10.0f), Renderer.Singleton.Content.Load<Texture2D>("indicator"));
 
+
+
+                if (GeneralManager.Singleton.GetRandom() % 3 == 0)
+                {
+                    Asteroid1 Asteroid = new Asteroid1(Game, new Vector2(GeneralManager.Singleton.GetRandom() % 3000 + 1000, GeneralManager.Singleton.GetRandom() % 3000 + 1000));
+                    v.Components.Add(Asteroid);
+                }
+
                 if (GeneralManager.Singleton.GetRandom() % 3 == 0)
                 {
                     SpaceStationComponent Station = new SpaceStationComponent(game);
                     Station.Initialize();
                     Station.Position = new Vector2(GeneralManager.Singleton.GetRandom() % 3000 + 1000, GeneralManager.Singleton.GetRandom() % 3000 + 1000);
+
+                    
 
                     if (GeneralManager.Singleton.GetRandom() % 2 == 0) Station.TradeOptions.AddBuyOption(new BuyOption(new Engine(Game), 50));
                     if (GeneralManager.Singleton.GetRandom() % 2 == 0) Station.TradeOptions.AddBuyOption(new BuyOption(new Generator(Game), 150));
