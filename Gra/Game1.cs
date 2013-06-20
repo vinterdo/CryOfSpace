@@ -21,10 +21,6 @@ namespace Gra
         Hull ExampleHull;
         Ship USSGruz;
 
-        CheckBox Test;
-        CheckBox Test2;
-        CheckBox Test3;
-        RadioButton RadioTest;
 
         
         public Game1()
@@ -99,14 +95,6 @@ namespace Gra
             USSGruz.Hull = ExampleHull;
             USSGruz.Initialize();
             //=============
-            Test  = new CheckBox(this, Renderer.GetPartialRect(0.9f, 0.2f, 0.05f, 0.05f), Renderer.Singleton.CheckBoxOn, Renderer.Singleton.CheckBoxOff);
-            Test2 = new CheckBox(this, Renderer.GetPartialRect(0.93f, 0.2f, 0.05f, 0.05f), Renderer.Singleton.CheckBoxOn, Renderer.Singleton.CheckBoxOff);
-            Test3 = new CheckBox(this, Renderer.GetPartialRect(0.96f, 0.2f, 0.05f, 0.05f), Renderer.Singleton.CheckBoxOn, Renderer.Singleton.CheckBoxOff);
-
-            RadioTest = new RadioButton(this);
-            RadioTest.Boxes.Add(Test);
-            RadioTest.Boxes.Add(Test2);
-            RadioTest.Boxes.Add(Test3);
 
 
         }
@@ -129,7 +117,6 @@ namespace Gra
             Renderer.Singleton.Update(gameTime);
             NetworkManager.Singleton.Update();
 
-            RadioTest.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -179,7 +166,6 @@ namespace Gra
 
 
             spriteBatch.Draw(Renderer.Singleton.CursorTex, GeneralManager.Singleton.MousePos - new Vector2(15, 15), Color.White);
-            RadioTest.Draw(gameTime);
 
 
             spriteBatch.End();

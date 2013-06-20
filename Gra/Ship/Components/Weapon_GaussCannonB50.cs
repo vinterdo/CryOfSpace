@@ -22,6 +22,7 @@ namespace Gra
             WeaponMode = Mode.Cursor;
             Tex = Renderer.Singleton.GaussCannonB50;
             Bullets = new List<Bullet>();
+            Name = "Gauss B50 Cannon";
         } 
 
         public override void Initialize()

@@ -31,6 +31,10 @@ namespace Gra
 
         public List<VertexComponent> Components;
 
+        static List<RadioButton> WeaponMode = WeaponMode = new List<RadioButton>();
+        static List<Text> WeaponLabel = new List<Text>();
+        
+
 
         Vector2 ShipIndicatorPosition;
 
@@ -43,6 +47,8 @@ namespace Gra
             Ships = new List<Ship>();
             this.Tex = Tex;
             this.Rect = new Rectangle((int)(Pos.X), (int)(Pos.Y), (int)Tex.Width, (int)Tex.Height);
+
+            
 
             Vertex = new Vertex(game, Pos, Tex);
 
@@ -136,6 +142,7 @@ namespace Gra
 
                 spriteBatch.Draw(Renderer.Singleton.FromVertexToLevelGUI, Vector2.Zero, Color.White);
                 DrawMinimap();
+                DrawWeaponsMenu();
                 Renderer.Singleton.DrawMoney();
             }
         }
@@ -201,6 +208,8 @@ namespace Gra
                         this.Visible = false;
                     }
 
+                    UpdateWeaponsMenu();
+
                     base.Update(gameTime);
                 }
             }
@@ -236,7 +245,102 @@ namespace Gra
             if (WeaponsMenuEnabled)
             {
                 spriteBatch.Draw(Renderer.Singleton.WeaponsMenu, Renderer.GetPartialRect(0.8f, 0.2f, 0.2f, 0.6f), Color.White);
+
+                foreach (RadioButton R in WeaponMode)
+                {
+                    R.Draw(null);
+                }
+
+                foreach (Text T in WeaponLabel)
+                {
+                    T.Draw(null);
+                }
             }
         }
+
+        public void UpdateWeaponsMenu()
+        {
+            int Count = 0;
+            foreach (Slot S in GeneralManager.Singleton.CurrentPlayer.Ship.Hull.Slots)
+            {
+                if (S.Component is Weapon)
+                {
+                    Count++;
+                }
+            }
+
+            int i = 0;
+
+            if (WeaponMode.Count == Count)
+            {
+                foreach (Slot S in GeneralManager.Singleton.CurrentPlayer.Ship.Hull.Slots)
+                {
+                    if (S.Component is Weapon)
+                    {
+                        Weapon W = S.Component as Weapon;
+                        switch (W.WeaponMode)
+                        {
+                            case Weapon.Mode.Cursor:
+                                WeaponMode[i].Choosen = 0;
+                                break;
+                            case Weapon.Mode.Auto:
+                                WeaponMode[i].Choosen = 1;
+                                break;
+                            case Weapon.Mode.Off:
+                                WeaponMode[i].Choosen = 2;
+                                break;
+                            case Weapon.Mode.Select:
+                                WeaponMode[i].Choosen = 3;
+                                break;
+                        }
+                        i++;
+                    }
+                }
+            }
+
+            else
+            {
+                WeaponMode = new List<RadioButton>();
+
+                int x = 0;
+                Weapon CurrentWeapon;
+
+                for (int j = 0; j < Count; j++)
+                {
+
+                    while (!(GeneralManager.Singleton.CurrentPlayer.Ship.Hull.Slots[x].Component is Weapon))
+                    {
+
+                        x++;
+                    }
+
+                    CurrentWeapon = GeneralManager.Singleton.CurrentPlayer.Ship.Hull.Slots[x].Component as Weapon;
+
+
+                    RadioButton Tmp = new RadioButton(Game);
+
+                    Tmp.Boxes.Add(new CheckBox(Game, Renderer.GetPartialRect(0.91f, 0.25f + 0.02f * j, 0.015f, 0.015f), Renderer.Singleton.CheckBoxOn, Renderer.Singleton.CheckBoxOff));
+                    Tmp.Boxes.Add(new CheckBox(Game, Renderer.GetPartialRect(0.93f, 0.25f + 0.02f * j, 0.015f, 0.015f), Renderer.Singleton.CheckBoxOn, Renderer.Singleton.CheckBoxOff));
+                    Tmp.Boxes.Add(new CheckBox(Game, Renderer.GetPartialRect(0.95f, 0.25f + 0.02f * j, 0.015f, 0.015f), Renderer.Singleton.CheckBoxOn, Renderer.Singleton.CheckBoxOff));
+                    Tmp.Boxes.Add(new CheckBox(Game, Renderer.GetPartialRect(0.97f, 0.25f + 0.02f * j, 0.015f, 0.015f), Renderer.Singleton.CheckBoxOn, Renderer.Singleton.CheckBoxOff));
+
+                    WeaponMode.Add(Tmp);
+
+                    Text Label = new Text(Game);
+                    Label.Name = CurrentWeapon.Name;
+                    Label.Rect = Renderer.GetPartialRect(0.81f, 0.25f + 0.02f * j, 0.09f, 0.02f);
+                    Label.Font = Renderer.Singleton.Content.Load<SpriteFont>("Font");
+                    WeaponLabel.Add(Label);
+
+                }
+
+            }
+
+            foreach (RadioButton R in WeaponMode)
+            {
+                R.Update(null);
+            }
+        }
+
     }
 }
