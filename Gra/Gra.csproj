@@ -84,7 +84,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Level\Asteroid1.cs" />
+    <Compile Include="Level\Asteroids\Asteroid.cs" />
+    <Compile Include="Level\Asteroids\Asteroid1.cs" />
     <Compile Include="Level\SpaceStation\SpaceStationMenu.cs" />
     <Compile Include="Level\TradeOptions.cs" />
     <Compile Include="Level\VertexScreen.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Ship\Bullets\Bullet_Gauss.cs" />
     <Compile Include="Ship\Components\Cargo.cs" />
     <Compile Include="Ship\Component.cs" />
+    <Compile Include="Ship\Components\MiningLaser.cs" />
     <Compile Include="Ship\Components\Weapon.cs" />
     <Compile Include="Ship\Components\Weapon_GaussCannonB50.cs" />
     <Compile Include="Ship\Crew.cs" />
@@ -106,6 +108,8 @@
     <Compile Include="Ship\Slot.cs" />
     <Compile Include="V-API\Animation.cs" />
     <Compile Include="V-API\CheckBox.cs" />
+    <Compile Include="V-API\Particle\Emmiters\SmokeEmmiter.cs" />
+    <Compile Include="V-API\Particle\ParticleEmitter.cs" />
     <Compile Include="V-API\ProgressBar.cs" />
     <Compile Include="V-API\RadioButton.cs" />
     <Compile Include="V-API\Text.cs" />
@@ -118,7 +122,7 @@
     <Compile Include="Managers\GeneralManager.cs" />
     <Compile Include="Level\Level.cs" />
     <Compile Include="Packet.cs" />
-    <Compile Include="V-API\Particle.cs" />
+    <Compile Include="V-API\Particle\Particle.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Screens\ProjectViewScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -181,6 +185,9 @@
       <ProductName>Microsoft XNA Framework Redistributable 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="V-API\Particle\Particles\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

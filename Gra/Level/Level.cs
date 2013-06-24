@@ -313,6 +313,7 @@ namespace Gra
             // Do usuniecia
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Weapon_GaussCannonB50(game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Weapon_GaussCannonB50(game));
+            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new MiningLaser(Game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(game));

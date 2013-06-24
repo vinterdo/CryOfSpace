@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
-    public class Asteroid1 : VertexComponent
+    public class Asteroid1 : Asteroid
     {
         public Asteroid1(Game game, Vector2 Position)
             : base(game)

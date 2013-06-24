@@ -91,6 +91,10 @@ namespace Gra
                     {
                         (S.Component as Weapon).Update(gameTime, DrawPosition);
                     }
+                    else if (S.Component is MiningLaser)
+                    {
+                        (S.Component as MiningLaser).Update(gameTime, DrawPosition);
+                    }
                     else
                     {
                         S.Component.Update(gameTime);
@@ -175,6 +179,10 @@ namespace Gra
                     if (S.Component is Weapon)
                     {
                         (S.Component as Weapon).DrawBullets(gameTime, DrawPosition);
+                    }
+                    if (S.Component is MiningLaser)
+                    {
+                        (S.Component as MiningLaser).DrawBeam(gameTime);
                     }
                 }
             }

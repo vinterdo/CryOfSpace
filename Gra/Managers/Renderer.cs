@@ -59,6 +59,10 @@ namespace Gra
         public Texture2D ProgressBackground;
         public Texture2D ProgressOverlay;
         public Texture2D Asteroid1;
+        public Texture2D MiningBeam;
+        public Texture2D MiningLaser;
+        public Texture2D LaserBeam;
+        public Texture2D SmokeParticle;
 
 
         public Texture2D FromVertexToLevelGUI;
@@ -92,10 +96,10 @@ namespace Gra
 
         public void LoadContent()
         {
-            this.Blank = Content.Load<Texture2D>("Blank");
+            Blank = Content.Load<Texture2D>("Blank");
             ConnectionTex = Content.Load<Texture2D>("Connection");
-            this.Background1 = Content.Load<Texture2D>("BackgroundVertex");
-            this.Background2 = Content.Load<Texture2D>("hud");
+            Background1 = Content.Load<Texture2D>("BackgroundVertex");
+            Background2 = Content.Load<Texture2D>("hud");
             PlayerIndicator = Content.Load<Texture2D>("PlayerIndicator");
             Background = Content.Load<Texture2D>("SpaceBackground1");
             ShipIndicator = Content.Load<Texture2D>("ShipIndicator");
@@ -125,6 +129,10 @@ namespace Gra
             ProgressBackground = Content.Load<Texture2D>("ProgressBackground");
             ProgressOverlay = Content.Load<Texture2D>("ProgressOverlay");
             Asteroid1 = Content.Load<Texture2D>("Asteroid1");
+            MiningBeam = Content.Load<Texture2D>("MiningBeam");
+            MiningLaser = Content.Load<Texture2D>("MiningLaser");
+            LaserBeam = Content.Load<Texture2D>("LaserBeam");
+            SmokeParticle = Content.Load<Texture2D>("SmokeParticle");
 
             
             
