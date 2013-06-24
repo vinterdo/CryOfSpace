@@ -68,6 +68,13 @@ namespace Gra
 
                 bool IsCurrentPlayerOnVertex = false;
 
+
+                foreach (VertexComponent C in Components)
+                {
+                    C.Draw(gameTime);
+                }
+
+
                 foreach (Ship S in Ships)
                 {
                     if (S.Equals(GeneralManager.Singleton.CurrentPlayer.Ship) && S.State == Ship.ShipState.InVertex)
@@ -85,12 +92,6 @@ namespace Gra
                             S.DrawInside(gameTime);
                         }
                     }
-                }
-
-
-                foreach (VertexComponent C in Components)
-                {
-                    C.Draw(gameTime);
                 }
 
                 if (IsCurrentPlayerOnVertex)

@@ -20,7 +20,7 @@ namespace Gra
             : base(game)
         {
             base.GenerationChance = 0.6f;
-            base.Opacity = 1f;
+            base.Opacity = 0.7f;
             base.OpacityChange = 0.01f;
             base.AngularSpeed = 0.01f;
             base.Direction = 0.0f;
