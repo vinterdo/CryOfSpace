@@ -229,7 +229,7 @@ namespace Gra
 
 
 
-                if (GeneralManager.Singleton.GetRandom() % 3 == 0)
+                if (GeneralManager.Singleton.GetRandom() % 1 == 0)
                 {
                     Asteroid1 Asteroid = new Asteroid1(Game, new Vector2(GeneralManager.Singleton.GetRandom() % 3000 + 1000, GeneralManager.Singleton.GetRandom() % 3000 + 1000));
                     v.Components.Add(Asteroid);

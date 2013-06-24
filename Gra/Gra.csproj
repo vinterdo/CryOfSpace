@@ -71,6 +71,8 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -110,6 +112,7 @@
     <Compile Include="V-API\CheckBox.cs" />
     <Compile Include="V-API\Particle\Emmiters\SmokeEmmiter.cs" />
     <Compile Include="V-API\Particle\ParticleEmitter.cs" />
+    <Compile Include="V-API\Particle\ParticleWorld.cs" />
     <Compile Include="V-API\ProgressBar.cs" />
     <Compile Include="V-API\RadioButton.cs" />
     <Compile Include="V-API\Text.cs" />

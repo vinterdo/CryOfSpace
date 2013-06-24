@@ -21,7 +21,6 @@ namespace Gra
         Hull ExampleHull;
         Ship USSGruz;
 
-        SmokeEmmiter Test;
 
         
         public Game1()
@@ -97,7 +96,6 @@ namespace Gra
             USSGruz.Initialize();
             //=============
 
-            Test = new SmokeEmmiter(this, Vector2.One * 100);
             
 
         }
@@ -119,8 +117,7 @@ namespace Gra
             ScreenManager.Singleton.Update(gameTime);
             Renderer.Singleton.Update(gameTime);
             NetworkManager.Singleton.Update();
-
-            Test.Update(gameTime);
+            ParticleWorld.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -166,20 +163,11 @@ namespace Gra
                 }
                 
             }
-
-
-
             spriteBatch.Draw(Renderer.Singleton.CursorTex, GeneralManager.Singleton.MousePos - new Vector2(15, 15), Color.White);
 
-            foreach(Particle P in Test.Particles)
-            {
-                P.DrawOnPosition(gameTime, Vector2.Zero);
-            }
 
             spriteBatch.End();
 
-
-            base.Draw(gameTime);
         }
     }
 }

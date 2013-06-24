@@ -17,11 +17,14 @@ namespace Gra
 
     public class MiningLaser : Component
     {
+        SmokeEmmiter Emiter;
+
         public MiningLaser(Game game)
             : base(game)
         {
             Tex = Renderer.Singleton.MiningLaser;
             Name = "Mining Laser";
+            Emiter = new SmokeEmmiter(Game, Vector2.Zero);
         }
 
         public enum State
@@ -81,6 +84,9 @@ namespace Gra
                 Renderer.Singleton.batch.Draw(Renderer.Singleton.LaserBeam, ActualPosition, null, Color.White,
                            angle, Vector2.Zero, new Vector2(length / 10, 1),
                            SpriteEffects.None, 1);
+
+                Emiter.Position = Target.DrawPosition;
+                Emiter.Draw(gameTime);
             }
         }
     }

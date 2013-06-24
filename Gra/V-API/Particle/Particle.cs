@@ -26,6 +26,10 @@ namespace Gra
         public float Scale;
         public float ScaleChange;
 
+        public float CurrentLife;
+        public float ParticleMaxLife;
+
+
         public Particle(Game game, Texture2D Tex, Vector2 Position):base(game)
         {
             this.Tex = Tex;
@@ -34,6 +38,8 @@ namespace Gra
 
         public override void Draw(GameTime gameTime)
         {
+            Renderer.Singleton.batch.Draw(Tex, this.Position, null, new Color(Color.White, Opacity), Angle, new Vector2(Tex.Width / 2, Tex.Height / 2), Scale, SpriteEffects.None, 0.1f);
+        
             base.Draw(gameTime);
         }
 
@@ -42,6 +48,8 @@ namespace Gra
             Position += Speed;
             Angle += AngularSpeed;
             Opacity -= OpacityChange;
+            CurrentLife += gameTime.ElapsedGameTime.Milliseconds;
+            
         }
 
         public void DrawOnPosition(GameTime gameTime, Vector2 Offset)
