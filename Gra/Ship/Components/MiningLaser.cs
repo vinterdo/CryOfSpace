@@ -18,6 +18,7 @@ namespace Gra
     public class MiningLaser : Component
     {
         SmokeEmmiter Emiter;
+        Vector2 CurrentOffset;
 
         public MiningLaser(Game game)
             : base(game)
@@ -25,6 +26,7 @@ namespace Gra
             Tex = Renderer.Singleton.MiningLaser;
             Name = "Mining Laser";
             Emiter = new SmokeEmmiter(Game, Vector2.Zero);
+            CurrentOffset = Vector2.Zero;
         }
 
         public enum State
@@ -78,14 +80,19 @@ namespace Gra
         {
             if (CurrentState == State.Enabled)
             {
-                float angle = (float)Math.Atan2(Target.DrawPosition.Y - ActualPosition.Y, Target.DrawPosition.X - ActualPosition.X);
-                float length = Vector2.Distance(Target.DrawPosition, ActualPosition);
+                Vector2 TargetPos = Target.DrawPosition + CurrentOffset;
+
+                float angle = (float)Math.Atan2(TargetPos.Y - ActualPosition.Y, TargetPos.X - ActualPosition.X);
+                float length = Vector2.Distance(TargetPos, ActualPosition);
 
                 Renderer.Singleton.batch.Draw(Renderer.Singleton.LaserBeam, ActualPosition, null, Color.White,
-                           angle, Vector2.Zero, new Vector2(length / 10, 1),
+                           angle, Vector2.Zero, new Vector2(length / 10, 1f + (float)((GeneralManager.Singleton.GetRandom()%1000) / 5000f)),
                            SpriteEffects.None, 1);
 
-                Emiter.Position = Target.DrawPosition;
+                CurrentOffset.X += GeneralManager.Singleton.GetRandom() % 3 - 1;
+                CurrentOffset.Y += GeneralManager.Singleton.GetRandom() % 3 - 1;
+
+                Emiter.Position = TargetPos;
                 Emiter.Draw(gameTime);
             }
         }

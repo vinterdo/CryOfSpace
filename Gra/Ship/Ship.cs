@@ -154,7 +154,7 @@ namespace Gra
 
         public void DrawOutside(GameTime gameTime)
         {
-            OutsideView.Draw(gameTime, Angle, Hull.Center);
+            
             foreach (Slot S in Hull.Slots)
             {
                 if (S.Component != null)
@@ -163,14 +163,18 @@ namespace Gra
                     {
                         (S.Component as Weapon).DrawBullets(gameTime, DrawPosition);
                     }
+                    if (S.Component is MiningLaser)
+                    {
+                        (S.Component as MiningLaser).DrawBeam(gameTime);
+                    }
                 }
             }
+
+            OutsideView.Draw(gameTime, Angle, Hull.Center);
         }
 
         public void DrawInside(GameTime gameTime)
         {
-
-            Renderer.Singleton.batch.Draw(InsideTex, DrawPosition , null, Color.White, Angle, Hull.Center, 1.0f, SpriteEffects.None, 1.0f);
 
             foreach (Slot S in Hull.Slots)
             {
@@ -186,6 +190,9 @@ namespace Gra
                     }
                 }
             }
+
+            Renderer.Singleton.batch.Draw(InsideTex, DrawPosition, null, Color.White, Angle, Hull.Center, 1.0f, SpriteEffects.None, 1.0f);
+
         }
 
         public void FlyTo(VertexScreen V)
