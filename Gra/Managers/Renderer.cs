@@ -63,6 +63,13 @@ namespace Gra
         public Texture2D MiningLaser;
         public Texture2D LaserBeam;
         public Texture2D SmokeParticle;
+        public Texture2D InventoryButton;
+        public Texture2D InventoryBackground;
+        public Texture2D BackButton;
+
+        public Texture2D Hydrogen;
+        public Texture2D Plutonium;
+        public Texture2D Tungsten;
 
 
         public Texture2D FromVertexToLevelGUI;
@@ -133,6 +140,12 @@ namespace Gra
             MiningLaser = Content.Load<Texture2D>("MiningLaser");
             LaserBeam = Content.Load<Texture2D>("LaserBeam");
             SmokeParticle = Content.Load<Texture2D>("SmokeParticle");
+            Hydrogen = Content.Load<Texture2D>("Hydrogen");
+            Plutonium = Content.Load<Texture2D>("Plutonium");
+            Tungsten = Content.Load<Texture2D>("Tungsten");
+            InventoryButton = Content.Load<Texture2D>("InventoryButton");
+            InventoryBackground = Content.Load<Texture2D>("InventoryBackground");
+            BackButton = Content.Load<Texture2D>("BackButton");
 
             
             

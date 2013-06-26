@@ -33,6 +33,8 @@ namespace Gra
                 RenderConnections(gameTime);
                 RenderVertexes(gameTime);
                 spriteBatch.Draw(Renderer.Singleton.ProjectButton, new Rectangle((int)(Renderer.Width * 0.4),(int)( Renderer.Height * 0.88), (int)(Renderer.Width*0.2), (int)(Renderer.Height*0.07)), Color.White);
+                spriteBatch.Draw(Renderer.Singleton.InventoryButton, Renderer.GetPartialRect(0.85f,0.28f,0.15f,0.07f), Color.White);
+            
             }
             //base.Draw(gameTime);
         }
@@ -49,6 +51,14 @@ namespace Gra
                         ScreenManager.Singleton.ProjectView.Visible = true;
                         GeneralManager.SoundManager.PlaySound("beep");
                     }
+
+                    if (Renderer.GetPartialRect(0.85f, 0.28f, 0.15f, 0.07f).Contains(new Point((int)GeneralManager.Singleton.MousePos.X, (int)GeneralManager.Singleton.MousePos.Y)))
+                    {
+                        Hide();
+                        ScreenManager.Singleton.InventoryScreen.Visible = true;
+                        GeneralManager.SoundManager.PlaySound("beep");
+                    }
+
 
                     Point MousePoint = new Point(Math.Abs(Mouse.GetState().X), Mouse.GetState().Y);
                     Rectangle MouseRect = new Rectangle((int)MousePoint.X - 15, (int)MousePoint.Y - 15, 30, 30);
@@ -323,10 +333,10 @@ namespace Gra
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Cargo(game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(game));
+
+            GeneralManager.Singleton.CurrentPlayer.MaterialsInventory.Add(new Plutonium(16));
+            GeneralManager.Singleton.CurrentPlayer.MaterialsInventory.Add(new Plutonium(16));
 
             GeneralManager.Singleton.IsLevelInitalized = true;
         }

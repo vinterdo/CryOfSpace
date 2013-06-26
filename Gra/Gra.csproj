@@ -91,6 +91,7 @@
     <Compile Include="Level\SpaceStation\SpaceStationMenu.cs" />
     <Compile Include="Level\TradeOptions.cs" />
     <Compile Include="Level\VertexScreen.cs" />
+    <Compile Include="Screens\InventoryScreen.cs" />
     <Compile Include="Ship\Bullets\Bullet.cs" />
     <Compile Include="Ship\Bullets\Bullet_Gauss.cs" />
     <Compile Include="Ship\Components\Cargo.cs" />
@@ -107,6 +108,8 @@
     <Compile Include="Level\LevelPacket.cs" />
     <Compile Include="Screens\MultiplayerChooseScreen.cs" />
     <Compile Include="Managers\NetworkManager.cs" />
+    <Compile Include="Ship\Materials\Plutonium.cs" />
+    <Compile Include="Ship\Materials\RawMaterial.cs" />
     <Compile Include="Ship\Slot.cs" />
     <Compile Include="V-API\Animation.cs" />
     <Compile Include="V-API\CheckBox.cs" />

@@ -16,6 +16,9 @@ namespace Gra
     public class Player
     {
         public List<Component> ComponentsInventory;
+
+        public List<RawMaterial> MaterialsInventory;
+
         public Ship Ship;
         public int Money= 100;
 
@@ -23,6 +26,7 @@ namespace Gra
         {
             Ship = new Ship(Renderer.Singleton.Game);
             ComponentsInventory = new List<Component>();
+            MaterialsInventory = new List<RawMaterial>();
         }
 
         public void Initalize()
