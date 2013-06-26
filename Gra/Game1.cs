@@ -21,8 +21,6 @@ namespace Gra
         Hull ExampleHull;
         Ship USSGruz;
 
-
-        
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -96,7 +94,6 @@ namespace Gra
             USSGruz.Initialize();
             //=============
 
-            
 
         }
 
@@ -118,6 +115,7 @@ namespace Gra
             Renderer.Singleton.Update(gameTime);
             NetworkManager.Singleton.Update();
             ParticleWorld.Update(gameTime);
+
 
             base.Update(gameTime);
         }

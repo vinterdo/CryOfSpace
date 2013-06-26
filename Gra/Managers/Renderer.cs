@@ -27,6 +27,7 @@ namespace Gra
         
         public static int Height, Width;
         public static Dictionary<string, Animation> Animations;
+        public static Dictionary<string, SpriteFont> Fonts;
         public Game Game;
 
 
@@ -98,6 +99,7 @@ namespace Gra
             Height = batch.GraphicsDevice.Viewport.Height;
             Width = batch.GraphicsDevice.Viewport.Width;
             Animations = new Dictionary<string, Animation>();
+            Fonts = new Dictionary<string, SpriteFont>();
             this.Content = Content;
         }
 
@@ -148,7 +150,7 @@ namespace Gra
             BackButton = Content.Load<Texture2D>("BackButton");
 
             
-            
+            Fonts.Add("Coalition", Content.Load<SpriteFont>("Font"));
         }
 
         public void Line(float width, Vector2 from, Vector2 to, Color color)
