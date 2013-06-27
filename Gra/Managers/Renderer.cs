@@ -28,6 +28,7 @@ namespace Gra
         public static int Height, Width;
         public static Dictionary<string, Animation> Animations;
         public static Dictionary<string, SpriteFont> Fonts;
+        public static Dictionary<string, Texture2D> Textures;
         public Game Game;
 
 
@@ -66,7 +67,6 @@ namespace Gra
         public Texture2D SmokeParticle;
         public Texture2D InventoryButton;
         public Texture2D InventoryBackground;
-        public Texture2D BackButton;
 
         public Texture2D Hydrogen;
         public Texture2D Plutonium;
@@ -100,6 +100,7 @@ namespace Gra
             Width = batch.GraphicsDevice.Viewport.Width;
             Animations = new Dictionary<string, Animation>();
             Fonts = new Dictionary<string, SpriteFont>();
+            Textures = new Dictionary<string, Texture2D>();
             this.Content = Content;
         }
 
@@ -147,7 +148,12 @@ namespace Gra
             Tungsten = Content.Load<Texture2D>("Tungsten");
             InventoryButton = Content.Load<Texture2D>("InventoryButton");
             InventoryBackground = Content.Load<Texture2D>("InventoryBackground");
-            BackButton = Content.Load<Texture2D>("BackButton");
+
+            LoadTex("BackButton");
+            LoadTex("TradeComponents");
+            LoadTex("TradeMaterials");
+            LoadTex("BuyButton");
+            LoadTex("SellButton");
 
             
             Fonts.Add("Coalition", Content.Load<SpriteFont>("Font"));
@@ -221,6 +227,11 @@ namespace Gra
             Money.Name = GeneralManager.Singleton.CurrentPlayer.Money.ToString();
             Money.Draw(null);
 
+        }
+
+        public void LoadTex(string Name)
+        {
+            Textures.Add(Name, Content.Load<Texture2D>(Name));
         }
     }
 }

@@ -40,6 +40,45 @@ namespace Gra
                     //Vertex.MinimapEnabled = !Vertex.MinimapEnabled;
                     OnClick();
                 }
+
+                if (Menu.Visible)
+                {
+
+                    switch (Menu.MenuMode)
+                    {
+                        case SpaceStationMenu.Mode.Main:
+                            if (Renderer.GetPartialRect(0.6f, 0.3f, 0.15f, 0.05f).Contains((int)GeneralManager.Singleton.MousePos.X, (int)GeneralManager.Singleton.MousePos.Y))
+                            {
+                                Menu.MenuMode = SpaceStationMenu.Mode.TradeComponents;
+                            }
+
+                            if (Renderer.GetPartialRect(0.6f, 0.35f, 0.15f, 0.05f).Contains((int)GeneralManager.Singleton.MousePos.X, (int)GeneralManager.Singleton.MousePos.Y))
+                            {
+                                Menu.MenuMode = SpaceStationMenu.Mode.TradeMaterials;
+                            }
+
+                            break;
+                        case SpaceStationMenu.Mode.TradeComponents:
+
+                            if (Renderer.GetPartialRect(0.6f, 0.3f, 0.15f, 0.05f).Contains((int)GeneralManager.Singleton.MousePos.X, (int)GeneralManager.Singleton.MousePos.Y))
+                            {
+                                Menu.MenuMode = SpaceStationMenu.Mode.Main;
+                            }
+
+                            break;
+                        case SpaceStationMenu.Mode.TradeMaterials:
+
+                            if (Renderer.GetPartialRect(0.6f, 0.3f, 0.15f, 0.05f).Contains((int)GeneralManager.Singleton.MousePos.X, (int)GeneralManager.Singleton.MousePos.Y))
+                            {
+                                Menu.MenuMode = SpaceStationMenu.Mode.Main;
+                            }
+
+                            break;
+                    }
+
+
+
+                }
             }
             Angle += gameTime.ElapsedGameTime.Milliseconds / 10000.0f;
 
@@ -60,16 +99,39 @@ namespace Gra
             Renderer.Singleton.batch.Draw(Tex, DrawPosition, null, Color.White, Angle, new Vector2(Tex.Width/2, Tex.Height/2), Vector2.One, SpriteEffects.None, 1.0f);
             base.Draw(gameTime);
 
-            Menu.Draw(gameTime);
+            
             if (Menu.Visible)
             {
-                Menu.DrawTrade(TradeOptions);
+                Menu.Draw(gameTime);
+
+                switch (Menu.MenuMode)
+                {
+                    case SpaceStationMenu.Mode.Main:
+                        Renderer.Singleton.batch.Draw(Renderer.Textures["TradeComponents"], Renderer.GetPartialRect(0.6f, 0.3f, 0.15f, 0.05f), Color.White);
+                        Renderer.Singleton.batch.Draw(Renderer.Textures["TradeMaterials"], Renderer.GetPartialRect(0.6f, 0.35f, 0.15f, 0.05f), Color.White);
+
+                        break;
+                    case SpaceStationMenu.Mode.TradeComponents:
+                        Menu.DrawComponentsTrade(TradeOptions);
+                        Renderer.Singleton.batch.Draw(Renderer.Textures["BackButton"], Renderer.GetPartialRect(0.6f, 0.3f, 0.15f, 0.05f), Color.White);
+
+                        break;
+                    case SpaceStationMenu.Mode.TradeMaterials:
+                        Renderer.Singleton.batch.Draw(Renderer.Textures["BackButton"], Renderer.GetPartialRect(0.6f, 0.3f, 0.15f, 0.05f), Color.White);
+
+                        Menu.DrawMaterialsTrade();
+
+                        break;
+                }
+                
+
+                
             }
         }
 
         public void OnClick()
         {
-            Menu.Visible = !Menu.Visible;
+            Menu.Visible = !Menu.Visible; 
         }
     }
 }

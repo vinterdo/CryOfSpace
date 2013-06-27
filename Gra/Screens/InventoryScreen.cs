@@ -52,7 +52,7 @@ namespace Gra
                     DrawMaterialSlot(i, i);
                 }
 
-                spriteBatch.Draw(Renderer.Singleton.BackButton, Renderer.GetPartialRect(0.9f, 0f, 0.1f, 0.05f), Color.White);
+                spriteBatch.Draw(Renderer.Textures["BackButton"], Renderer.GetPartialRect(0.9f, 0f, 0.1f, 0.05f), Color.White);
 
                 base.Draw(gameTime);
             }

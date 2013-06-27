@@ -16,7 +16,17 @@ namespace Gra
 {
     class SpaceStationMenu : Window
     {
-        public static SpriteFont Font = Renderer.Singleton.Content.Load<SpriteFont>("Font");
+
+        public enum Mode
+        {
+            Main,
+            TradeMaterials,
+            TradeComponents
+        }
+
+        public Mode MenuMode = Mode.Main;
+
+        public static SpriteFont Font = Renderer.Fonts["Coalition"];
 
         public SpaceStationMenu(Game game)
             : base(game, "SpaceStationMenuBG", new Rectangle(Renderer.Width/10, Renderer.Height/10, (Renderer.Width*8)/10,(Renderer.Height*8)/10))
@@ -62,7 +72,8 @@ namespace Gra
             base.Update(gameTime);
         }
 
-        public void DrawTrade(TradeOptions Options)
+
+        public void DrawComponentsTrade(TradeOptions Options)
         {
             int i = 0;
             foreach (BuyOption B in Options.Buy)
@@ -103,6 +114,14 @@ namespace Gra
                 PriceText.Draw(null);
                // Renderer.Singleton.batch.DrawString(Font, B.Price.ToString(), new Vector2(Slot.X + Slot.Width * 3 / 4, Slot.Y + Slot.Height * 3 / 4), Color.White, 0.0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0.0f);
             }
+        }
+
+        public void DrawMaterialsTrade()
+        {
+            //TODO : Drawing avalible buy and sell materials
+
+            Renderer.Singleton.batch.Draw(Renderer.Textures["BuyButton"], Renderer.GetPartialRect(0.18f, 0.75f, 0.15f, 0.1f), Color.White);
+            Renderer.Singleton.batch.Draw(Renderer.Textures["SellButton"], Renderer.GetPartialRect(0.37f, 0.75f, 0.15f, 0.1f), Color.White);
         }
     }
 }
