@@ -19,7 +19,7 @@ namespace Gra
         public Asteroid(Game game)
             : base(game)
         {
-
+            Materials = new List<RawMaterial>();
         }
 
         public override void Initialize()
@@ -27,6 +27,9 @@ namespace Gra
 
             base.Initialize();
         }
+
+        public int MiningChance; // Max 10 000
+        public List<RawMaterial> Materials;
 
         public override void Update(GameTime gameTime)
         {
@@ -50,6 +53,14 @@ namespace Gra
                     (S.Component as MiningLaser).StartMining(this); 
                 }
             }
+        }
+
+        public RawMaterial GetMaterial()
+        {
+            int Random = GeneralManager.Singleton.GetRandom() % Materials.Count;
+            RawMaterial ReturnMaterial = Materials[Random];
+            Materials.Remove(ReturnMaterial);
+            return ReturnMaterial;
         }
     }
 }

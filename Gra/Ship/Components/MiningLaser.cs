@@ -20,6 +20,8 @@ namespace Gra
         SmokeEmmiter Emiter;
         Vector2 CurrentOffset;
 
+        List<Indicator> Indicators;
+
         public MiningLaser(Game game)
             : base(game)
         {
@@ -27,6 +29,7 @@ namespace Gra
             Name = "Mining Laser";
             Emiter = new SmokeEmmiter(Game, Vector2.Zero);
             CurrentOffset = Vector2.Zero;
+            Indicators = new List<Indicator>();
         }
 
         public enum State
@@ -65,10 +68,59 @@ namespace Gra
         public void Update(GameTime gameTime, Vector2 Position)
         {
             ActualPosition = Position;
+            //         INDICATORS
 
-            if (CurrentState == State.Enabled)
+            for (int i =0; i < Indicators.Count; i++)
             {
-                
+                Indicators[i].Update(gameTime);
+
+                if (Indicators[i].CurrentLife > Indicators[i].LifeTime)
+                {
+                    Indicators.Remove(Indicators[i]);
+                }
+            }
+
+
+
+            //          MINING MATERIAL
+            if (CurrentState == State.Enabled && Target != null && Target.Materials.Count > 0)
+            {
+                if (GeneralManager.Singleton.GetRandom() % 10000 < Target.MiningChance)
+                {
+                    RawMaterial AddMaterial = Target.GetMaterial();
+                    bool Done = false;
+
+
+                    foreach (RawMaterial R in GeneralManager.Singleton.CurrentPlayer.MaterialsInventory)
+                    {
+                        if (R.Name == AddMaterial.Name)
+                        {
+                            R.Count += AddMaterial.Count;
+                            Done = true;
+                            break;
+                        }
+                    }
+
+                    if (!Done)
+                    {
+                        GeneralManager.Singleton.CurrentPlayer.MaterialsInventory.Add(AddMaterial);
+                    }
+
+                    Indicator Ind = new Indicator(Game);
+                    Ind.BaseColor = Color.Green;
+                    Ind.LifeTime = 5000;
+                    Ind.Name = "+ " + AddMaterial.Count.ToString() + " " + AddMaterial.Name;
+                    Ind.Opacity = 1f;
+                    Ind.OpacityChange = -0.01f;
+                    Ind.Position = Target.DrawPosition;
+                    Ind.Scale = 1f;
+                    Ind.ScaleChange = 0.01f;
+                    Ind.Speed = new Vector2(1, -2);
+                    Ind.TargetColor = Color.Yellow;
+
+                    Indicators.Add(Ind);
+                    
+                }
             }
 
             base.Update(gameTime);
@@ -94,6 +146,11 @@ namespace Gra
 
                 Emiter.Position = TargetPos;
                 Emiter.Draw(gameTime);
+
+                foreach (Indicator I in Indicators)
+                {
+                    I.Draw(gameTime);
+                }
             }
         }
     }
