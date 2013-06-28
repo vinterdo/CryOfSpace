@@ -9,7 +9,7 @@ namespace Gra
     {
         public Plutonium(int Count):base(Count)
         {
-            Tex = Renderer.Singleton.Plutonium;
+            Tex = Renderer.Textures["Plutonium"];
             AvgPrice = 50;
             Name = "Plutonium";
 

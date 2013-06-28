@@ -28,10 +28,16 @@ namespace Gra
 
         public static SpriteFont Font = Renderer.Fonts["Coalition"];
 
+        public List<RawMaterial> SellMaterials;
+        public List<RawMaterial> BuyMaterials;
+
+
         public SpaceStationMenu(Game game)
             : base(game, "SpaceStationMenuBG", new Rectangle(Renderer.Width/10, Renderer.Height/10, (Renderer.Width*8)/10,(Renderer.Height*8)/10))
         {
             Visible = false;
+            SellMaterials = new List<RawMaterial>();
+            BuyMaterials = new List<RawMaterial>();
         }
 
         public override void Initialize()
@@ -41,30 +47,73 @@ namespace Gra
 
         public void Update(GameTime gameTime, TradeOptions Options)
         {
-            int i = 0;
-            foreach (BuyOption B in Options.Buy)
+            if (MenuMode == Mode.TradeComponents)
             {
-                i++;
-                Rectangle Slot = new Rectangle((int)(Renderer.Width * 1.5 / 10), (int)(10 + Renderer.Height * i / 10), (int)(Renderer.Width / 10), (int)(Renderer.Height / 10));
-                if (GeneralManager.Singleton.CheckLMB() && GeneralManager.Singleton.CheckCollision(GeneralManager.Singleton.MousePos, Slot))
+                int i = 0;
+                foreach (BuyOption B in Options.Buy)
                 {
-                    B.OnClick();
-                    Options.Buy.Remove(B);
-                    break;
+                    i++;
+                    Rectangle Slot = new Rectangle((int)(Renderer.Width * 1.5 / 10), (int)(10 + Renderer.Height * i / 10), (int)(Renderer.Width / 10), (int)(Renderer.Height / 10));
+                    if (GeneralManager.Singleton.CheckLMB() && GeneralManager.Singleton.CheckCollision(GeneralManager.Singleton.MousePos, Slot))
+                    {
+                        B.OnClick();
+                        Options.Buy.Remove(B);
+                        break;
+                    }
+                }
+
+                i = 0;
+
+                foreach (SellOption B in Options.Sell)
+                {
+                    i++;
+                    Rectangle Slot = new Rectangle((int)(Renderer.Width * 2.5 / 10), (int)(10 + Renderer.Height * i / 10), (int)(Renderer.Width / 10), (int)(Renderer.Height / 10));
+                    if (GeneralManager.Singleton.CheckLMB() && GeneralManager.Singleton.CheckCollision(GeneralManager.Singleton.MousePos, Slot))
+                    {
+                        B.OnClick();
+                        Options.Sell.Remove(B);
+                        break;
+                    }
                 }
             }
-
-            i = 0;
-
-            foreach (SellOption B in Options.Sell)
+            if (MenuMode == Mode.TradeMaterials)
             {
-                i++;
-                Rectangle Slot = new Rectangle((int)(Renderer.Width * 2.5 / 10), (int)(10 + Renderer.Height * i / 10), (int)(Renderer.Width / 10), (int)(Renderer.Height / 10));
-                if (GeneralManager.Singleton.CheckLMB() && GeneralManager.Singleton.CheckCollision(GeneralManager.Singleton.MousePos, Slot))
+                for (int i = 0; i < SellMaterials.Count; i++)
                 {
-                    B.OnClick();
-                    Options.Sell.Remove(B);
-                    break;
+                    Rectangle Slot = Renderer.GetPartialRect(0.2f, 0.2f + 0.05f * i, 0.05f, 0.05f);
+
+                    if (GeneralManager.Singleton.CheckLMB())
+                    {
+                        if (Slot.Contains((int)GeneralManager.Singleton.MousePos.X, (int)GeneralManager.Singleton.MousePos.Y))
+                        {
+                            SellMaterials[i].Count -= 1;
+                            GeneralManager.Singleton.CurrentPlayer.Money += SellMaterials[i].AvgPrice;
+
+                            if (SellMaterials[i].Count <= 0)
+                            {
+                                SellMaterials.Remove(SellMaterials[i]);
+                            }
+                        }
+                    }
+                }
+
+                for (int i = 0; i < BuyMaterials.Count; i++)
+                {
+                    Rectangle Slot = Renderer.GetPartialRect(0.3f, 0.2f + 0.05f * i, 0.05f, 0.05f);
+
+                    if (GeneralManager.Singleton.CheckLMB())
+                    {
+                        if (Slot.Contains((int)GeneralManager.Singleton.MousePos.X, (int)GeneralManager.Singleton.MousePos.Y))
+                        {
+                            BuyMaterials[i].Count -= 1;
+                            GeneralManager.Singleton.CurrentPlayer.Money -= SellMaterials[i].AvgPrice;
+
+                            if (BuyMaterials[i].Count <= 0)
+                            {
+                                BuyMaterials.Remove(BuyMaterials[i]);
+                            }
+                        }
+                    }
                 }
             }
 
@@ -119,6 +168,37 @@ namespace Gra
         public void DrawMaterialsTrade()
         {
             //TODO : Drawing avalible buy and sell materials
+            for (int i = 0; i < SellMaterials.Count; i++ )
+            {
+                Rectangle Slot = Renderer.GetPartialRect(0.2f, 0.2f + 0.05f * i, 0.05f, 0.05f);
+                Rectangle PriceRect = Renderer.GetPartialRect(0.23f, 0.23f + 0.05f * i, 0.02f, 0.02f);
+
+                Renderer.Singleton.batch.Draw(Renderer.Singleton.SlotBackground, Slot, Color.White);
+                Renderer.Singleton.batch.Draw(SellMaterials[i].Tex, Slot, Color.White);
+
+                Renderer.Singleton.batch.Draw(Renderer.Singleton.SlotBackground, PriceRect, Color.White);
+                Text PriceText = new Text(Game);
+                PriceText.Name = SellMaterials[i].AvgPrice.ToString();
+                PriceText.Rect = PriceRect;
+                PriceText.Font = Font;
+                PriceText.Draw(null);
+            }
+
+            for (int i = 0; i < BuyMaterials.Count; i++)
+            {
+                Rectangle Slot = Renderer.GetPartialRect(0.3f, 0.2f + 0.05f * i, 0.05f, 0.05f);
+                Rectangle PriceRect = Renderer.GetPartialRect(0.33f, 0.23f + 0.05f * i, 0.02f, 0.02f);
+
+                Renderer.Singleton.batch.Draw(Renderer.Singleton.SlotBackground, Slot, Color.White);
+                Renderer.Singleton.batch.Draw(BuyMaterials[i].Tex, Slot, Color.White);
+
+                Renderer.Singleton.batch.Draw(Renderer.Singleton.SlotBackground, PriceRect, Color.White);
+                Text PriceText = new Text(Game);
+                PriceText.Name = BuyMaterials[i].AvgPrice.ToString();
+                PriceText.Rect = PriceRect;
+                PriceText.Font = Font;
+                PriceText.Draw(null);
+            }
 
             Renderer.Singleton.batch.Draw(Renderer.Textures["BuyButton"], Renderer.GetPartialRect(0.18f, 0.75f, 0.15f, 0.1f), Color.White);
             Renderer.Singleton.batch.Draw(Renderer.Textures["SellButton"], Renderer.GetPartialRect(0.37f, 0.75f, 0.15f, 0.1f), Color.White);

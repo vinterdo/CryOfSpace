@@ -23,6 +23,16 @@ namespace Gra
         {
             Menu = new SpaceStationMenu(game);
             TradeOptions = new TradeOptions();
+
+            //TEMPORARY
+            Menu.SellMaterials.Add(new Plutonium(32));
+            Menu.SellMaterials.Add(new Tungsten(32));
+            Menu.SellMaterials.Add(new Hydrogen(32));
+
+            Menu.BuyMaterials.Add(new Plutonium(32));
+            Menu.BuyMaterials.Add(new Tungsten(32));
+            Menu.BuyMaterials.Add(new Hydrogen(32));
+            //=========
         }
 
         public override void Initialize()
