@@ -17,11 +17,12 @@ namespace Gra
     [Serializable]
     public class Level:GameScreen
     {
+
         public int ConnectionsCount = 0;
         public int VertexCount = 0;
         
 
-        public Level(Game game, SpriteBatch spriteBatch):base(game, spriteBatch)
+        public Level(Game game):base(game)
         {
         }
 
@@ -32,8 +33,8 @@ namespace Gra
                 Renderer.Singleton.RenderBackground(gameTime);
                 RenderConnections(gameTime);
                 RenderVertexes(gameTime);
-                spriteBatch.Draw(Renderer.Singleton.ProjectButton, new Rectangle((int)(Renderer.Width * 0.4),(int)( Renderer.Height * 0.88), (int)(Renderer.Width*0.2), (int)(Renderer.Height*0.07)), Color.White);
-                spriteBatch.Draw(Renderer.Singleton.InventoryButton, Renderer.GetPartialRect(0.85f,0.28f,0.15f,0.07f), Color.White);
+                Renderer.Singleton.batch.Draw(Renderer.Singleton.ProjectButton, new Rectangle((int)(Renderer.Width * 0.4), (int)(Renderer.Height * 0.88), (int)(Renderer.Width * 0.2), (int)(Renderer.Height * 0.07)), Color.White);
+                Renderer.Singleton.batch.Draw(Renderer.Singleton.InventoryButton, Renderer.GetPartialRect(0.85f,0.28f,0.15f,0.07f), Color.White);
             
             }
             //base.Draw(gameTime);
@@ -188,30 +189,6 @@ namespace Gra
             }
         }
 
-        public VertexScreen CreateVertex(Game game, Vector2 Pos1, Texture2D Tex)
-        {
-            VertexScreen Tmp = new VertexScreen(game, Pos1, Tex);
-            Tmp.Background = Renderer.Singleton.Background;
-            Tmp.BackgroundScale = new Vector2(1.3f, 1.4f);
-
-            var ItemToAdd = Tmp.Clone();
-            
-            return ItemToAdd as VertexScreen;
-        }
-
-       
-
-
-        public void AddConnection(int A, int B, Vector2 Position1, Vector2 Position2)
-        {
-            Connection Tmp = new Connection(base.Game);
-            Tmp.A = A;
-            Tmp.B = B;
-            Tmp.Position1 = Position1;
-            Tmp.Position2 = Position2;
-            ConnectionsCount++;
-            Components.Add(Tmp);
-        }
 
         public void RenderConnections(GameTime gameTime)
         {
@@ -224,122 +201,6 @@ namespace Gra
             }
         }
 
-        public void Generate()
-        {
-            int VertexNumber = 50 - GeneralManager.Singleton.GetRandom() % 20;
-            List<int> AbleToConnect = new List<int>();
-
-            List<VertexScreen> Ver = new List<VertexScreen>();
-
-            for (int i = 0; i < VertexNumber; i++)
-            {
-                // Vertex generation
-
-                VertexScreen v = CreateVertex(this.game, new Vector2(GeneralManager.Singleton.GetRandom() % 500+ 10.0f, GeneralManager.Singleton.GetRandom() % 500+10.0f), Renderer.Singleton.Content.Load<Texture2D>("indicator"));
-
-
-
-                if (GeneralManager.Singleton.GetRandom() % 1 == 0)
-                {
-                    Asteroid1 Asteroid = new Asteroid1(Game, new Vector2(GeneralManager.Singleton.GetRandom() % 3000 + 1000, GeneralManager.Singleton.GetRandom() % 3000 + 1000));
-                    v.Components.Add(Asteroid);
-                }
-
-                if (GeneralManager.Singleton.GetRandom() % 3 == 0)
-                {
-                    SpaceStationComponent Station = new SpaceStationComponent(game);
-                    Station.Initialize();
-                    Station.Position = new Vector2(GeneralManager.Singleton.GetRandom() % 3000 + 1000, GeneralManager.Singleton.GetRandom() % 3000 + 1000);
-
-                    
-
-                    if (GeneralManager.Singleton.GetRandom() % 2 == 0) Station.TradeOptions.AddBuyOption(new BuyOption(new Engine(Game), 50));
-                    if (GeneralManager.Singleton.GetRandom() % 2 == 0) Station.TradeOptions.AddBuyOption(new BuyOption(new Generator(Game), 150));
-                    if (GeneralManager.Singleton.GetRandom() % 2 == 0) Station.TradeOptions.AddSellOption(new SellOption(new Engine(Game), 60));
-                    if (GeneralManager.Singleton.GetRandom() % 2 == 0) Station.TradeOptions.AddSellOption(new SellOption(new Generator(Game), 180));
-                    
-                    v.Components.Add(Station);
-                }
-
-                //========================
-
-                if (i == 0)
-                {
-                    GeneralManager.Players["test"].Ship.Position = new Vector2(2000, 2000);
-                    GeneralManager.Players["test"].Ship.State = Ship.ShipState.InVertex;
-                    GeneralManager.Singleton.CurrentPlayer = GeneralManager.Players["test"];
-                    v.Ships.Add(GeneralManager.Players["test"].Ship);
-                    GeneralManager.Singleton.CurrentPlayer.Ship.CurrentVertex = v;
-                }
-                bool IsGood = true;
-
-                AbleToConnect.Clear();
-                for(int j =0 ; j < i; j++)
-                {
-                    float Lenght = v.Vertex.GetLenghtFrom(Ver[j].Vertex);
-                    if (Lenght < 60)
-                    {
-                        IsGood = false;
-                    }
-
-                    if (Lenght < 120)
-                    {
-                        if (AbleToConnect.Count < 4)
-                        {
-                            AbleToConnect.Add(j);
-                        }
-                    }
-                }
-
-                if (AbleToConnect.Count == 0 && i != 0)
-                {
-                    IsGood = false;
-                }
-
-
-                if (IsGood)
-                {
-                    VertexCount++;
-                    Ver.Add(v);
-                    Components.Add(v.Vertex);
-                }
-                else
-                {
-                    i--;
-                    continue;
-                }
-
-                foreach (int Able in AbleToConnect)
-                {
-                    AddConnection(i, Able, v.Vertex.Position, Ver[Able].Vertex.Position);
-                    v.Vertex.Connections.Add(Ver[Able].Vertex);
-                    Ver[Able].Vertex.Connections.Add(v.Vertex);
-                }
-            }
-            foreach (VertexScreen v in Ver)
-            {
-                Components.Add(v);
-            }
-            // Do usuniecia
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Weapon_GaussCannonB50(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Weapon_GaussCannonB50(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new MiningLaser(Game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Cargo(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Cargo(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(game));
-
-            GeneralManager.Singleton.CurrentPlayer.MaterialsInventory.Add(new Plutonium(16));
-            GeneralManager.Singleton.CurrentPlayer.MaterialsInventory.Add(new Plutonium(16));
-
-            GeneralManager.Singleton.IsLevelInitalized = true;
-        }
 
         
     }

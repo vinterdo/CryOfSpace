@@ -17,8 +17,8 @@ namespace Gra
     {
         Texture2D Background;
 
-        public InventoryScreen(Game game, SpriteBatch spriteBatch)
-            : base(game, spriteBatch)
+        public InventoryScreen(Game game)
+            : base(game)
         {
         }
 
@@ -45,14 +45,14 @@ namespace Gra
         {
             if (Visible)
             {
-                spriteBatch.Draw(Background, new Rectangle(0, 0, Renderer.Width, Renderer.Height), Color.Gray);
+                Renderer.Singleton.batch.Draw(Background, new Rectangle(0, 0, Renderer.Width, Renderer.Height), Color.Gray);
 
                 for (int i = 0; i < 16; i++)
                 {
                     DrawMaterialSlot(i, i);
                 }
 
-                spriteBatch.Draw(Renderer.Textures["BackButton"], Renderer.GetPartialRect(0.9f, 0f, 0.1f, 0.05f), Color.White);
+                Renderer.Singleton.batch.Draw(Renderer.Textures["BackButton"], Renderer.GetPartialRect(0.9f, 0f, 0.1f, 0.05f), Color.White);
 
                 base.Draw(gameTime);
             }

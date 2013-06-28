@@ -16,8 +16,8 @@ namespace Gra
 {
     public class MainMenu : GameScreen
     {
-        public MainMenu(Game game, SpriteBatch spriteBatch)
-            : base(game, spriteBatch)
+        public MainMenu(Game game)
+            : base(game)
         {
         }
 
@@ -31,7 +31,7 @@ namespace Gra
 
         public override void Initialize()
         {
-            Menu = new MenuComponent(Game, spriteBatch, Renderer.Singleton.Content.Load<SpriteFont>("Font"), new string[] { "SinglePlayer", "MultiPlayer", "Quit Game" });
+            Menu = new MenuComponent(Game, Renderer.Singleton.batch, Renderer.Singleton.Content.Load<SpriteFont>("Font"), new string[] { "SinglePlayer", "MultiPlayer", "Quit Game" });
             Background = Renderer.Singleton.Content.Load<Texture2D>("MainMenuBackground");
             BackgroundLight = Renderer.Singleton.Content.Load<Texture2D>("MainMenuLight");
             Foreground = Renderer.Singleton.Content.Load<Texture2D>("MainMenuForeground");
@@ -76,10 +76,10 @@ namespace Gra
                 BackgroundPos = new Vector2(GeneralManager.Singleton.MousePos.X / Renderer.Width * -30 + 15, GeneralManager.Singleton.MousePos.Y / Renderer.Height * -30 + 15);
                 BackgroundPos += RandomPos;
 
-                spriteBatch.Draw(Background, new Rectangle((int)BackgroundPos.X - 30, (int)BackgroundPos.Y - 30, Renderer.Width, Renderer.Height), Color.White);
-                spriteBatch.Draw(Foreground, new Rectangle(0, 0, Renderer.Width, Renderer.Height), Color.White);
-                
-                spriteBatch.Draw(BackgroundLight, new Rectangle(0, 0, Renderer.Width, Renderer.Height), new Color(Color.White, Transparency));
+                Renderer.Singleton.batch.Draw(Background, new Rectangle((int)BackgroundPos.X - 30, (int)BackgroundPos.Y - 30, Renderer.Width, Renderer.Height), Color.White);
+                Renderer.Singleton.batch.Draw(Foreground, new Rectangle(0, 0, Renderer.Width, Renderer.Height), Color.White);
+
+                Renderer.Singleton.batch.Draw(BackgroundLight, new Rectangle(0, 0, Renderer.Width, Renderer.Height), new Color(Color.White, Transparency));
                 
                 Menu.Draw(gameTime);
                 base.Draw(gameTime);

@@ -55,21 +55,21 @@ namespace Gra
 
         public void Initalize(Game game)
         {
-            MainMenu = new MainMenu(game, Renderer.Singleton.batch);
+            MainMenu = new MainMenu(game);
             MainMenu.Fade = 1f;
             MainMenu.ScreenState = GameScreen.State.FadeIn;
             MainMenu.Initialize();
-            SelectionScreen = new GameSelectionScreen(game, Renderer.Singleton.batch);
+            SelectionScreen = new GameSelectionScreen(game);
             SelectionScreen.Initialize();
-            InGameMenu = new InGameMenu(game, Renderer.Singleton.batch);
+            InGameMenu = new InGameMenu(game);
             InGameMenu.Initialize();
-            MultiplayerChooseScreen = new MultiplayerChooseScreen(game, Renderer.Singleton.batch);
+            MultiplayerChooseScreen = new MultiplayerChooseScreen(game);
             MultiplayerChooseScreen.Initialize();
-            IpSelectionScreen = new IpSelectionScreen(game, Renderer.Singleton.batch);
+            IpSelectionScreen = new IpSelectionScreen(game);
             IpSelectionScreen.Initialize();
-            ProjectView = new ProjectViewScreen(game, Renderer.Singleton.batch);
+            ProjectView = new ProjectViewScreen(game);
             ProjectView.Initialize();
-            InventoryScreen = new InventoryScreen(game, Renderer.Singleton.batch);
+            InventoryScreen = new InventoryScreen(game);
             InventoryScreen.Initialize();
 
         }

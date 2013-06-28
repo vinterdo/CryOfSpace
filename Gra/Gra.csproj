@@ -147,6 +147,7 @@
     <Compile Include="V-API\TextBox.cs" />
     <Compile Include="Level\Vertex.cs" />
     <Compile Include="Level\VertexComponent.cs" />
+    <Compile Include="WorldGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

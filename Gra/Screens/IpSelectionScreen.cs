@@ -19,15 +19,15 @@ namespace Gra
         TextBox IpTextBox;
         MenuComponent Menu;
 
-        public IpSelectionScreen(Game game, SpriteBatch spriteBatch)
-            : base(game, spriteBatch)
+        public IpSelectionScreen(Game game)
+            : base(game)
         {
         }
 
         public override void Initialize()
         {
-            IpTextBox = new TextBox(Game, spriteBatch);
-            Menu = new MenuComponent(Game, spriteBatch, Renderer.Singleton.Content.Load<SpriteFont>("Font"), new string[] { "Server Ip:", "Back" });
+            IpTextBox = new TextBox(Game, Renderer.Singleton.batch);
+            Menu = new MenuComponent(Game, Renderer.Singleton.batch, Renderer.Singleton.Content.Load<SpriteFont>("Font"), new string[] { "Server Ip:", "Back" });
             IpTextBox.Initialize();
             IpTextBox.Box.X = (int)Menu.position.X;
             IpTextBox.Box.Y = (int)Menu.position.Y + (int)Menu.Spacing + Menu.spriteFont.LineSpacing;

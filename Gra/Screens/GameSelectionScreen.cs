@@ -23,15 +23,15 @@ namespace Gra
         Texture2D BackgroundLight;
         Vector2 BackgroundPos = new Vector2(0, 0);
 
-        public GameSelectionScreen(Game game, SpriteBatch spriteBatch)
-            : base(game, spriteBatch)
+        public GameSelectionScreen(Game game)
+            : base(game)
         {
 
         }
 
         public override void Initialize()
         {
-            Menu = new MenuComponent(Game, spriteBatch, Renderer.Singleton.Content.Load<SpriteFont>("Font"), new string[] { "New Game", "Load Game", "Back" });
+            Menu = new MenuComponent(Game, Renderer.Singleton.batch, Renderer.Singleton.Content.Load<SpriteFont>("Font"), new string[] { "New Game", "Load Game", "Back" });
             Background = Renderer.Singleton.Content.Load<Texture2D>("MainMenuBackground");
             BackgroundLight = Renderer.Singleton.Content.Load<Texture2D>("MainMenuLight");
             Foreground = Renderer.Singleton.Content.Load<Texture2D>("MainMenuForeground");
@@ -51,8 +51,8 @@ namespace Gra
                             GeneralManager.Players.Add("test", new Player());
                             GeneralManager.Players["test"].Ship.Hull = Hull.Hulls["Test"];
                             GeneralManager.Players["test"].Initalize();
-                            GeneralManager.Singleton.CurrentLevel = new Level(Game, spriteBatch);
-                            GeneralManager.Singleton.CurrentLevel.Generate();
+                            //GeneralManager.Singleton.CurrentLevel = new Level(Game, spriteBatch);
+                            WorldGenerator.GenerateLevel(Renderer.Singleton.Game);
                             GeneralManager.Singleton.CurrentLevel.Show();
                             GeneralManager.SoundManager.Initialize();
 
@@ -67,7 +67,7 @@ namespace Gra
                             ScreenState = State.FadeOut;
                             break;
                         case 1:
-                            SaveGameManager.Load(Game, spriteBatch);
+                            SaveGameManager.Load(Game, Renderer.Singleton.batch);
                             ScreenState = State.FadeOut;
                             Target = GeneralManager.Singleton.CurrentLevel;
                             break;
@@ -97,10 +97,10 @@ namespace Gra
                 BackgroundPos = new Vector2(GeneralManager.Singleton.MousePos.X / Renderer.Width * -30 + 15, GeneralManager.Singleton.MousePos.Y / Renderer.Height * -30 + 15);
                 BackgroundPos += RandomPos;
 
-                spriteBatch.Draw(Background, new Rectangle((int)BackgroundPos.X - 30, (int)BackgroundPos.Y - 30, Renderer.Width, Renderer.Height), Color.White);
-                spriteBatch.Draw(Foreground, new Rectangle(0, 0, Renderer.Width, Renderer.Height), Color.White);
+                Renderer.Singleton.batch.Draw(Background, new Rectangle((int)BackgroundPos.X - 30, (int)BackgroundPos.Y - 30, Renderer.Width, Renderer.Height), Color.White);
+                Renderer.Singleton.batch.Draw(Foreground, new Rectangle(0, 0, Renderer.Width, Renderer.Height), Color.White);
 
-                spriteBatch.Draw(BackgroundLight, new Rectangle(0, 0, Renderer.Width, Renderer.Height), new Color(Color.White, Transparency));
+                Renderer.Singleton.batch.Draw(BackgroundLight, new Rectangle(0, 0, Renderer.Width, Renderer.Height), new Color(Color.White, Transparency));
 
 
                 Menu.Draw(gameTime);

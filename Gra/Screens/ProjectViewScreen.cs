@@ -21,8 +21,8 @@ namespace Gra
         List<Rectangle> Rects;
         public Component Selected;
 
-        public ProjectViewScreen(Game game, SpriteBatch spriteBatch)
-            : base(game, spriteBatch)
+        public ProjectViewScreen(Game game)
+            : base(game)
         {
             Visible = false;
             Rects = new List<Rectangle>();
@@ -118,11 +118,11 @@ namespace Gra
                 Vector2 RandomPos = new Vector2((float)Math.Sin(((gameTime.TotalRealTime.Milliseconds + gameTime.TotalRealTime.Seconds * 1000) * Math.PI) / 15250) * 15, (float)Math.Cos(((gameTime.TotalRealTime.Milliseconds + gameTime.TotalRealTime.Seconds * 1000) * Math.PI) / 30500) * 15)
                     + new Vector2(GeneralManager.Singleton.MousePos.X / Renderer.Width * -30 + 15, GeneralManager.Singleton.MousePos.Y / Renderer.Height * -30 + 15);
 
-                spriteBatch.Draw(Renderer.Singleton.ProjectViewBackground, new Rectangle((int)RandomPos.X - 30, (int)RandomPos.Y - 30, Renderer.Width, Renderer.Height), new Color(Color.White, 0.15f));
+                Renderer.Singleton.batch.Draw(Renderer.Singleton.ProjectViewBackground, new Rectangle((int)RandomPos.X - 30, (int)RandomPos.Y - 30, Renderer.Width, Renderer.Height), new Color(Color.White, 0.15f));
                 //Ship
                 GeneralManager.Singleton.CurrentPlayer.Ship.DrawProjectView(gameTime);
                 //GUI
-                spriteBatch.Draw(Renderer.Singleton.ProjectGUI, new Rectangle(0, 0, Renderer.Width, Renderer.Height), Color.White);
+                Renderer.Singleton.batch.Draw(Renderer.Singleton.ProjectGUI, new Rectangle(0, 0, Renderer.Width, Renderer.Height), Color.White);
                 //Items
                 int ItemsCount = GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Count;
                 if (ItemsCount > 16) { ItemsCount = 16; }

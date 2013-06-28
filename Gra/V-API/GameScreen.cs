@@ -19,7 +19,6 @@ namespace Gra
     {
         List<DrawableGameComponent> components = new List<DrawableGameComponent>();
         protected Game game;
-        protected SpriteBatch spriteBatch;
 
         public enum State
         {
@@ -42,12 +41,11 @@ namespace Gra
             get { return components; }
         }
 
-        public GameScreen(Game game, SpriteBatch spriteBatch)
+        public GameScreen(Game game)
             : base(game)
         {
             this.Visible = false;
             this.game = game;
-            this.spriteBatch = spriteBatch;
         }
  
         public override void Initialize()

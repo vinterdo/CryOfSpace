@@ -61,7 +61,7 @@ namespace Gra
             XmlSerializer serializer = new XmlSerializer(typeof(SaveGameData));
             SaveGameData data = (SaveGameData)serializer.Deserialize(stream);
 
-            GeneralManager.Singleton.CurrentLevel = new Level(game, spriteBatch);
+            //GeneralManager.Singleton.CurrentLevel = new Level(game, spriteBatch);
 
             using (Connection Tmp = new Connection(game))
             {

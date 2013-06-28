@@ -16,8 +16,8 @@ namespace Gra
 {
     public class MultiplayerChooseScreen : GameScreen
     {
-        public MultiplayerChooseScreen(Game game,SpriteBatch spriteBatch)
-            : base(game, spriteBatch)
+        public MultiplayerChooseScreen(Game game)
+            : base(game)
         {
 
 
@@ -26,7 +26,7 @@ namespace Gra
         
         public override void Initialize()
         {
-            Menu = new MenuComponent(Game, spriteBatch, Renderer.Singleton.Content.Load<SpriteFont>("Font"), new string[] { "Host", "Join", "Back" });
+            Menu = new MenuComponent(Game, Renderer.Singleton.batch, Renderer.Singleton.Content.Load<SpriteFont>("Font"), new string[] { "Host", "Join", "Back" });
             base.Initialize();
         }
 
@@ -41,8 +41,8 @@ namespace Gra
                         case 0:
                             NetworkManager.Singleton.InitalizeServer("127.0.0.1");
                             this.Visible = false;
-                            GeneralManager.Singleton.CurrentLevel = new Level(Renderer.Singleton.Game, Renderer.Singleton.batch);
-                            GeneralManager.Singleton.CurrentLevel.Generate();
+                            //GeneralManager.Singleton.CurrentLevel = new Level(Renderer.Singleton.Game, Renderer.Singleton.batch);
+                            WorldGenerator.GenerateLevel(Game);
                             GeneralManager.Singleton.CurrentLevel.Show();
                             GeneralManager.Singleton.IsLevelInitalized = true;
 

@@ -18,8 +18,8 @@ namespace Gra
     {
         MenuComponent Menu;
 
-        public InGameMenu(Game game, SpriteBatch spriteBatch)
-            : base(game, spriteBatch)
+        public InGameMenu(Game game)
+            : base(game)
         {
             
         }
@@ -28,7 +28,7 @@ namespace Gra
 
         public override void Initialize()
         {
-            Menu = new MenuComponent(Game, spriteBatch, Renderer.Singleton.Content.Load<SpriteFont>("Font"), new string[] { "Back to Game", "Options", "Save Game", "Quit Game" });
+            Menu = new MenuComponent(Game, Renderer.Singleton.batch, Renderer.Singleton.Content.Load<SpriteFont>("Font"), new string[] { "Back to Game", "Options", "Save Game", "Quit Game" });
             base.Initialize();
         }
 

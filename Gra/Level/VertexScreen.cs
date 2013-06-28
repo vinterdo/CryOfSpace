@@ -152,8 +152,16 @@ namespace Gra
 
         public object Clone()
         {
-            return new VertexScreen(Game, Vertex.Position, this.Tex);
+            VertexScreen Tmp = new VertexScreen(Game, Vertex.Position, this.Tex);
+            Tmp.Background = this.Background;
+            Tmp.BackgroundScale = this.BackgroundScale;
+            Tmp.Components = this.Components;
+            Tmp.Ships = this.Ships;
+            Tmp.Size = this.Size;
+            Tmp.Vertex = this.Vertex;
 
+
+            return Tmp as object;
         }
 
 

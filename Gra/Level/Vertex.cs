@@ -123,8 +123,9 @@ namespace Gra
 
         public object Clone()
         {
-            return new Vertex(Game, this.Position, this.Tex);
+            Vertex Tmp = new Vertex(Game, this.Position, this.Tex);
 
+            return Tmp as object;
         }
 
         public float GetLenghtFrom(Vertex Vertex)
