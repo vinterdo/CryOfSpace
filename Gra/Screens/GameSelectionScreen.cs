@@ -52,7 +52,8 @@ namespace Gra
                             GeneralManager.Players["test"].Ship.Hull = Hull.Hulls["Test"];
                             GeneralManager.Players["test"].Initalize();
                             //GeneralManager.Singleton.CurrentLevel = new Level(Game, spriteBatch);
-                            WorldGenerator.GenerateLevel(Renderer.Singleton.Game);
+                            GeneralManager.Singleton.CurrentLevel = WorldGenerator.GenerateLevel(Renderer.Singleton.Game);
+                            GeneralManager.Singleton.IsLevelInitalized = true;
                             GeneralManager.Singleton.CurrentLevel.Show();
                             GeneralManager.SoundManager.Initialize();
 

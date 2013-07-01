@@ -50,6 +50,7 @@ namespace Gra
                     {
                         Hide();
                         ScreenManager.Singleton.ProjectView.Visible = true;
+                        GeneralManager.Singleton.ClickCatched = true;
                         GeneralManager.SoundManager.PlaySound("beep");
                     }
 
@@ -57,6 +58,7 @@ namespace Gra
                     {
                         Hide();
                         ScreenManager.Singleton.InventoryScreen.Visible = true;
+                        GeneralManager.Singleton.ClickCatched = true;
                         GeneralManager.SoundManager.PlaySound("beep");
                     }
 
@@ -84,6 +86,7 @@ namespace Gra
                                         V.Vertex.IsMenuOpened = false;
                                         
                                         GeneralManager.SoundManager.PlaySound("beep");
+                                        GeneralManager.Singleton.ClickCatched = true;
                                         GeneralManager.Singleton.CurrentVertex = C as VertexScreen;
                                         GeneralManager.Singleton.GameState = 2;
                                     }
@@ -93,6 +96,7 @@ namespace Gra
                                         if (V.Vertex.CheckFlightAbility())
                                         {
                                             IsLMBFound = true;
+                                            GeneralManager.Singleton.ClickCatched = true;
                                             GeneralManager.Singleton.CurrentPlayer.Ship.FlyTo(V);
                                             V.Vertex.IsMenuOpened = false;
                                             GeneralManager.SoundManager.PlaySound("beep");
@@ -106,6 +110,7 @@ namespace Gra
                                     {
                                         IsLMBFound = true;
                                         V.Vertex.IsMenuOpened = false;
+                                        GeneralManager.Singleton.ClickCatched = true;
                                         GeneralManager.SoundManager.PlaySound("beep");
                                         GeneralManager.Singleton.CurrentVertex = C as VertexScreen;
                                         GeneralManager.Singleton.GameState = 2;
@@ -117,6 +122,7 @@ namespace Gra
                                         if (V.Vertex.CheckFlightAbility())
                                         {
                                             IsLMBFound = true;
+                                            GeneralManager.Singleton.ClickCatched = true;
                                             GeneralManager.Singleton.CurrentPlayer.Ship.FlyTo(V);
                                             V.Vertex.IsMenuOpened = false;
                                             GeneralManager.SoundManager.PlaySound("beep");
@@ -139,6 +145,7 @@ namespace Gra
                                 if (MouseRect.Contains(new Point((int)IndicatorPosition.X, (int)IndicatorPosition.Y)))
                                 {
                                     V.IsMenuOpened = !V.IsMenuOpened;
+                                    GeneralManager.Singleton.ClickCatched = true;
                                     GeneralManager.SoundManager.PlaySound("beep");
 
                                     break;

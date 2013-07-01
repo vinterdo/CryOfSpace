@@ -27,6 +27,7 @@ namespace Gra
         MouseState NewMouseState;
         public Player CurrentPlayer;
         public bool IsLMBDown;
+        public bool ClickCatched = false;
 
         public static Dictionary<string, Player> Players = new Dictionary<string, Player>();
         public static List<VertexScreen> Vertexes = new List<VertexScreen>();
@@ -42,11 +43,17 @@ namespace Gra
             SoundManager.Initialize();
             IsLevelInitalized = false;
             Random = new Random();
+
+            //    MATERIAL TYPES
+
+            RawMaterial.Types.Add(new Plutonium(0).GetType());
+            RawMaterial.Types.Add(new Tungsten(0).GetType());
+            RawMaterial.Types.Add(new Hydrogen(0).GetType());
         }
 
         public bool CheckLMB()
         {
-            return OldMouseState.LeftButton == ButtonState.Released && NewMouseState.LeftButton == ButtonState.Pressed;
+            return OldMouseState.LeftButton == ButtonState.Released && NewMouseState.LeftButton == ButtonState.Pressed && ! ClickCatched;
         }
 
         static public GeneralManager Singleton
@@ -62,6 +69,8 @@ namespace Gra
 
         public void Update(GameTime gameTime)
         {
+            ClickCatched = false;
+
             foreach(KeyValuePair<string, Player> P in Players)
             {
                 P.Value.Update(gameTime);

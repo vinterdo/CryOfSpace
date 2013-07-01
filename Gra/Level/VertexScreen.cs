@@ -178,6 +178,7 @@ namespace Gra
                     C.SetDrawPosition(new Vector2(Camera.X, Camera.Y));
                     C.Update(gameTime);
                 }
+                
                 if (GeneralManager.Singleton.GameState == 2)
                 {
 
@@ -224,6 +225,8 @@ namespace Gra
                 }
             }
         }
+
+
 
         public void DrawMinimap()
         {

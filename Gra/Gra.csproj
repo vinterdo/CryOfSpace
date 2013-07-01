@@ -88,6 +88,8 @@
   <ItemGroup>
     <Compile Include="Level\Asteroids\Asteroid.cs" />
     <Compile Include="Level\Asteroids\Asteroid1.cs" />
+    <Compile Include="Level\Asteroids\Asteroid3.cs" />
+    <Compile Include="Level\Asteroids\Asteroid2.cs" />
     <Compile Include="Level\SpaceStation\SpaceStationMenu.cs" />
     <Compile Include="Level\TradeOptions.cs" />
     <Compile Include="Level\VertexScreen.cs" />

@@ -14,17 +14,16 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
-    public abstract class VertexComponent : Microsoft.Xna.Framework.DrawableGameComponent
+    public class Asteroid2 : Asteroid
     {
-        public Vector2 Position;
-        public Vector2 DrawPosition;
-        public Vector2 Size;
-        public Texture2D Tex;
-        public float Angle = 0.0f;
-
-        public VertexComponent(Game game)
+        public Asteroid2(Game game, Vector2 Position)
             : base(game)
         {
+            Tex = Renderer.Singleton.Asteroid1;
+            Size = new Vector2(100, 100);
+            this.Position = Position;
+            MiningChance = 200;
+            Materials.Add(new Plutonium(32));
         }
 
         public override void Initialize()
@@ -36,26 +35,14 @@ namespace Gra
         public override void Update(GameTime gameTime)
         {
 
-            //Angle += gameTime.ElapsedGameTime.Milliseconds / 15000.0f;
             base.Update(gameTime);
-
         }
 
         public override void Draw(GameTime gameTime)
         {
+            Renderer.Singleton.batch.Draw(Tex, DrawPosition, null, Color.White, Angle, new Vector2(Tex.Width / 2, Tex.Height / 2), Vector2.One, SpriteEffects.None, 1.0f);
 
             base.Draw(gameTime);
-
-        }
-
-        public void SetDrawPosition(Vector2 Offset)
-        {
-            DrawPosition = Position - Offset;
-        }
-
-        public Rectangle GetRect()
-        {
-            return new Rectangle((int)DrawPosition.X - Tex.Width / 2, (int)DrawPosition.Y - Tex.Height/2, (int)Tex.Width, (int)Tex.Height);
         }
     }
 }

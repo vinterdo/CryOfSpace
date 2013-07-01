@@ -19,7 +19,7 @@ namespace Gra
         static Level GeneratingLevel;
 
 
-        public static void GenerateLevel(Game Game)
+        public static Level GenerateLevel(Game Game)
         {
             GeneratingLevel = new Level(Renderer.Singleton.Game);
 
@@ -90,30 +90,19 @@ namespace Gra
                     Ver[Able].Vertex.Connections.Add(v.Vertex);
                 }
             }
+
+
             foreach (VertexScreen v in Ver)
             {
                 GeneratingLevel.Components.Add(v);
             }
-            // Do usuniecia
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Weapon_GaussCannonB50(Game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Weapon_GaussCannonB50(Game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new MiningLaser(Game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(Game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(Game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(Game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(Game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(Game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Cargo(Game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Cargo(Game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(Game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(Game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(Game));
 
-            GeneralManager.Singleton.CurrentPlayer.MaterialsInventory.Add(new Plutonium(16));
-            GeneralManager.Singleton.CurrentPlayer.MaterialsInventory.Add(new Plutonium(16));
+            CreateUserInventory(Game);
 
-            GeneralManager.Singleton.IsLevelInitalized = true;
-            GeneralManager.Singleton.CurrentLevel = GeneratingLevel;
+
+            //GeneralManager.Singleton.IsLevelInitalized = true;
+            //GeneralManager.Singleton.CurrentLevel = GeneratingLevel;
+            return GeneratingLevel;
         }
 
 
@@ -125,10 +114,9 @@ namespace Gra
 
 
 
-            if (GeneralManager.Singleton.GetRandom() % 1 == 0)
+            foreach(VertexComponent C in GenerateAsteroidField(game, Vector2.One * Tmp.Size))
             {
-                Asteroid1 Asteroid = new Asteroid1(game, new Vector2(GeneralManager.Singleton.GetRandom() % 3000 + 1000, GeneralManager.Singleton.GetRandom() % 3000 + 1000));
-                Tmp.Components.Add(Asteroid);
+                Tmp.Components.Add(C);
             }
 
             if (GeneralManager.Singleton.GetRandom() % 3 == 0)
@@ -147,6 +135,7 @@ namespace Gra
                 Tmp.Components.Add(Station);
             }
 
+
             var ItemToAdd = Tmp.Clone();
 
             return ItemToAdd as VertexScreen;
@@ -164,6 +153,44 @@ namespace Gra
             Tmp.Position2 = Position2;
             GeneratingLevel.ConnectionsCount++;
             GeneratingLevel.Components.Add(Tmp);
+        }
+
+        public static void CreateUserInventory(Game Game)
+        {
+            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Weapon_GaussCannonB50(Game));
+            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Weapon_GaussCannonB50(Game));
+            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new MiningLaser(Game));
+            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(Game));
+            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(Game));
+            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(Game));
+            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(Game));
+            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(Game));
+            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Cargo(Game));
+            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Cargo(Game));
+            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(Game));
+            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(Game));
+            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(Game));
+
+            GeneralManager.Singleton.CurrentPlayer.MaterialsInventory.Add(new Plutonium(16));
+            GeneralManager.Singleton.CurrentPlayer.MaterialsInventory.Add(new Plutonium(16));
+        }
+
+        public static List<Asteroid> GenerateAsteroidField(Game Game, Vector2 Size)
+        {
+            List<Asteroid> Asteroids = new List<Asteroid>();
+
+            int NoAsteroids = GeneralManager.Singleton.GetRandom() % 10;
+
+            for (int i = 0; i < NoAsteroids; i++)
+            {
+                Vector2 Position = new Vector2(GeneralManager.Singleton.GetRandom() % Size.X, GeneralManager.Singleton.GetRandom() % Size.Y);
+                Asteroid Tmp = new Asteroid1(Game, Position);
+                Tmp.Angle = (GeneralManager.Singleton.GetRandom() % (int)(Math.PI * 1000)) / 1000f;
+                Tmp.Materials.Add((RawMaterial)Activator.CreateInstance(RawMaterial.Types[0]));
+                Asteroids.Add(Tmp);
+            }
+
+            return Asteroids;
         }
     }
 }

@@ -132,7 +132,7 @@ namespace Gra
         {
             if (CurrentState == State.Enabled)
             {
-                Vector2 TargetPos = Target.DrawPosition + CurrentOffset;
+                Vector2 TargetPos = Target.DrawPosition; //+ CurrentOffset;
 
                 float angle = (float)Math.Atan2(TargetPos.Y - ActualPosition.Y, TargetPos.X - ActualPosition.X);
                 float length = Vector2.Distance(TargetPos, ActualPosition);

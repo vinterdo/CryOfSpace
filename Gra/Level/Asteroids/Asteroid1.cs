@@ -23,7 +23,6 @@ namespace Gra
             Size = new Vector2(100, 100);
             this.Position = Position;
             MiningChance = 200;
-            Materials.Add(new Plutonium(32));
         }
 
         public override void Initialize()

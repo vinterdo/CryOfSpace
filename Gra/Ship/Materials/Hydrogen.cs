@@ -16,8 +16,18 @@ namespace Gra
 {
     public class Hydrogen : RawMaterial
     {
+
+
         public Hydrogen(int Count)
             : base(Count)
+        {
+            Tex = Renderer.Textures["Hydrogen"];
+            AvgPrice = 10;
+            Name = "Hydrogen";
+        }
+        
+
+        public Hydrogen():base()
         {
             Tex = Renderer.Textures["Hydrogen"];
             AvgPrice = 10;

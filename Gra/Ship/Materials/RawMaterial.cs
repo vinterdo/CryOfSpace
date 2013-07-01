@@ -22,10 +22,27 @@ namespace Gra
 
         public int Count;
 
+        //Generation
+        public float GenerationChance;
+        public float MinimalCount;
+        public float MaximalCount;
+        public float NumberOfOres;
+
+
+        public static List<Type> Types = new List<Type>();
+
+
+        
 
         public RawMaterial(int Count)
         {
             this.Count = Count;
+            // TODO: Construct any child components here
+        }
+
+        public RawMaterial()
+        {
+            this.Count = GeneralManager.Singleton.GetRandom() % 64;
             // TODO: Construct any child components here
         }
 

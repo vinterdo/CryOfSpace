@@ -24,7 +24,6 @@ namespace Gra
         SpriteBatch spriteBatch;
         public Rectangle Rect;
         public int Size = 5000;
-        public Vector2 BackgroundScale = new Vector2(1.5f, 1.5f);
         public bool IsMenuOpened = false;
         public bool HasShip = false;
 

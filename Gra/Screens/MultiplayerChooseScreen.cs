@@ -42,7 +42,7 @@ namespace Gra
                             NetworkManager.Singleton.InitalizeServer("127.0.0.1");
                             this.Visible = false;
                             //GeneralManager.Singleton.CurrentLevel = new Level(Renderer.Singleton.Game, Renderer.Singleton.batch);
-                            WorldGenerator.GenerateLevel(Game);
+                            GeneralManager.Singleton.CurrentLevel = WorldGenerator.GenerateLevel(Game);
                             GeneralManager.Singleton.CurrentLevel.Show();
                             GeneralManager.Singleton.IsLevelInitalized = true;
 
