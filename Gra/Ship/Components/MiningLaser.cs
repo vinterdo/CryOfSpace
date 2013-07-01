@@ -55,6 +55,7 @@ namespace Gra
 
         public void StartMining(Asteroid Target)
         {
+            
             this.Target = Target;
             CurrentState = State.Enabled;
         }

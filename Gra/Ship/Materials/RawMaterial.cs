@@ -24,9 +24,9 @@ namespace Gra
 
         //Generation
         public float GenerationChance;
-        public float MinimalCount;
-        public float MaximalCount;
-        public float NumberOfOres;
+        public int MinimalCount;
+        public int MaximalCount;
+        public int NumberOfOres;
 
 
         public static List<Type> Types = new List<Type>();
@@ -45,6 +45,8 @@ namespace Gra
             this.Count = GeneralManager.Singleton.GetRandom() % 64;
             // TODO: Construct any child components here
         }
+
+        public abstract void SetParameters();
 
 
     }

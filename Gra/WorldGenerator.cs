@@ -186,7 +186,21 @@ namespace Gra
                 Vector2 Position = new Vector2(GeneralManager.Singleton.GetRandom() % Size.X, GeneralManager.Singleton.GetRandom() % Size.Y);
                 Asteroid Tmp = new Asteroid1(Game, Position);
                 Tmp.Angle = (GeneralManager.Singleton.GetRandom() % (int)(Math.PI * 1000)) / 1000f;
-                Tmp.Materials.Add((RawMaterial)Activator.CreateInstance(RawMaterial.Types[0]));
+                foreach (Type M in RawMaterial.Types)
+                {
+                    RawMaterial Material = (RawMaterial)Activator.CreateInstance(RawMaterial.Types[0]);
+                    if (Material.GenerationChance > (float)(GeneralManager.Singleton.GetRandom() & 1000) / 1000f)
+                    {
+                        int NoMaterials = GeneralManager.Singleton.GetRandom()% (Material.MaximalCount - Material.MinimalCount) + Material.MinimalCount;
+                        for (int j = 0; j < NoMaterials; j++)
+                        {
+                            Tmp.Materials.Add((RawMaterial)Activator.CreateInstance(M));
+                        }
+                    }
+
+                    //Tmp.Materials.Add();
+                }
+                
                 Asteroids.Add(Tmp);
             }
 

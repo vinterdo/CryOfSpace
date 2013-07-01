@@ -19,9 +19,25 @@ namespace Gra
         public Tungsten(int Count)
             : base(Count)
         {
+            SetParameters();
+        }
+
+        public Tungsten()
+            : base()
+        {
+            SetParameters();
+            // TODO: Construct any child components here
+        }
+
+        public override void SetParameters()
+        {
             Tex = Renderer.Textures["Tungsten"];
             AvgPrice = 20;
             Name = "Tungsten";
+            this.GenerationChance = 0.4f;
+            this.MaximalCount = 10;
+            this.MinimalCount = 2;
+            this.NumberOfOres = 4;
         }
 
     }

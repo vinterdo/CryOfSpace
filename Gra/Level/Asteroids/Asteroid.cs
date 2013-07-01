@@ -50,7 +50,10 @@ namespace Gra
             {
                 if (S.Component is MiningLaser)
                 {
-                    (S.Component as MiningLaser).StartMining(this); 
+                    if (GeneralManager.Singleton.CurrentVertex != null && GeneralManager.Singleton.CurrentVertex.Components.Contains(this))
+                    {
+                        (S.Component as MiningLaser).StartMining(this);
+                    }
                 }
             }
         }

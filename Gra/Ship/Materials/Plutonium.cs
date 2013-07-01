@@ -10,19 +10,26 @@ namespace Gra
 
         public Plutonium(int Count):base(Count)
         {
-            Tex = Renderer.Textures["Plutonium"];
-            AvgPrice = 50;
-            Name = "Plutonium";
+            SetParameters();
 
         }
 
         public Plutonium()
             : base()
         {
+            SetParameters();
+            // TODO: Construct any child components here
+        }
+
+        public override void SetParameters()
+        {
             Tex = Renderer.Textures["Plutonium"];
             AvgPrice = 50;
             Name = "Plutonium";
-            // TODO: Construct any child components here
+            this.GenerationChance = 0.4f;
+            this.MaximalCount = 10;
+            this.MinimalCount = 2;
+            this.NumberOfOres = 4;
         }
     }
 }

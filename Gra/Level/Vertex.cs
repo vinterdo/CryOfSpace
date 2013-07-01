@@ -69,7 +69,7 @@ namespace Gra
 
                 foreach (Vertex V in Connections)
                 {
-                    if (V.Equals(GeneralManager.Singleton.CurrentPlayer.Ship.CurrentVertex)) HasConnection = true;
+                    if (V.Equals(GeneralManager.Singleton.CurrentPlayer.Ship.CurrentVertex.Vertex)) HasConnection = true;
                 }
 
             }

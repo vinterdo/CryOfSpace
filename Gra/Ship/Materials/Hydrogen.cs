@@ -21,17 +21,23 @@ namespace Gra
         public Hydrogen(int Count)
             : base(Count)
         {
-            Tex = Renderer.Textures["Hydrogen"];
-            AvgPrice = 10;
-            Name = "Hydrogen";
+            SetParameters();
         }
-        
 
         public Hydrogen():base()
+        {
+            SetParameters();
+        }
+
+        public override void SetParameters()
         {
             Tex = Renderer.Textures["Hydrogen"];
             AvgPrice = 10;
             Name = "Hydrogen";
+            this.GenerationChance = 0.4f;
+            this.MaximalCount = 10;
+            this.MinimalCount = 2;
+            this.NumberOfOres = 4;
         }
 
     }
