@@ -163,16 +163,13 @@ namespace Gra
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(Game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(Game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(Game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(Game));
-            GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(Game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Cargo(Game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Cargo(Game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(Game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(Game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(Game));
 
-            GeneralManager.Singleton.CurrentPlayer.MaterialsInventory.Add(new Plutonium(16));
-            GeneralManager.Singleton.CurrentPlayer.MaterialsInventory.Add(new Plutonium(16));
+            //GeneralManager.Singleton.CurrentPlayer.MaterialsInventory.Add(new Plutonium(16));
         }
 
         public static List<Asteroid> GenerateAsteroidField(Game Game, Vector2 Size)
@@ -180,12 +177,14 @@ namespace Gra
             List<Asteroid> Asteroids = new List<Asteroid>();
 
             int NoAsteroids = GeneralManager.Singleton.GetRandom() % 10;
+            Vector2 FieldPosition = new Vector2(GeneralManager.Singleton.GetRandom() % (Size.X - 2000) + 1000, GeneralManager.Singleton.GetRandom() % (Size.Y - 2000) + 1000);
 
             for (int i = 0; i < NoAsteroids; i++)
             {
-                Vector2 Position = new Vector2(GeneralManager.Singleton.GetRandom() % Size.X, GeneralManager.Singleton.GetRandom() % Size.Y);
+                Vector2 Position = new Vector2(GeneralManager.Singleton.GetRandom() % 1000, GeneralManager.Singleton.GetRandom() % 1000) + FieldPosition;
                 Asteroid Tmp = new Asteroid1(Game, Position);
                 Tmp.Angle = (GeneralManager.Singleton.GetRandom() % (int)(Math.PI * 1000)) / 1000f;
+                Tmp.AngularSpeed = (GeneralManager.Singleton.GetRandom() % 1000) / 200000f - (GeneralManager.Singleton.GetRandom() % 1000) / 200000f;
                 foreach (Type M in RawMaterial.Types)
                 {
                     RawMaterial Material = (RawMaterial)Activator.CreateInstance(RawMaterial.Types[0]);

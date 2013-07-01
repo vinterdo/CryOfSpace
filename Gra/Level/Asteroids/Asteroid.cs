@@ -40,8 +40,9 @@ namespace Gra
                     OnClick();
                 }
 
-                base.Update(gameTime);
+                
             }
+            base.Update(gameTime);
         }
 
         public void OnClick()

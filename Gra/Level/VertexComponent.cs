@@ -21,6 +21,7 @@ namespace Gra
         public Vector2 Size;
         public Texture2D Tex;
         public float Angle = 0.0f;
+        public float AngularSpeed = 0.0f;
 
         public VertexComponent(Game game)
             : base(game)
@@ -36,7 +37,7 @@ namespace Gra
         public override void Update(GameTime gameTime)
         {
 
-            //Angle += gameTime.ElapsedGameTime.Milliseconds / 15000.0f;
+            Angle += AngularSpeed;
             base.Update(gameTime);
 
         }

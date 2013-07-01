@@ -26,7 +26,6 @@ namespace Gra
             : base()
         {
             SetParameters();
-            // TODO: Construct any child components here
         }
 
         public override void SetParameters()
