@@ -14,10 +14,9 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
-    
-    public class Text : Microsoft.Xna.Framework.DrawableGameComponent
+
+    public class Text : GuiElement
     {
-        public Rectangle Rect;
         public SpriteFont Font;
 
         public string Name;
@@ -60,6 +59,11 @@ namespace Gra
 
             
             base.Draw(gameTime);
+        }
+
+        public override void CatchClick()
+        {
+
         }
     }
 }

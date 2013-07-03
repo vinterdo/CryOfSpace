@@ -17,7 +17,7 @@ namespace Gra
     /// <summary>
     /// This is a game component that implements IUpdateable.
     /// </summary>
-    public class ProgressBar : Microsoft.Xna.Framework.DrawableGameComponent
+    public class ProgressBar : GuiElement
     {
         public ProgressBar(Game game, Rectangle Rect, Texture2D Background, Texture2D Foreground, Texture2D Overlay)
             : base(game)
@@ -30,7 +30,6 @@ namespace Gra
         }
 
         public float Progress = 0;
-        public Rectangle Rect;
         public Texture2D Background;
         public Texture2D Foreground;
         public Texture2D Overlay;
@@ -59,6 +58,11 @@ namespace Gra
 
 
             base.Draw(gameTime);
+        }
+
+        public override void CatchClick()
+        {
+
         }
     }
 }

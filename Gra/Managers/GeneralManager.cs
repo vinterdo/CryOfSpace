@@ -31,6 +31,7 @@ namespace Gra
 
         public static Dictionary<string, Player> Players = new Dictionary<string, Player>();
         public static List<VertexScreen> Vertexes = new List<VertexScreen>();
+        public static List<GuiElement> Gui = new List<GuiElement>();
 
         public VertexScreen CurrentVertex;
 
@@ -148,6 +149,22 @@ namespace Gra
         public bool CheckCollision(Vector2 Vec, Rectangle Rect, float Angle, Vector2 Center)
         {
             return CheckCollision(RotateVector(Angle * -1, Vec, Center), Rect);
+        }
+
+        public static void DrawGUI(GameTime gameTime)
+        {
+            foreach (GuiElement G in Gui)
+            {
+                G.Draw(gameTime);
+            }
+        }
+
+        public static void UpdateGUI(GameTime gameTime)
+        {
+            foreach (GuiElement G in Gui)
+            {
+                G.Draw(gameTime);
+            }
         }
     }
 }

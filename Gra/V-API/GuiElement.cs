@@ -14,16 +14,13 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
-    public abstract class Window : GuiElement
+    public abstract class GuiElement : Microsoft.Xna.Framework.DrawableGameComponent
     {
-        public Texture2D Tex;
+        public Rectangle Rect;
 
-
-        public Window(Game game, string Name, Rectangle Rect)
+        public GuiElement(Game game)
             : base(game)
         {
-            Tex = Renderer.Singleton.SpaceStationMenuBG;
-            this.Rect = Rect;
         }
 
         public override void Initialize()
@@ -34,30 +31,18 @@ namespace Gra
 
         public override void Update(GameTime gameTime)
         {
-
+            if(GeneralManager.Singleton.CheckLMB())
+            {
+                CatchClick();
+            }
             base.Update(gameTime);
         }
 
-        public override void Draw(GameTime gameTime)
+        public abstract void CatchClick();
+
+
+        public void Kill()
         {
-            if (Visible)
-            {
-                Renderer.Singleton.batch.Draw(Tex, Rect, Color.White);
-                base.Draw(gameTime);
-            }
         }
-
-        public void Show()
-        {
-            Visible = true;
-        }
-
-
-        public void Hide()
-        {
-            Visible = false;
-        }
-
-
     }
 }

@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
-    public class Indicator : Microsoft.Xna.Framework.DrawableGameComponent
+    public class Indicator : GuiElement
     {
         public float LifeTime;
         public float CurrentLife;
@@ -63,6 +63,11 @@ namespace Gra
             Renderer.Singleton.batch.DrawString(Font, Name, Position, new Color(BaseColor.R * (1f - Progress) + TargetColor.R * Progress, BaseColor.G * (1f - Progress) + TargetColor.G * Progress, BaseColor.B * (1f - Progress) + TargetColor.B * Progress, Opacity), 0f, Font.MeasureString(Name) * Scale / 2f, Scale, SpriteEffects.None, 0.1f);
 
             base.Draw(gameTime);
+        }
+
+        public override void CatchClick()
+        {
+
         }
     }
 }

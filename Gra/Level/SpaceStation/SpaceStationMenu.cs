@@ -203,5 +203,12 @@ namespace Gra
             Renderer.Singleton.batch.Draw(Renderer.Textures["BuyButton"], Renderer.GetPartialRect(0.18f, 0.75f, 0.15f, 0.1f), Color.White);
             Renderer.Singleton.batch.Draw(Renderer.Textures["SellButton"], Renderer.GetPartialRect(0.37f, 0.75f, 0.15f, 0.1f), Color.White);
         }
+
+
+        public override void CatchClick()
+        {
+            
+        }
+
     }
 }

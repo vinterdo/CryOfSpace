@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
-    public class RadioButton : Microsoft.Xna.Framework.DrawableGameComponent
+    public class RadioButton : GuiElement
     {
 
         public List<CheckBox> Boxes;
@@ -58,6 +58,10 @@ namespace Gra
             }
 
             base.Draw(gameTime);
+        }
+        public override void CatchClick()
+        {
+
         }
     }
 }

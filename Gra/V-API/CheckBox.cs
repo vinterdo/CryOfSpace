@@ -14,14 +14,13 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
-    public class CheckBox : Microsoft.Xna.Framework.DrawableGameComponent
+    public class CheckBox : GuiElement
     {
         public Texture2D TexOff;
         public Texture2D TexOn;
 
         public bool State = false;
 
-        public Rectangle Rect;
 
         public CheckBox(Game game, Rectangle Rect, Texture2D TexOn, Texture2D TexOff)
             : base(game)
@@ -58,6 +57,11 @@ namespace Gra
                 Renderer.Singleton.batch.Draw(TexOn, Rect, Color.White);
             }
             base.Draw(gameTime);
+        }
+
+        public override void CatchClick()
+        {
+
         }
     }
 }

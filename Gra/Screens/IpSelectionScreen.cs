@@ -29,10 +29,10 @@ namespace Gra
             IpTextBox = new TextBox(Game, Renderer.Singleton.batch);
             Menu = new MenuComponent(Game, Renderer.Singleton.batch, Renderer.Singleton.Content.Load<SpriteFont>("Font"), new string[] { "Server Ip:", "Back" });
             IpTextBox.Initialize();
-            IpTextBox.Box.X = (int)Menu.position.X;
-            IpTextBox.Box.Y = (int)Menu.position.Y + (int)Menu.Spacing + Menu.spriteFont.LineSpacing;
-            IpTextBox.Box.Width = 100;
-            IpTextBox.Box.Height = 100;
+            IpTextBox.Rect.X = (int)Menu.position.X;
+            IpTextBox.Rect.Y = (int)Menu.position.Y + (int)Menu.Spacing + Menu.spriteFont.LineSpacing;
+            IpTextBox.Rect.Width = 100;
+            IpTextBox.Rect.Height = 100;
             Menu.Spacing = Menu.spriteFont.LineSpacing + 2 * Menu.Spacing;
             
             base.Initialize();

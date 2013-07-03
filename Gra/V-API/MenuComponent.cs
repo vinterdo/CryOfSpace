@@ -17,7 +17,7 @@ namespace Gra
     /// <summary>
     /// This is a game component that implements IUpdateable.
     /// </summary>
-    public class MenuComponent : Microsoft.Xna.Framework.DrawableGameComponent
+    public class MenuComponent : GuiElement
     {
         string[] menuItems;
         int selectedIndex;
@@ -146,6 +146,11 @@ namespace Gra
                     0);
                 location.Y += spriteFont.LineSpacing + Spacing;
             }
+        }
+
+        public override void CatchClick()
+        {
+
         }
     }
 }

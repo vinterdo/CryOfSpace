@@ -117,6 +117,7 @@
     <Compile Include="Ship\Slot.cs" />
     <Compile Include="V-API\Animation.cs" />
     <Compile Include="V-API\CheckBox.cs" />
+    <Compile Include="V-API\GuiElement.cs" />
     <Compile Include="V-API\Indicator.cs" />
     <Compile Include="V-API\Particle\Emmiters\SmokeEmmiter.cs" />
     <Compile Include="V-API\Particle\ParticleEmitter.cs" />

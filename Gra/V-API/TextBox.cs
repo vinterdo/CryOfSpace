@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Gra
 {
-    public class TextBox : Microsoft.Xna.Framework.DrawableGameComponent
+    public class TextBox : GuiElement
     {
         public TextBox(Game game, SpriteBatch spriteBatch)
             : base(game)
@@ -22,7 +22,6 @@ namespace Gra
             this.spriteBatch = spriteBatch;
         }
 
-        public Rectangle Box;
         public string Text = "";
         public bool IsFocused;
         Color FocusedColor;
@@ -48,8 +47,8 @@ namespace Gra
 
         public void Measure()
         {
-            Box.Width = (int)Font.MeasureString(Text).X;
-            Box.Height = (int)Font.MeasureString(Text).Y;
+            Rect.Width = (int)Font.MeasureString(Text).X;
+            Rect.Height = (int)Font.MeasureString(Text).Y;
         }
 
         public override void Update(GameTime gameTime)
@@ -97,12 +96,12 @@ namespace Gra
             {
                 if (IsFocused)
                 {
-                    spriteBatch.Draw(BgTex, Box, FocusedColor);
-                    spriteBatch.DrawString(Font, Text, GetVectorFromPoint(Box.Location), UnfocusedColor);
+                    spriteBatch.Draw(BgTex, Rect, FocusedColor);
+                    spriteBatch.DrawString(Font, Text, GetVectorFromPoint(Rect.Location), UnfocusedColor);
                 }
                 else
                 {
-                    spriteBatch.Draw(BgTex, Box, UnfocusedColor);
+                    spriteBatch.Draw(BgTex, Rect, UnfocusedColor);
                 }
             }
             base.Draw(gameTime);
@@ -113,6 +112,9 @@ namespace Gra
             return new Vector2(Point.X, Point.Y);
         }
 
+        public override void CatchClick()
+        {
 
+        }
     }
 }
