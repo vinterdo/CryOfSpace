@@ -12,9 +12,10 @@ using System.Diagnostics;
 using System.Text;
 
 
-namespace Gra
+namespace CryOfSpace
 {
-    
+    [Serializable]
+
     public class Hull
     {
 
@@ -33,20 +34,39 @@ namespace Gra
         public float Weight;
 
         public RawAnimation OutsideView;
+        public RawAnimation OutsideColor;
+
         public RawAnimation InsideView;
-        public RawAnimation ConduitsView;
         public RawAnimation Explosion;
-        public RawAnimation Wreck;
+        public Wreck Wreck;
         public int SizeX;
         public int SizeY;
         public Vector2 Center;
 
         public List<Vector2> HullBreachs;
-        
+
+        public List<ParticleEmitter> AccelerationEngines;
+        public List<Vector2> AccelerationOffset;
+        public List<ParticleEmitter> LeftEngines;
+        public List<Vector2> LeftOffset;
+        public List<ParticleEmitter> RightEngines;
+        public List<Vector2> RightOffset;
+
+        public List<Vector2> WeaponPositions;
+
+        public Mask Mask;
 
         public Hull()
         {
-            
+            AccelerationEngines = new List<ParticleEmitter>();
+            LeftEngines = new List<ParticleEmitter>();
+            RightEngines = new List<ParticleEmitter>();
+
+            AccelerationOffset = new List<Vector2>();
+            LeftOffset = new List<Vector2>();
+            RightOffset = new List<Vector2>();
+
+            WeaponPositions = new List<Vector2>();
         }
 
         public void Initialize()
@@ -56,7 +76,6 @@ namespace Gra
             {
                 Slots[i] = new Slot();
             }
-            Hulls.Add(this.Name, this);
         }
 
         public void Update(GameTime gameTime)
@@ -64,37 +83,5 @@ namespace Gra
 
         }
 
-        public void Load(string filename)
-        {
-            
-            if (!File.Exists(filename))
-            {
-                // If not, dispose of the container and return.
-                return;
-            }
-
-            // Open the file.
-            FileStream stream = File.Open(filename, FileMode.Open);
-
-            XmlSerializer serializer = new XmlSerializer(typeof(Hull));
-            Hull data = (Hull)serializer.Deserialize(stream);
-            this.Center = data.Center;
-            this.BasicHull = data.BasicHull;
-            this.Explosion = data.Explosion;
-            this.HullBreachs = data.HullBreachs;
-            this.HullModifier = data.HullModifier;
-            this.InsideView = data.InsideView;
-            this.OutsideView = data.OutsideView;
-            this.SizeX = data.SizeX;
-            this.SizeY = data.SizeY;
-            this.SpeedModifier = data.SpeedModifier;
-            this.Weight = data.Weight;
-            this.Wreck = data.Wreck;
-            this.ConduitsView = data.ConduitsView;
-
-
-            // Close the file.
-            stream.Close();
-        }
     }
 }

@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.IO;
 
-namespace Gra
+namespace CryOfSpace
 {
     public sealed class NetworkManager
     {

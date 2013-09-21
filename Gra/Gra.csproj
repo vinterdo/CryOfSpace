@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gra</RootNamespace>
+    <RootNamespace>CryOfSpace</RootNamespace>
     <AssemblyName>Gra</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <XnaFrameworkVersion>v3.1</XnaFrameworkVersion>
@@ -86,6 +86,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\AgresiveAI.cs" />
+    <Compile Include="AI\AI.cs" />
+    <Compile Include="AI\PlayerController.cs" />
     <Compile Include="Level\Asteroids\Asteroid.cs" />
     <Compile Include="Level\Asteroids\Asteroid1.cs" />
     <Compile Include="Level\Asteroids\Asteroid3.cs" />
@@ -93,6 +96,10 @@
     <Compile Include="Level\SpaceStation\SpaceStationMenu.cs" />
     <Compile Include="Level\TradeOptions.cs" />
     <Compile Include="Level\VertexScreen.cs" />
+    <Compile Include="Mask.cs" />
+    <Compile Include="NPC\NPC-Pirate1.cs" />
+    <Compile Include="NPC\NPC.cs" />
+    <Compile Include="ObjectCopier.cs" />
     <Compile Include="Screens\InventoryScreen.cs" />
     <Compile Include="Ship\Bullets\Bullet.cs" />
     <Compile Include="Ship\Bullets\Bullet_Gauss.cs" />
@@ -110,15 +117,21 @@
     <Compile Include="Level\LevelPacket.cs" />
     <Compile Include="Screens\MultiplayerChooseScreen.cs" />
     <Compile Include="Managers\NetworkManager.cs" />
+    <Compile Include="Ship\Hulls\Hull_Cerberus_B24.cs" />
+    <Compile Include="Ship\Hulls\Hull_Ventoris_X-3000.cs" />
     <Compile Include="Ship\Materials\Hydrogen.cs" />
     <Compile Include="Ship\Materials\Plutonium.cs" />
     <Compile Include="Ship\Materials\RawMaterial.cs" />
     <Compile Include="Ship\Materials\Tungsten.cs" />
     <Compile Include="Ship\Slot.cs" />
+    <Compile Include="Ship\Wreck.cs" />
+    <Compile Include="Ship\Wrecks\Wreck_Cerberus_B24.cs" />
     <Compile Include="V-API\Animation.cs" />
     <Compile Include="V-API\CheckBox.cs" />
     <Compile Include="V-API\GuiElement.cs" />
     <Compile Include="V-API\Indicator.cs" />
+    <Compile Include="V-API\Particle\Emmiters\EngineSmokeEmmiter.cs" />
+    <Compile Include="V-API\Particle\Emmiters\EngineEmmiter.cs" />
     <Compile Include="V-API\Particle\Emmiters\SmokeEmmiter.cs" />
     <Compile Include="V-API\Particle\ParticleEmitter.cs" />
     <Compile Include="V-API\Particle\ParticleWorld.cs" />

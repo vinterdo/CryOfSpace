@@ -12,14 +12,15 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
 
-namespace Gra
+namespace CryOfSpace
 {
     public abstract class Bullet : Microsoft.Xna.Framework.DrawableGameComponent
     {
-        public Bullet(Game game)
+        Weapon Parent;
+        public Bullet(Game game, Weapon Parent)
             : base(game)
         {
-
+            this.Parent = Parent;
         }
 
         public static Texture2D Tex;
@@ -31,6 +32,7 @@ namespace Gra
         public float CurrentLife;
 
 
+
         public override void Initialize()
         {
 
@@ -40,6 +42,11 @@ namespace Gra
         public override void Update(GameTime gameTime)
         {
             Position += BasicSpeed * GeneralManager.Singleton.GetVectorFromAngle(Angle);
+            CurrentLife += gameTime.ElapsedGameTime.Milliseconds;
+            if (CurrentLife > LifeTime)
+            {
+                Parent.Bullets.Remove(this);
+            }
             base.Update(gameTime);
         }
 

@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-namespace Gra
+namespace CryOfSpace
 {
     public class Player
     {
@@ -20,23 +20,28 @@ namespace Gra
         public List<RawMaterial> MaterialsInventory;
 
         public Ship Ship;
-        public int Money= 100;
+        public int Money = 100;
+        public AI PlayerController;
 
         public Player()
         {
             Ship = new Ship(Renderer.Singleton.Game);
             ComponentsInventory = new List<Component>();
             MaterialsInventory = new List<RawMaterial>();
+            PlayerController = new PlayerController(Renderer.Singleton.Game);
+            PlayerController.Initialize(Ship);
         }
 
         public void Initalize()
         {
+            this.Ship.Hull = new Hull_Cerberus_B24();
             Ship.Initialize();
         }
 
         public void Update(GameTime gameTime)
         {
-            Ship.Update(gameTime);
+            //Ship.Update(gameTime);
+            PlayerController.Update(gameTime);
         }
     }
 }

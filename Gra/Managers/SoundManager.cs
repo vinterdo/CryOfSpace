@@ -12,12 +12,12 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
 
-namespace Gra
+namespace CryOfSpace
 {
     public sealed class SoundManager : Microsoft.Xna.Framework.GameComponent
     {
-        Dictionary<string, SoundEffect> Sounds;
-        Dictionary<string, SoundEffectInstance> Looped;
+        public Dictionary<string, SoundEffect> Sounds;
+        public Dictionary<string, SoundEffectInstance> Looped;
         public SoundManager(Game game)
             : base(game)
         {
@@ -31,6 +31,8 @@ namespace Gra
 
             LoadSound("beep");
             LoadSound("Jump");
+            LoadSound("Gauss_Cannon");
+            LoadSound("Engines");
 
             base.Initialize();
         }
@@ -44,6 +46,11 @@ namespace Gra
         public void PlaySound(string Name)
         {
             Sounds[Name].Play();
+        }
+
+        public void PlaySound(string Name, float Volume)
+        {
+            Sounds[Name].Play(Volume, 0f, 0f);
         }
 
         public void LoadSound(string Name)
@@ -61,6 +68,14 @@ namespace Gra
             Looped.Add(Name, Sounds[Name].CreateInstance());
             Looped[Name].IsLooped = true;
             Looped[Name].Play();
+        }
+
+        public void PlayInLoop(string Name, float Volume)
+        {
+            Looped.Add(Name, Sounds[Name].CreateInstance());
+            Looped[Name].IsLooped = true;
+            Looped[Name].Play();
+            Looped[Name].Volume = Volume;
         }
 
         public void UnLoop(string Name)

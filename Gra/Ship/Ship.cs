@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
 
-namespace Gra
+namespace CryOfSpace
 {
     
     public class Ship : Microsoft.Xna.Framework.DrawableGameComponent
@@ -23,30 +23,34 @@ namespace Gra
 
         Texture2D InsideTex;
 
-        public List<Component> Components;
 
         public VertexScreen CurrentVertex;
         public VertexScreen DestinationVertex;
         public float TimeToArrival = 0.0f;
 
         public Animation OutsideView;
+        public Animation OutsideColor;
+
         public Animation InsideView;
-        public Animation ConduitsView;
-        public Animation Explosion;
-        public Animation Wreck;
 
         public float Angle;
         public Vector2 Position;
         public Vector2 DrawPosition;
         public Vector2 Speed;
+        public float AccelerationPercent = 0;
 
         public ShipState State;
 
-        static RenderTarget2D Target;
+        RenderTarget2D Target;
 
-        //object @null = 0x0f as object;
+        public Color ShipColor;
 
-        public bool ShipView = false;// 0 - outside, 1 - inside
+        public SoundEffectInstance EngineSound;
+
+        public int HitPoints;
+
+
+        public bool ShipView = true;// 0 - outside, 1 - inside
 
         //===== Statistics: ==========
         float HyperspaceSpeed = 10.0f;
@@ -58,38 +62,46 @@ namespace Gra
 
         public override void Initialize()
         {
-            Hull.OutsideView.RegisterAnimation();
-            OutsideView = Renderer.Animations["ship2"];
+            OutsideView = Hull.OutsideView.CreateAnimation();
+            InsideView = Hull.InsideView.CreateAnimation();
 
-            Hull.InsideView.RegisterAnimation();
-            InsideView = Renderer.Animations["ship2-inside"];
+            EngineSound = Renderer.Singleton.Content.Load<SoundEffect>("Engines").CreateInstance();
+            EngineSound.IsLooped = true;
+            EngineSound.Play();            
+
+            if (Hull.OutsideColor != null)
+            {
+                OutsideColor = Hull.OutsideColor.CreateAnimation();
+            }
             
-
             base.Initialize();
 
+            HitPoints = (int)Hull.BasicHull;
 
             PresentationParameters pp = GraphicsDevice.PresentationParameters;
             Target = new RenderTarget2D(GraphicsDevice, Hull.SizeX, Hull.SizeY, 1, SurfaceFormat.Color, pp.MultiSampleType, pp.MultiSampleQuality);
 
-            Components = new List<Component>();
-            Components.Add(new Engine(Game));
 
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (GeneralManager.Singleton.CheckLMB() && GeneralManager.Singleton.CheckCollision(GeneralManager.Singleton.MousePos, new Rectangle((int)(DrawPosition.X - Hull.Center.X), (int)(DrawPosition.Y - Hull.Center.Y), Hull.SizeX, Hull.SizeY), Angle, DrawPosition))
-            {
-                ShipView = !ShipView;
-            }
-
             foreach (Slot S in Hull.Slots)
             {
                 if (S.Component != null)
                 {
                     if (S.Component is Weapon)
                     {
-                        (S.Component as Weapon).Update(gameTime, DrawPosition);
+                        
+                        Weapon Weapon = (S.Component as Weapon);
+                        Weapon.Update(gameTime);
+                        Weapon.DetectCollisions(this.CurrentVertex, this);
+
+                        if (Weapon.ShootAnim.CurrentFrame > 0)
+                        {
+                            Weapon.ShootAnim.Update(gameTime);
+                        }
+
                     }
                     else if (S.Component is MiningLaser)
                     {
@@ -99,37 +111,36 @@ namespace Gra
                     {
                         S.Component.Update(gameTime);
                     }
-                }
-
-                
+                }       
             }
 
             switch (State)
             {
                 case ShipState.InVertex:
 
-                    if (GeneralManager.Singleton.keyboardState.IsKeyDown(Keys.W))
+                    Position += Speed;
+                    if (AccelerationPercent > 0)
                     {
-                        Speed += GeneralManager.Singleton.GetVectorFromAngle(-1 * Angle + (float)Math.PI / 2) / 1000;
-                    }
-                    if (GeneralManager.Singleton.keyboardState.IsKeyDown(Keys.D))
-                    {
-                        Angle += 0.002f;
-                    }
-                    if (GeneralManager.Singleton.keyboardState.IsKeyDown(Keys.A))
-                    {
-                        Angle -= 0.002f;
-                    }
-                    if (GeneralManager.Singleton.keyboardState.IsKeyDown(Keys.S))
-                    {
-                        Speed *= 0.95f;
+                        Speed += GeneralManager.Singleton.GetVectorFromAngle(- Angle + (float)Math.PI * 0.5f) * GetSpeed * AccelerationPercent;
                     }
 
-                    Position += Speed;
+                    if (Speed.Length() > GetMaxSpeed * AccelerationPercent)
+                    {
+                        Speed.Normalize();
+                        Speed *= GetMaxSpeed * AccelerationPercent;
+                    }
 
                     OutsideView.Position = DrawPosition;
+                    if (OutsideColor != null)
+                    {
+                        OutsideColor.Position = DrawPosition;
+                    }
                     InsideView.Update(gameTime);
                     OutsideView.Update(gameTime);
+                    if (OutsideColor != null)
+                    {
+                        OutsideColor.Update(gameTime);
+                    }
                     break;
 
                 case ShipState.Travelling:
@@ -144,6 +155,35 @@ namespace Gra
                     break;
             }
 
+            SetEngineEmmiters();
+            // ====================== HP HAndling ======
+
+            if (HitPoints < 0)
+            {
+                HitPoints = 0;
+                this.Hull.Wreck.Position = this.Position;
+                this.Hull.Wreck.Angle = this.Angle;
+                CurrentVertex.Components.Add(this.Hull.Wreck);
+                CurrentVertex.Ships.Remove(this);
+                CurrentVertex.Effect.Parameters["BloomIntensity"].SetValue(1000f);
+            }
+
+            //=-===============================
+            /*
+            if (Angle < Math.PI * 2)
+            {
+                Angle += (float)Math.PI * 2f;
+            }
+            if (Angle > Math.PI * 2)
+            {
+                Angle -= (float)Math.PI * 2f;
+            }*/
+
+
+            //Sound
+            EngineSound.Volume = AccelerationPercent;
+            //===
+
             base.Update(gameTime);
         }
 
@@ -154,7 +194,8 @@ namespace Gra
 
         public void DrawOutside(GameTime gameTime)
         {
-            
+            DrawEngineEmmiters(gameTime);
+
             foreach (Slot S in Hull.Slots)
             {
                 if (S.Component != null)
@@ -171,10 +212,17 @@ namespace Gra
             }
 
             OutsideView.Draw(gameTime, Angle, Hull.Center);
+            if (OutsideColor != null)
+            {
+                OutsideColor.Draw(gameTime, Angle, Hull.Center, ShipColor);
+            }
+            DrawWeapons(gameTime);
         }
 
         public void DrawInside(GameTime gameTime)
         {
+
+            DrawEngineEmmiters(gameTime);
 
             foreach (Slot S in Hull.Slots)
             {
@@ -193,6 +241,7 @@ namespace Gra
 
             Renderer.Singleton.batch.Draw(InsideTex, DrawPosition, null, Color.White, Angle, Hull.Center, 1.0f, SpriteEffects.None, 1.0f);
 
+            DrawWeapons(gameTime);
         }
 
         public void FlyTo(VertexScreen V)
@@ -218,8 +267,6 @@ namespace Gra
 
         public void DrawProjectView(GameTime gameTime)
         {
-            //InsideView.SetPosition(new Vector2(Renderer.Width/2, Renderer.Height/2) - Hull.Center);
-            //InsideView.Draw(gameTime);
             Renderer.Singleton.batch.Draw(InsideTex, new Vector2(Renderer.Width / 2, Renderer.Height / 2) - Hull.Center, Color.White);
         }
 
@@ -252,5 +299,162 @@ namespace Gra
             InsideTex = Target.GetTexture();
             GraphicsDevice.Clear(Color.Black);
         }
+
+        public void Accelerate()
+        {
+            //this.Speed += GeneralManager.Singleton.GetVectorFromAngle(-1 * Angle + (float)Math.PI / 2) / 700;
+            AccelerationPercent += 0.1f;
+            if (AccelerationPercent > 1)
+            {
+                AccelerationPercent = 1;
+            }
+        }
+
+        public void TurnLeft()
+        {
+            Angle -= 0.007f;
+        }
+
+        public void TurnRight()
+        {
+            Angle += 0.007f;
+        }
+
+        public void Break()
+        {
+            AccelerationPercent -= 0.1f;
+            if (AccelerationPercent < 0)
+            {
+                AccelerationPercent = 0;
+            }
+            //Speed *= 0.95f;
+        }
+
+        public void FlyTo(Vector2 Target)
+        {
+           float Angle = GeneralManager.Singleton.GetAngleFromVector((Target - this.Position));
+            float Distance = (Target - Position).Length();
+
+            if (this.Angle > (float)Math.PI / 2 - Angle - 0.5f && this.Angle < (float)Math.PI / 2 - Angle + 0.5f)
+            {
+                if (Distance > 400)
+                {
+                    Accelerate();
+                }
+                if (Distance < 400)
+                {
+                    Break();
+                }
+            }
+            else
+            {
+                Break();
+            }
+
+            SwitchToAngle((float)Math.PI /2 - Angle);
+
+        }
+
+        public void SwitchToAngle(float Angle)
+        {
+            if (Angle - this.Angle < 0f && Angle - this.Angle > -1 * Math.PI)
+            {
+                TurnLeft();
+            }
+            else
+            {
+                TurnRight();
+            }
+        }
+
+
+        public void Shoot(Weapon Weapon, Vector2 Target)
+        {
+            Weapon.Shoot(Target);
+            Weapon.ShootAnim.CurrentFrame = 1;
+        }
+
+
+        public void SetEngineEmmiters()
+        {
+            int i = 0;
+
+            foreach (ParticleEmitter P in Hull.AccelerationEngines)
+            {
+                P.Position = this.DrawPosition + GeneralManager.RotateVector(Hull.AccelerationOffset[i],  this.Angle, Vector2.Zero);
+                P.Direction = (float)- Math.PI/2f - this.Angle;
+                i++;
+                P.GenerationChance = AccelerationPercent;
+                P.Speed = AccelerationPercent * 2;
+            }
+
+            foreach (ParticleEmitter P in Hull.LeftEngines)
+            {
+                P.Position = this.DrawPosition;
+                //P.Direction = this.Angle + (float)Math.PI;
+            }
+
+            foreach (ParticleEmitter P in Hull.RightEngines)
+            {
+                P.Position = this.DrawPosition;
+                //P.Direction = this.Angle + (float)Math.PI;
+            }
+        }
+
+        public void DrawEngineEmmiters(GameTime gameTime)
+        {
+            foreach (ParticleEmitter P in Hull.AccelerationEngines)
+            {
+                P.Draw(gameTime); 
+            }
+
+            foreach (ParticleEmitter P in Hull.LeftEngines)
+            {
+                P.Draw(gameTime); 
+            }
+
+            foreach (ParticleEmitter P in Hull.RightEngines)
+            {
+                P.Draw(gameTime); 
+            }
+        }
+
+        public void DrawWeapons(GameTime gameTime)
+        {
+            int i =0;
+            foreach (Slot S in Hull.Slots)
+            {
+                if (S.Component is Weapon)
+                {
+                    Weapon W = (S.Component as Weapon);
+                    W.ShootAnim.Position = this.DrawPosition + GeneralManager.RotateVector(Hull.WeaponPositions[i], this.Angle, Vector2.Zero); ;
+                    //W.ShootAnim.Draw(gameTime, this.Angle, this.DrawPosition);
+                    W.ShootAnim.Draw(gameTime, this.Angle, Vector2.Zero);
+                    i++;
+                }
+            }
+        }
+
+        public float GetSpeed
+        {
+            get
+            {
+                return 0.02f;
+            }
+            set
+            {
+            }
+        }
+        public float GetMaxSpeed
+        {
+            get
+            {
+                return 2f;
+            }
+            set
+            {
+            }
+        }
+
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
 
-namespace Gra
+namespace CryOfSpace
 {
     public class Particle : Microsoft.Xna.Framework.DrawableGameComponent
     {
@@ -40,6 +40,13 @@ namespace Gra
         {
             Renderer.Singleton.batch.Draw(Tex, this.Position, null, new Color(Color.White, Opacity), Angle, new Vector2(Tex.Width / 2, Tex.Height / 2), Scale, SpriteEffects.None, 0.1f);
         
+            base.Draw(gameTime);
+        }
+
+        public void Draw(GameTime gameTime, Vector2 Position)
+        {
+            Renderer.Singleton.batch.Draw(Tex, this.Position + Position, null, new Color(Color.White, Opacity), Angle, new Vector2(Tex.Width / 2, Tex.Height / 2), Scale, SpriteEffects.None, 0.1f);
+
             base.Draw(gameTime);
         }
 

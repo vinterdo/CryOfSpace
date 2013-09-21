@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
 
-namespace Gra
+namespace CryOfSpace
 {
     public class GameSelectionScreen : GameScreen
     {
@@ -49,9 +49,7 @@ namespace Gra
                         case 0:
                             GeneralManager.Players = new Dictionary<string, Player>();
                             GeneralManager.Players.Add("test", new Player());
-                            GeneralManager.Players["test"].Ship.Hull = Hull.Hulls["Test"];
                             GeneralManager.Players["test"].Initalize();
-                            //GeneralManager.Singleton.CurrentLevel = new Level(Game, spriteBatch);
                             GeneralManager.Singleton.CurrentLevel = WorldGenerator.GenerateLevel(Renderer.Singleton.Game);
                             GeneralManager.Singleton.IsLevelInitalized = true;
                             GeneralManager.Singleton.CurrentLevel.Show();

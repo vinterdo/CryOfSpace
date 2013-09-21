@@ -1,6 +1,6 @@
 using System;
 
-namespace Gra
+namespace CryOfSpace
 {
     static class Program
     {

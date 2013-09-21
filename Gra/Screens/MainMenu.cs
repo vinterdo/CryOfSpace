@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
 
-namespace Gra
+namespace CryOfSpace
 {
     public class MainMenu : GameScreen
     {
@@ -35,6 +35,8 @@ namespace Gra
             Background = Renderer.Singleton.Content.Load<Texture2D>("MainMenuBackground");
             BackgroundLight = Renderer.Singleton.Content.Load<Texture2D>("MainMenuLight");
             Foreground = Renderer.Singleton.Content.Load<Texture2D>("MainMenuForeground");
+
+
             base.Initialize();
         }
 
@@ -42,7 +44,7 @@ namespace Gra
         {
             if (Visible)
             {
-                
+                //Effect.Parameters["SampleOffsets"] 
                 
                 if (Menu.IsEnterPressed)
                 {

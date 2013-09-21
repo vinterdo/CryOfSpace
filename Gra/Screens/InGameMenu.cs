@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
 
-namespace Gra
+namespace CryOfSpace
 {
     public class InGameMenu : GameScreen
     {
@@ -42,8 +42,7 @@ namespace Gra
                     {
                         case 0:
                             //this.Visible = false;
-                            Target = GeneralManager.Singleton.CurrentLevel;
-                            ScreenState = State.FadeOut;
+                            Target.Visible = true;
 
                             break;
                         case 1:
@@ -55,6 +54,10 @@ namespace Gra
                             break;
                         case 3:
                             GeneralManager.Singleton.CurrentLevel = null;
+                            GeneralManager.Singleton.CurrentPlayer = null;
+                            GeneralManager.Singleton.CurrentVertex = null;
+                            this.Target = ScreenManager.Singleton.MainMenu;
+                            
                             GeneralManager.Singleton.IsLevelInitalized = false;
                             this.Visible = false;
                             ScreenManager.Singleton.MainMenu.Visible = true;

@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-namespace Gra
+namespace CryOfSpace
 {
     public sealed class Renderer
     {
@@ -64,9 +64,9 @@ namespace Gra
         public Texture2D MiningBeam;
         public Texture2D MiningLaser;
         public Texture2D LaserBeam;
-        public Texture2D SmokeParticle;
         public Texture2D InventoryButton;
         public Texture2D InventoryBackground;
+
 
 
 
@@ -139,7 +139,6 @@ namespace Gra
             MiningBeam = Content.Load<Texture2D>("MiningBeam");
             MiningLaser = Content.Load<Texture2D>("MiningLaser");
             LaserBeam = Content.Load<Texture2D>("LaserBeam");
-            SmokeParticle = Content.Load<Texture2D>("SmokeParticle");
             InventoryButton = Content.Load<Texture2D>("InventoryButton");
             InventoryBackground = Content.Load<Texture2D>("InventoryBackground");
 
@@ -152,9 +151,20 @@ namespace Gra
             LoadTex("TradeMaterials");
             LoadTex("BuyButton");
             LoadTex("SellButton");
+            LoadTex("Background_Clouds_1");
+            LoadTex("Background_Clouds_2");
+            LoadTex("Particle_Engine");
+            LoadTex("SmokeParticle");
+            LoadTex("ShipInfo");
+            LoadTex("Cerberus_B24_Destroyed");
 
+            Animation ShipSelector = new Animation(Game);
+            ShipSelector.Frames = Renderer.Singleton.Content.Load<Texture2D>("ShipSelector");
+            ShipSelector.SetProperties(new Vector2(220, 220), 0.05f, 24);
+            Animations.Add("ShipSelector", ShipSelector);
             
             Fonts.Add("Coalition", Content.Load<SpriteFont>("Font"));
+            Fonts.Add("Visitor", Content.Load<SpriteFont>("Visitor_Texture"));
         }
 
         public void Line(float width, Vector2 from, Vector2 to, Color color)

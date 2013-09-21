@@ -12,12 +12,14 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
 
-namespace Gra
+namespace CryOfSpace
 {
     public abstract class GameScreen :
       Microsoft.Xna.Framework.DrawableGameComponent
     {
         List<DrawableGameComponent> components = new List<DrawableGameComponent>();
+        public Effect Effect;
+
         protected Game game;
 
         public enum State
@@ -26,6 +28,7 @@ namespace Gra
             FadeOut,
             Normal
         }
+
         public float Fade = 0f;
         public State ScreenState = State.Normal;
         public Color FadeColor = Color.Black;
@@ -40,14 +43,14 @@ namespace Gra
         {
             get { return components; }
         }
-
+         
         public GameScreen(Game game)
             : base(game)
         {
             this.Visible = false;
             this.game = game;
         }
- 
+        
         public override void Initialize()
         {
             base.Initialize();
@@ -109,6 +112,37 @@ namespace Gra
             }
 
             Renderer.Singleton.batch.Draw(Renderer.Singleton.SlotBackground, new Rectangle(0, 0, Renderer.Width, Renderer.Height), new Color(FadeColor, Fade));
+        }
+
+        public void BeginDrawEffects(GameTime gameTime)
+        {
+            if (Visible)
+            {
+                if (Effect != null)
+                {
+                    Effect.Begin();
+                    foreach (EffectPass EP in Effect.CurrentTechnique.Passes)
+                    {
+                        EP.Begin();
+                    }
+                }
+            }
+        }
+
+        public void EndDrawEffects(GameTime gameTime)
+        {
+            if (Visible)
+            {
+                if (Effect != null)
+                {
+
+                    foreach (EffectPass EP in Effect.CurrentTechnique.Passes)
+                    {
+                        EP.End();
+                    }
+                    Effect.End();
+                }
+            }
         }
 
         public virtual void Show()

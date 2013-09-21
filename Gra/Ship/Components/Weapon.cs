@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
 
-namespace Gra
+namespace CryOfSpace
 {
     public class Weapon : Component
     {
@@ -21,6 +21,8 @@ namespace Gra
         {
             List<Bullet> Bullets = new List<Bullet>();
         }
+
+        
 
         public enum Mode
         {
@@ -49,6 +51,11 @@ namespace Gra
         public int ShootColddown;
         public int CurrentColddown;
 
+        public int Damage;
+
+        public Animation ShootAnim;
+
+
 
         public override void Initialize()
         {
@@ -56,8 +63,14 @@ namespace Gra
             base.Initialize();
         }
 
-        public virtual void Update(GameTime gameTime, Vector2 DrawPosition)
+        public override void Update(GameTime gameTime)
         {
+            
+            CurrentColddown -= gameTime.ElapsedGameTime.Milliseconds;
+            if (CurrentColddown < 0)
+            {
+                CurrentColddown = 0;
+            }
             base.Update(gameTime);
         }
 
@@ -66,6 +79,26 @@ namespace Gra
             foreach (Bullet B in Bullets)
             {
                 B.Draw(gameTime, DrawPosition);
+            }
+        }
+
+        public virtual void Shoot(Vector2 Target)
+        {
+        }
+
+        public void DetectCollisions(VertexScreen V, Ship Owner)
+        {
+            foreach (Bullet B in Bullets)
+            {
+                foreach (Ship S in V.Ships)
+                {
+                    if (S.Hull.Mask.CheckCollision(B.Position + Owner.Position - S.Position + S.OutsideView.FrameSize/2) && Owner != S)
+                    {
+                        B.CurrentLife = B.LifeTime;
+                        S.HitPoints -= Damage;
+                        S.CurrentVertex.Effect.Parameters["BloomIntensity"].SetValue(1.5f);
+                    }
+                }
             }
         }
     }

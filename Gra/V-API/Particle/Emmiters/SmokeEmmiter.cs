@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
 
-namespace Gra
+namespace CryOfSpace
 {
     public class SmokeEmmiter : ParticleEmitter
     {
@@ -25,7 +25,7 @@ namespace Gra
             base.AngularSpeed = 0.01f;
             base.Direction = 0.0f;
             base.DirectionOffset = (float)(Math.PI * 2);
-            base.PartTex = Renderer.Singleton.SmokeParticle;
+            base.PartTex = Renderer.Textures["SmokeParticle"];
             base.Position = Position;
             base.Speed = 1f;
             base.SpeedOffset = 0.5f;

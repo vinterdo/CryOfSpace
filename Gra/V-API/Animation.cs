@@ -12,20 +12,18 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
 
-namespace Gra
+namespace CryOfSpace
 {
-    /// <summary>
-    /// This is a game component that implements IUpdateable.
-    /// </summary>
+
     public class Animation : Microsoft.Xna.Framework.DrawableGameComponent
     {
-        int NoFrames = 1;
+        public int NoFrames = 1;
         public Vector2 FrameSize = Vector2.One;
         float TimePerFrame = 1;
         public Vector2 Position = Vector2.Zero;
         public Texture2D Frames;
-        float CurrentTime = 0;
-        int CurrentFrame = 0;
+        public float CurrentTime = 0;
+        public int CurrentFrame = 0;
 
         public Animation(Game game)
             : base(game)
@@ -35,7 +33,7 @@ namespace Gra
 
         public override void Initialize()
         {
-            Frames = Renderer.Singleton.Content.Load<Texture2D>("indicator");
+            //Frames = Renderer.Singleton.Content.Load<Texture2D>("indicator");
             Position = Vector2.Zero;
 
             base.Initialize();
@@ -89,6 +87,15 @@ namespace Gra
             if (Visible)
             {
                 Renderer.Singleton.batch.Draw(Frames, new Rectangle((int)Position.X, (int)Position.Y, (int)FrameSize.X, (int)FrameSize.Y), new Rectangle((int)FrameSize.X * CurrentFrame, 0, (int)FrameSize.X, (int)FrameSize.Y), Color.White, Angle, Center, SpriteEffects.None, 0);
+                base.Draw(gameTime);
+            }
+        }
+
+        public void Draw(GameTime gameTime, float Angle, Vector2 Center, Color Color)
+        {
+            if (Visible)
+            {
+                Renderer.Singleton.batch.Draw(Frames, new Rectangle((int)Position.X, (int)Position.Y, (int)FrameSize.X, (int)FrameSize.Y), new Rectangle((int)FrameSize.X * CurrentFrame, 0, (int)FrameSize.X, (int)FrameSize.Y), Color, Angle, Center, SpriteEffects.None, 0);
                 base.Draw(gameTime);
             }
         }

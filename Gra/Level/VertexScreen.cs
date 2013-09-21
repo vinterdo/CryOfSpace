@@ -12,24 +12,31 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
 
-namespace Gra
+namespace CryOfSpace
 {
-    public class VertexScreen : DrawableGameComponent, ICloneable
+    public struct Background
+    {
+        public Texture2D Tex;
+        public Vector2 Scale;
+        public Color Color;
+    }
+
+    public class VertexScreen : GameScreen, ICloneable
     {
         public static bool MinimapEnabled = true;
         public static bool WeaponsMenuEnabled = true;
 
         public Texture2D Tex;
-        SpriteBatch spriteBatch;
         public Rectangle Rect;
         public int Size = 5000;
-        public Vector2 BackgroundScale = new Vector2(1.5f, 1.5f);
-        public Texture2D Background;
         public Rectangle Camera = new Rectangle(0, 0, Renderer.Width, Renderer.Height);
 
         public List<Ship> Ships;
+        public Ship SelectedShip;
 
-        public List<VertexComponent> Components;
+        public List<Background> Backgrounds;
+
+        public new List<VertexComponent> Components;
 
         static List<RadioButton> WeaponMode = WeaponMode = new List<RadioButton>();
         static List<Text> WeaponLabel = new List<Text>();
@@ -51,19 +58,25 @@ namespace Gra
 
             
 
-            Vertex = new Vertex(game, Pos, Tex);
+            Vertex = new Vertex(game, Pos, Tex, this);
 
-            spriteBatch = Renderer.Singleton.batch;
             Components = new List<VertexComponent>();
+            Backgrounds = new List<Background>();
+
+
+            this.Effect = Renderer.Singleton.Content.Load<Effect>("Glow");
+
         }
 
         public override void Draw(GameTime gameTime)
         {
-
             if (Visible)
             {
-                spriteBatch.Draw(Renderer.Singleton.Background, new Rectangle(0, 0, Camera.Width, Camera.Height), new Rectangle((int)(Camera.X / 10), (int)(Camera.Y / 10), (int)(Renderer.Singleton.Background.Width / BackgroundScale.X), (int)(Renderer.Singleton.Background.Height / BackgroundScale.Y)), Color.White);
 
+                foreach (Background B in Backgrounds)
+                {
+                    Renderer.Singleton.batch.Draw(B.Tex, new Rectangle(0, 0, Camera.Width, Camera.Height), new Rectangle((int)(Camera.X / 10), (int)(Camera.Y / 10), (int)(B.Tex.Width / B.Scale.X), (int)(B.Tex.Height / B.Scale.Y)), B.Color);
+                }
 
 
                 bool IsCurrentPlayerOnVertex = false;
@@ -83,6 +96,11 @@ namespace Gra
                     }
                     if (S.State == Ship.ShipState.InVertex)
                     {
+                        if (S.Equals(SelectedShip))
+                        {
+                            Renderer.Animations["ShipSelector"].Position = S.DrawPosition - Renderer.Animations["ShipSelector"].FrameSize / 2;
+                            Renderer.Animations["ShipSelector"].Draw(gameTime);
+                        }
                         if (S.ShipView)
                         {
                             S.DrawOutside(gameTime);
@@ -91,6 +109,21 @@ namespace Gra
                         {
                             S.DrawInside(gameTime);
                         }
+
+                        if (S.Equals(SelectedShip))
+                        {
+                            Renderer.Singleton.batch.Draw(Renderer.Textures["ShipInfo"], new Rectangle((int)(S.DrawPosition.X), (int)(S.DrawPosition.Y - Renderer.Height * 0.1f), (int)(Renderer.Width * 0.1f), (int)(Renderer.Height * 0.1f)), Color.White);
+                            Text Text = new Text(Game);
+                            Text.Font = Renderer.Fonts["Visitor"];
+                            Text.Name = S.HitPoints.ToString() + " / " + S.Hull.BasicHull.ToString();
+                            Text.Rect = new Rectangle((int)(S.DrawPosition.X) + 10, (int)(S.DrawPosition.Y - Renderer.Height * 0.1f + 10), 100, 12);
+                            Text.Draw(gameTime);
+                        }
+                    }
+
+                    if (S.Hull.Mask.CheckCollision(GeneralManager.Singleton.MousePos - S.DrawPosition + S.OutsideView.FrameSize/2) && GeneralManager.Singleton.CheckLMB())
+                    {
+                        SelectedShip = S;
                     }
                 }
 
@@ -125,16 +158,16 @@ namespace Gra
                         switch (Direction)
                         {
                             case 0:
-                                spriteBatch.Draw(Renderer.Singleton.ShipIndicator, ShipIndicatorPosition - new Vector2(Renderer.Singleton.ShipIndicator.Width / 2, Renderer.Singleton.ShipIndicator.Height / 2), Color.White);
+                                Renderer.Singleton.batch.Draw(Renderer.Singleton.ShipIndicator, ShipIndicatorPosition - new Vector2(Renderer.Singleton.ShipIndicator.Width / 2, Renderer.Singleton.ShipIndicator.Height / 2), Color.White);
                                 break;
                             case 1:
-                                spriteBatch.Draw(Renderer.Singleton.ShipIndicator, new Vector2((ShipIndicatorPosition.X - (Renderer.Singleton.ShipIndicator.Width / 2)), (ShipIndicatorPosition.Y - Renderer.Singleton.ShipIndicator.Height / 2)), null, Color.White, (float)(0.5f * Math.PI), new Vector2(50, 50), Vector2.One, SpriteEffects.None, 0.0f);
+                                Renderer.Singleton.batch.Draw(Renderer.Singleton.ShipIndicator, new Vector2((ShipIndicatorPosition.X - (Renderer.Singleton.ShipIndicator.Width / 2)), (ShipIndicatorPosition.Y - Renderer.Singleton.ShipIndicator.Height / 2)), null, Color.White, (float)(0.5f * Math.PI), new Vector2(50, 50), Vector2.One, SpriteEffects.None, 0.0f);
                                 break;
                             case 2:
-                                spriteBatch.Draw(Renderer.Singleton.ShipIndicator, new Vector2((ShipIndicatorPosition.X - (Renderer.Singleton.ShipIndicator.Width / 2)), (ShipIndicatorPosition.Y - Renderer.Singleton.ShipIndicator.Height / 2)), null, Color.White, (float)(1.0f * Math.PI), new Vector2(50, 50), Vector2.One, SpriteEffects.None, 0.0f);
+                                Renderer.Singleton.batch.Draw(Renderer.Singleton.ShipIndicator, new Vector2((ShipIndicatorPosition.X - (Renderer.Singleton.ShipIndicator.Width / 2)), (ShipIndicatorPosition.Y - Renderer.Singleton.ShipIndicator.Height / 2)), null, Color.White, (float)(1.0f * Math.PI), new Vector2(50, 50), Vector2.One, SpriteEffects.None, 0.0f);
                                 break;
                             case 3:
-                                spriteBatch.Draw(Renderer.Singleton.ShipIndicator, new Vector2((ShipIndicatorPosition.X - (Renderer.Singleton.ShipIndicator.Width / 2)), (ShipIndicatorPosition.Y - Renderer.Singleton.ShipIndicator.Height / 2)), null, Color.White, (float)(1.5f * Math.PI), new Vector2(50, 50), Vector2.One, SpriteEffects.None, 0.0f);
+                                Renderer.Singleton.batch.Draw(Renderer.Singleton.ShipIndicator, new Vector2((ShipIndicatorPosition.X - (Renderer.Singleton.ShipIndicator.Width / 2)), (ShipIndicatorPosition.Y - Renderer.Singleton.ShipIndicator.Height / 2)), null, Color.White, (float)(1.5f * Math.PI), new Vector2(50, 50), Vector2.One, SpriteEffects.None, 0.0f);
                                 break;
                         }
 
@@ -142,7 +175,7 @@ namespace Gra
 
                 }
 
-                spriteBatch.Draw(Renderer.Singleton.FromVertexToLevelGUI, Vector2.Zero, Color.White);
+                Renderer.Singleton.batch.Draw(Renderer.Singleton.FromVertexToLevelGUI, Vector2.Zero, Color.White);
                 DrawMinimap();
                 DrawWeaponsMenu();
                 Renderer.Singleton.DrawMoney();
@@ -153,12 +186,11 @@ namespace Gra
         public object Clone()
         {
             VertexScreen Tmp = new VertexScreen(Game, Vertex.Position, this.Tex);
-            Tmp.Background = this.Background;
-            Tmp.BackgroundScale = this.BackgroundScale;
             Tmp.Components = this.Components;
             Tmp.Ships = this.Ships;
             Tmp.Size = this.Size;
             Tmp.Vertex = this.Vertex;
+            Tmp.Backgrounds = this.Backgrounds;
 
 
             return Tmp as object;
@@ -178,7 +210,8 @@ namespace Gra
                     C.SetDrawPosition(new Vector2(Camera.X, Camera.Y));
                     C.Update(gameTime);
                 }
-                
+
+
                 if (GeneralManager.Singleton.GameState == 2)
                 {
 
@@ -216,6 +249,7 @@ namespace Gra
                     {
                         GeneralManager.Singleton.CurrentLevel.Hide();
                         ScreenManager.Singleton.InGameMenu.Visible = true;
+                        ScreenManager.Singleton.InGameMenu.Target = this;
                         this.Visible = false;
                     }
 
@@ -223,6 +257,14 @@ namespace Gra
 
                     base.Update(gameTime);
                 }
+
+
+                for(int i =0; i < Ships.Count; i++)
+                {
+                    Ships[i].Update(gameTime);
+                }
+
+                Effect.Parameters["BloomIntensity"].SetValue((float)Math.Pow(Effect.Parameters["BloomIntensity"].GetValueSingle(), 0.85)* 1.0f);
             }
         }
 
@@ -235,21 +277,21 @@ namespace Gra
                 int SizeX = Renderer.Width * 2 / 10;
                 int SizeY = Renderer.Height * 2 / 10;
 
-                spriteBatch.Draw(Renderer.Singleton.MinimapBackground, new Rectangle((int)(Renderer.Width * 0.8), 0, SizeX, SizeY), Color.White);
+                Renderer.Singleton.batch.Draw(Renderer.Singleton.MinimapBackground, new Rectangle((int)(Renderer.Width * 0.8), 0, SizeX, SizeY), Color.White);
 
 
                 foreach (VertexComponent C in Components)
                 {
-                    spriteBatch.Draw(Renderer.Singleton.IndicatorRed, new Vector2(Renderer.Width * 0.8f, 0) + C.Position / Size * new Vector2(SizeX, SizeY), Color.White);
+                    Renderer.Singleton.batch.Draw(Renderer.Singleton.IndicatorRed, new Vector2(Renderer.Width * 0.8f, 0) + C.Position / Size * new Vector2(SizeX, SizeY), Color.White);
                 }
 
                 foreach (Ship S in Ships)
                 {
-                    spriteBatch.Draw(Renderer.Singleton.IndicatorGreen, new Vector2(Renderer.Width * 0.8f, 0) + S.Position / Size * new Vector2(SizeX, SizeY), Color.White);
+                    Renderer.Singleton.batch.Draw(Renderer.Singleton.IndicatorGreen, new Vector2(Renderer.Width * 0.8f, 0) + S.Position / Size * new Vector2(SizeX, SizeY), Color.White);
 
                 }
 
-                spriteBatch.Draw(Renderer.Singleton.MinimapOverlay, new Rectangle((int)(Renderer.Width * 0.8), 0, SizeX, SizeY), Color.White);
+                Renderer.Singleton.batch.Draw(Renderer.Singleton.MinimapOverlay, new Rectangle((int)(Renderer.Width * 0.8), 0, SizeX, SizeY), Color.White);
             }
         }
 
@@ -257,7 +299,7 @@ namespace Gra
         {
             if (WeaponsMenuEnabled)
             {
-                spriteBatch.Draw(Renderer.Singleton.WeaponsMenu, Renderer.GetPartialRect(0.8f, 0.2f, 0.2f, 0.6f), Color.White);
+                Renderer.Singleton.batch.Draw(Renderer.Singleton.WeaponsMenu, Renderer.GetPartialRect(0.8f, 0.2f, 0.2f, 0.6f), Color.White);
 
                 foreach (RadioButton R in WeaponMode)
                 {

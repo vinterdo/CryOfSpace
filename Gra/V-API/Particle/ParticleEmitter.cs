@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
 
-namespace Gra
+namespace CryOfSpace
 {
     public class ParticleEmitter : Microsoft.Xna.Framework.GameComponent
     {
@@ -66,7 +66,7 @@ namespace Gra
         {
             foreach (Particle P in Particles)
             {
-                P.Draw(gameTime);
+                P.Draw(gameTime, this.Position);
             }
         }
 
@@ -94,7 +94,7 @@ namespace Gra
 
                 if (GenerationChance > (GeneralManager.Singleton.GetRandom() % 1000f) / 1000f)
                 {
-                    Particle Tmp = new Particle(Game, PartTex, Position + new Vector2((float)((GeneralManager.Singleton.GetRandom() % (PositionOffset * 1000f))) / 1000f, (float)((GeneralManager.Singleton.GetRandom() % (PositionOffset * 1000f))) / 1000f));
+                    Particle Tmp = new Particle(Game, PartTex, /*Position +*/ new Vector2((float)((GeneralManager.Singleton.GetRandom() % (PositionOffset * 1000f))) / 1000f, (float)((GeneralManager.Singleton.GetRandom() % (PositionOffset * 1000f))) / 1000f));
                     Tmp.Angle = (float)((GeneralManager.Singleton.GetRandom() % (AngleOffset * 1000f))) / 1000f;
                     Tmp.Opacity = Opacity - ((GeneralManager.Singleton.GetRandom() * 1000f) % (OpacityOffset * 1000f)) / 1000f;
                     Tmp.Speed = GeneralManager.Singleton.GetVectorFromAngle(Direction + (float)(GeneralManager.Singleton.GetRandom() % (DirectionOffset * 1000f)) / 1000f) * (Speed + ((GeneralManager.Singleton.GetRandom() * 1000f) % (SpeedOffset * 1000f)) / 1000f);

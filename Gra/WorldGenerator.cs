@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-namespace Gra
+namespace CryOfSpace
 {
     class WorldGenerator
     {
@@ -33,7 +33,6 @@ namespace Gra
                 // Vertex generation
 
                 VertexScreen v = CreateVertex(Renderer.Singleton.Game, new Vector2(GeneralManager.Singleton.GetRandom() % 500 + 10.0f, GeneralManager.Singleton.GetRandom() % 500 + 10.0f), Renderer.Singleton.Content.Load<Texture2D>("indicator"));
-
 
                 //========================
 
@@ -98,6 +97,7 @@ namespace Gra
             }
 
             CreateUserInventory(Game);
+            GenerateNPC(Game);
 
 
             //GeneralManager.Singleton.IsLevelInitalized = true;
@@ -109,8 +109,26 @@ namespace Gra
         public static VertexScreen CreateVertex(Game game, Vector2 Pos1, Texture2D Tex)
         {
             VertexScreen Tmp = new VertexScreen(game, Pos1, Tex);
-            Tmp.Background = Renderer.Singleton.Background;
-            Tmp.BackgroundScale = new Vector2(1.3f, 1.4f);
+            //Tmp.Background = Renderer.Singleton.Background;
+            //Tmp.BackgroundScale = new Vector2(1.3f, 1.4f);
+
+            Background Background1 = new Background();
+            Background1.Tex = Renderer.Singleton.Background;
+            Background1.Scale= new Vector2(1.3f, 1.4f);
+            Background1.Color = Color.Gray;
+            Tmp.Backgrounds.Add(Background1);
+
+            Background Background2 = new Background();
+            Background2.Tex = Renderer.Textures["Background_Clouds_1"];
+            Background2.Scale = new Vector2(2.5f, 2.5f);
+            Background2.Color = Color.White;
+            Tmp.Backgrounds.Add(Background2);
+
+            Background Background3 = new Background();
+            Background3.Tex = Renderer.Textures["Background_Clouds_2"];
+            Background3.Scale = new Vector2(3.5f, 3.5f);
+            Background3.Color = Color.White;
+            Tmp.Backgrounds.Add(Background3);
 
 
 
@@ -168,7 +186,7 @@ namespace Gra
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Engine(Game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(Game));
             GeneralManager.Singleton.CurrentPlayer.ComponentsInventory.Add(new Generator(Game));
-
+            
             //GeneralManager.Singleton.CurrentPlayer.MaterialsInventory.Add(new Plutonium(16));
         }
 
@@ -196,7 +214,6 @@ namespace Gra
                             Tmp.Materials.Add((RawMaterial)Activator.CreateInstance(M));
                         }
                     }
-
                     //Tmp.Materials.Add();
                 }
                 
@@ -204,6 +221,24 @@ namespace Gra
             }
 
             return Asteroids;
+        }
+
+        public static void GenerateNPC(Game Game)
+        {
+            Ship TmpShip = new Ship(Game);
+            TmpShip.Hull = new Hull_Cerberus_B24();
+            TmpShip.Position = Vector2.One * 1000;
+            TmpShip.State = Ship.ShipState.InVertex;
+            TmpShip.ShipView = true;
+            TmpShip.ShipColor = Color.Red;
+            TmpShip.Hull.Slots[0].Component = new Weapon_GaussCannonB50(Game);
+            //TmpShip.Hull.Slots[1].Component = new Weapon_GaussCannonB50(Game);
+
+            TmpShip.CurrentVertex = GeneratingLevel.Components[0] as VertexScreen;
+            TmpShip.Initialize();
+
+            //(GeneratingLevel.Components[0] as Vertex).Parent.Ships.Add(TmpShip);
+            NPC TmpNPC = new NPC_Pirate1(Game, TmpShip, (GeneratingLevel.Components[0] as Vertex).Parent);
         }
     }
 }

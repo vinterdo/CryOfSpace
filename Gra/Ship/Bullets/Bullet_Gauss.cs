@@ -12,21 +12,23 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
 
-namespace Gra
+namespace CryOfSpace
 {
     public class Bullet_Gauss : Bullet
     {
-        public Bullet_Gauss(Game game, float Angle)
-            : base(game)
-        {
-            BasicSpeed = 5.0f;
-            Tex = Renderer.Singleton.GaussBullet;
-            this.Angle = Angle;
-
-        }
         
 
+        public Bullet_Gauss(Game game, float Angle, Weapon Parent)
+            : base(game, Parent)
+        {
+            BasicSpeed = 7.0f;
+            Tex = Renderer.Singleton.GaussBullet;
+            this.Angle = Angle;
+            this.LifeTime = 1500;
+            
+        }
 
+        
         public override void Initialize()
         {
 

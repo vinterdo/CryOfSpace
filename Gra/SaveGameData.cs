@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 using System.Diagnostics;
 using System.Text;
 
-namespace Gra
+namespace CryOfSpace
 {
 
     class SaveGameManager
@@ -78,7 +78,7 @@ namespace Gra
                 GeneralManager.Singleton.CurrentLevel.ConnectionsCount = i;
             }
 
-            using (Vertex Tmp = new Vertex(game, Vector2.Zero, Renderer.Singleton.Content.Load<Texture2D>("indicator")))
+            using (Vertex Tmp = new Vertex(game, Vector2.Zero, Renderer.Singleton.Content.Load<Texture2D>("indicator"), null))
             {
                 int i = 0;
                 foreach (RawVertex v in data.Vertex)

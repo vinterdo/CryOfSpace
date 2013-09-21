@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-namespace Gra
+namespace CryOfSpace
 {
     [Serializable]
     public class Vertex : DrawableGameComponent, ICloneable
@@ -26,12 +26,13 @@ namespace Gra
         public int Size = 5000;
         public bool IsMenuOpened = false;
         public bool HasShip = false;
+        public VertexScreen Parent;
 
         public List<Vertex> Connections;
 
 
 
-        public Vertex(Game game, Vector2 Pos, Texture2D Tex)
+        public Vertex(Game game, Vector2 Pos, Texture2D Tex, VertexScreen Parent)
             : base(game)
         {
             this.Position = Pos;
@@ -40,7 +41,7 @@ namespace Gra
             spriteBatch = Renderer.Singleton.batch;
             Connections = new List<Vertex>();
 
-
+            this.Parent = Parent;
 
 
         }
@@ -122,7 +123,7 @@ namespace Gra
 
         public object Clone()
         {
-            Vertex Tmp = new Vertex(Game, this.Position, this.Tex);
+            Vertex Tmp = new Vertex(Game, this.Position, this.Tex, this.Parent);
 
             return Tmp as object;
         }

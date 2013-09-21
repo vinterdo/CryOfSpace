@@ -12,8 +12,10 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
 
-namespace Gra
+namespace CryOfSpace
 {
+    [Serializable]
+
     public abstract class Component : Microsoft.Xna.Framework.DrawableGameComponent
     {
         public Vector2 Position;
